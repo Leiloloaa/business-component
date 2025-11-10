@@ -24,14 +24,14 @@
 </template>
 
 <script lang="ts" setup name="RankNew">
-import { useRankPage } from '../groupFunc/useRankPage'
+import { useRankPage } from "./useRankPage";
 
 // 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: 'an',
+  rankType: "user",
   dayTotal: 0,
-  params: {}
-})
+  params: {},
+});
 </script>
 
 <style lang="scss" scoped>
