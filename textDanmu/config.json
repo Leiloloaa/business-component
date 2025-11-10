@@ -3,7 +3,6 @@
   "path": "textDanmu/TextDanmu.vue",
   "displayName": "文字弹幕",
   "category": "game",
-  "description": "文字弹幕滚动组件，支持滚动动画展示用户消息",
-  "rank": 2
+  "description": "文字弹幕滚动组件，支持滚动动画展示用户消息"
 }
 

@@ -4,6 +4,5 @@
   "displayName": "通用榜单组件",
   "category": "static-rank",
   "description": "通用榜单组件，支持榜单页面、榜单卡片、榜单用户信息等功能",
-  "hasChildren": true,
-  "rank": 1
+  "hasChildren": true
 }

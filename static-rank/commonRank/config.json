@@ -3,7 +3,6 @@
   "path": "static-rank/commonRank.ts",
   "displayName": "通用排行榜工具",
   "category": "static-rank",
-  "description": "通用排行榜相关的工具函数",
-  "rank": 2
+  "description": "通用排行榜相关的工具函数"
 }
 

@@ -3,7 +3,6 @@
   "path": "saveDialog/SaveDialog.vue",
   "displayName": "保存对话框",
   "category": "game",
-  "description": "保存对话框组件，支持保存图片和分享功能",
-  "rank": 2
+  "description": "保存对话框组件，支持保存图片和分享功能"
 }
 

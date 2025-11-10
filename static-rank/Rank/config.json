@@ -1,0 +1,7 @@
+{
+  "name": "rank",
+  "path": "Rank",
+  "displayName": "普通榜单组件",
+  "category": "static-rank",
+  "description": "通用榜单组件"
+}

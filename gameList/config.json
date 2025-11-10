@@ -3,6 +3,5 @@
   "path": "gameList/GameList.vue",
   "displayName": "游戏列表",
   "category": "game",
-  "description": "游戏列表展示组件，支持游戏图标展示和跳转",
-  "rank": 2
+  "description": "游戏列表展示组件，支持游戏图标展示和跳转"
 }
