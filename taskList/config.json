@@ -3,6 +3,7 @@
   "path": "taskList/TaskList.vue",
   "displayName": "任务列表",
   "category": "game",
-  "description": "任务列表组件，展示任务信息、进度和奖励"
+  "description": "任务列表组件，展示任务信息、进度和奖励",
+  "rank": 2
 }
 

@@ -3,6 +3,7 @@
   "path": "progress/Progress.vue",
   "displayName": "进度条",
   "category": "game",
-  "description": "进度条组件，用于展示任务或活动的完成进度"
+  "description": "进度条组件，用于展示任务或活动的完成进度",
+  "rank": 2
 }
 

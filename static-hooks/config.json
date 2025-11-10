@@ -1,0 +1,8 @@
+{
+  "name": "hook",
+  "path": "hook/hook.ts",
+  "displayName": "通用Hook",
+  "category": "static-hooks",
+  "description": "通用Hook",
+  "rank": 999
+}

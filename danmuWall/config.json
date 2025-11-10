@@ -3,6 +3,7 @@
   "path": "danmuWall/DanmuWall.vue",
   "displayName": "弹幕墙",
   "category": "game",
-  "description": "弹幕墙组件，用于展示用户弹幕消息"
+  "description": "弹幕墙组件，用于展示用户弹幕消息",
+  "rank": 2
 }
 

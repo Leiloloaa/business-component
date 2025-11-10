@@ -3,6 +3,7 @@
   "path": "poolSwiper/PoolSwiper.vue",
   "displayName": "奖池轮播",
   "category": "game",
-  "description": "奖池奖励预览轮播组件，用于展示奖池中的奖励"
+  "description": "奖池奖励预览轮播组件，用于展示奖池中的奖励",
+  "rank": 2
 }
 

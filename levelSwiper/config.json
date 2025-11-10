@@ -3,6 +3,7 @@
   "path": "levelSwiper/LevelSwiper.vue",
   "displayName": "等级轮播",
   "category": "game",
-  "description": "等级轮播组件，用于展示不同等级的内容"
+  "description": "等级轮播组件，用于展示不同等级的内容",
+  "rank": 2
 }
 

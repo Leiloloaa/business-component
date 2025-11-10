@@ -3,6 +3,6 @@
   "path": "CommonSwiper.vue",
   "displayName": "通用轮播组件",
   "category": "swiper",
-  "description": "基于 Swiper 的通用轮播组件，支持自动播放、导航按钮、循环播放等功能"
+  "description": "基于 Swiper 的通用轮播组件，支持自动播放、导航按钮、循环播放等功能",
+  "rank": 998
 }
-

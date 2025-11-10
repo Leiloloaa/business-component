@@ -3,6 +3,7 @@
   "path": "static-draw/DrawBtn.vue",
   "displayName": "抽奖相关",
   "category": "game",
-  "description": "抽奖按钮组件，支持1次、10次、100次抽奖"
+  "description": "抽奖按钮组件，支持1次、10次、100次抽奖",
+  "rank": 2
 }
 
