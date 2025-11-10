@@ -1,0 +1,8 @@
+{
+  "name": "poolSwiper",
+  "path": "poolSwiper/PoolSwiper.vue",
+  "displayName": "奖池轮播",
+  "category": "swiper",
+  "description": "奖池奖励预览轮播组件，用于展示奖池中的奖励"
+}
+

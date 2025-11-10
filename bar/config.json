@@ -1,0 +1,8 @@
+{
+  "name": "bar",
+  "path": "bar/Bar.vue",
+  "displayName": "进度条/任务条",
+  "category": "bar",
+  "description": "任务进度条组件，展示任务等级和奖励信息"
+}
+

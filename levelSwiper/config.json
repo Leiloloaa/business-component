@@ -1,0 +1,8 @@
+{
+  "name": "levelSwiper",
+  "path": "levelSwiper/LevelSwiper.vue",
+  "displayName": "等级轮播",
+  "category": "swiper",
+  "description": "等级轮播组件，用于展示不同等级的内容"
+}
+

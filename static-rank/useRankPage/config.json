@@ -1,0 +1,8 @@
+{
+  "name": "static-rank",
+  "path": "static-rank/useRankPage.ts",
+  "displayName": "排行榜页面Hook",
+  "category": "static-rank",
+  "description": "排行榜页面相关的组合式函数"
+}
+

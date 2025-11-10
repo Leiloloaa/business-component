@@ -1,0 +1,8 @@
+{
+  "name": "progress",
+  "path": "progress/Progress.vue",
+  "displayName": "进度条",
+  "category": "progress",
+  "description": "进度条组件，用于展示任务或活动的完成进度"
+}
+

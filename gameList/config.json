@@ -1,0 +1,7 @@
+{
+  "name": "gameList",
+  "path": "gameList/GameList.vue",
+  "displayName": "游戏列表",
+  "category": "gameList",
+  "description": "游戏列表展示组件，支持游戏图标展示和跳转"
+}
