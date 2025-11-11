@@ -20,15 +20,24 @@
           <img :src="`${ossUrl}/ex-icon.png`" class="ex-icon" alt="" />
         </OssImg>
         <Space :val="1.71" :h="0" />
-        <OssImg src="ex-record" class="info-record fc" @click="showRecordD"> </OssImg>
+        <OssImg src="ex-record" class="info-record fc" @click="showRecordD">
+        </OssImg>
       </div>
 
       <div class="item-wrap">
-        <OssImg src="ex-item" class="item" v-for="(item, index) in pageInfo.exchangeRewards">
+        <OssImg
+          src="ex-item"
+          class="item"
+          v-for="(item, index) in pageInfo.exchangeRewards"
+        >
           <Space :val="0.42" h />
 
           <OssImg src="ex-rew" class="item-rew fc">
-            <Outline :color="'0.05rem #4D0000'" :text="getRew(item?.reward).num" class="count" />
+            <Outline
+              :color="'0.05rem #4D0000'"
+              :text="getRew(item?.reward).num"
+              class="count"
+            />
 
             <cdnImg :info="item?.reward"></cdnImg>
 
@@ -36,7 +45,8 @@
 
             <div class="remain">
               <span>
-                {{ TOOL_TEXT[58] }}:{{ item?.privateStock - item?.remainPrivateStock
+                {{ TOOL_TEXT[58] }}:{{
+                  item?.privateStock - item?.remainPrivateStock
                 }}{{ `/${item?.privateStock}` }}
               </span>
             </div>
@@ -65,7 +75,15 @@
           >
             <Outline
               color="0.05rem #FFFAAE"
-              :text="TOOL_TEXT[item?.remainStock == 0 ? 622 : pageInfo?.status == 0 ? 609 : 608]"
+              :text="
+                TOOL_TEXT[
+                  item?.remainStock == 0
+                    ? 622
+                    : pageInfo?.status == 0
+                    ? 609
+                    : 608
+                ]
+              "
               noColor
             />
           </OssImg>
@@ -81,7 +99,11 @@
           </OssImg>
 
           <div class="limit fc">
-            <Outline :color="'0.05rem #06023f'" :text="TOOL_TEXT[621]" noColor />
+            <Outline
+              :color="'0.05rem #06023f'"
+              :text="TOOL_TEXT[621]"
+              noColor
+            />
             <span class="act">{{ TOOL_NUM(item?.remainStock) }}</span>
           </div>
         </OssImg>
@@ -99,11 +121,11 @@
 </template>
 
 <script lang="ts" setup>
-import injectTool from '@publicComponents/injectTool'
-import ExchangeRank from './ExchangeRank.vue'
-import ExchangeDialogStatus from './ExchangeDialogStatus.vue'
+import injectTool from "@publicComponents/injectTool";
+import ExchangeRank from "./ExchangeRank.vue";
+import ExchangeDialogStatus from "./ExchangeDialogStatus.vue";
 
-const getRew = inject('getRew')
+const getRew = inject("getRew");
 const {
   TOOL_BPFunc,
   TOOL_countryCode,
@@ -111,9 +133,9 @@ const {
   TOOL_httpClient,
   TOOL_toast,
   TOOL_loading,
-  TOOL_NUM
-} = injectTool()
-const activityId = inject('activityId')
+  TOOL_NUM,
+} = injectTool();
+const activityId = inject("activityId");
 const pageInfo = reactive({
   showDialogStatus: false,
   showRecord: false,
@@ -122,80 +144,83 @@ const pageInfo = reactive({
   exchangeRewards: [],
   resourceCount: 0,
   status: -1,
-  type: 1
-})
+  type: 1,
+});
 
-const ossUrl = inject('ossUrl')
+const ossUrl = inject("ossUrl");
 
 const showRecordD = () => {
-  TOOL_BPFunc({ desc: 'Record_button_click', action: 'click' })
-  pageInfo.showRecord = true
-}
+  TOOL_BPFunc({ desc: "Record_button_click", action: "click" });
+  pageInfo.showRecord = true;
+};
 const showStatusD = (type) => {
-  pageInfo.showDialogStatus = true
-  pageInfo.type = type
-}
+  pageInfo.showDialogStatus = true;
+  pageInfo.type = type;
+};
 
-TOOL_BPFunc({ desc: 'Redeem store page_click', action: 'show' })
+TOOL_BPFunc({ desc: "Redeem store page_click", action: "show" });
 const exchange = (item, idx) => {
-  TOOL_BPFunc({ desc: `Redeem Button_click ${idx + 1}`, action: 'click' })
-  pageInfo.actItem = item
-  console.log('idx', idx)
-  pageInfo.actIdx = idx + 1
+  TOOL_BPFunc({ desc: `Redeem Button_click ${idx + 1}`, action: "click" });
+  pageInfo.actItem = item;
+  console.log("idx", idx);
+  pageInfo.actIdx = idx + 1;
   // 需要 2 次确认弹框就开启
   // pageInfo.showTwoConfirm = true
   // 直接兑换
-  toExchange()
-}
+  toExchange();
+};
 
-import useRequest from '@hooks/useRequest'
+import useApi from "@hooks/useApi";
 const getInfo = async () => {
-  TOOL_loading()
-  const url = '/api/activity/commonBusiness/exchangeInfo'
-  const data = await useRequest(url, {
-    activityId
-  })
-  Object.assign(pageInfo, data)
-  TOOL_loading(false)
-}
+  TOOL_loading();
+  const url = "/api/activity/commonBusiness/exchangeInfo";
+  const data = await useApi(url, {
+    activityId,
+  });
+  Object.assign(pageInfo, data);
+  TOOL_loading(false);
+};
 
-getInfo()
+getInfo();
 
-const emit = defineEmits(['exchangeSuccess'])
+const emit = defineEmits(["exchangeSuccess"]);
 
 const toExchange = async () => {
-  TOOL_loading()
+  TOOL_loading();
   const url =
-    '/api/activity/commonBusiness/exchange?activityId=' + activityId + '&index=' + pageInfo.actIdx
-  const data = await useRequest(url, {}, 'POST')
-  TOOL_loading(false)
+    "/api/activity/commonBusiness/exchange?activityId=" +
+    activityId +
+    "&index=" +
+    pageInfo.actIdx;
+  const data = await useApi(url, {}, "POST");
+  TOOL_loading(false);
 
-  const _key = data['code']
+  const _key = data["code"];
   const messages = {
     200: TOOL_TEXT[626], // 兑换成功
     401: TOOL_TEXT[608], // coming
     402: TOOL_TEXT[609], // end
     403: TOOL_TEXT[623], // 积分不足
-    420: '', // 长度不符合
+    420: "", // 长度不符合
     461: TOOL_TEXT[624], // 库存为0
     462: TOOL_TEXT[628]
-      ?.replace('%s', pageInfo.actItem?.privateStock)
-      ?.replace('s%', pageInfo.actItem?.privateStock),
-    default: TOOL_TEXT[627] // 网络异常
-  }
-  const message = messages[_key] || messages.default
+      ?.replace("%s", pageInfo.actItem?.privateStock)
+      ?.replace("s%", pageInfo.actItem?.privateStock),
+    default: TOOL_TEXT[627], // 网络异常
+  };
+  const message = messages[_key] || messages.default;
   if (_key == 200) {
-    TOOL_toast({ text: message })
+    TOOL_toast({ text: message });
     // 成功 刷新页面
-    getInfo()
+    getInfo();
     // 通知父组件兑换成功，让父组件也刷新数据
-    emit('exchangeSuccess')
+    emit("exchangeSuccess");
   } else {
-    TOOL_toast({ text: message })
+    TOOL_toast({ text: message });
   }
-}
+};
 
-defineExpose({ getInfo })
+defineExpose({ getInfo });
 </script>
 
 <style lang="scss" scoped>
@@ -225,7 +250,7 @@ defineExpose({ getInfo })
     justify-content: center;
     color: #800;
     text-align: center;
-    font-family: 'SF UI Text';
+    font-family: "SF UI Text";
     font-size: 0.3rem;
     font-style: normal;
     font-weight: 800;
@@ -238,7 +263,7 @@ defineExpose({ getInfo })
       color: #da00b9;
 
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.28rem;
       font-style: normal;
       font-weight: 700;
@@ -272,7 +297,7 @@ defineExpose({ getInfo })
       width: 1.94rem;
 
       color: #fff387;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.26rem;
       font-style: normal;
       font-weight: 700;
@@ -293,7 +318,7 @@ defineExpose({ getInfo })
 
       span {
         color: #ff9537;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.26rem;
         font-style: normal;
         font-weight: 700;
@@ -363,7 +388,7 @@ defineExpose({ getInfo })
           right: 0.2rem;
 
           color: #fffc2a;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.26rem;
           font-style: normal;
           font-weight: 700;
@@ -383,7 +408,7 @@ defineExpose({ getInfo })
           span {
             color: #faffd3;
             text-align: center;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.2rem;
             font-style: normal;
             font-weight: 400;
@@ -414,7 +439,7 @@ defineExpose({ getInfo })
         span {
           color: #ff9537;
           text-align: center;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.3rem;
           font-style: normal;
           font-weight: 700;
@@ -443,7 +468,7 @@ defineExpose({ getInfo })
 
           color: #2f2121;
           text-align: center;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.24rem;
           font-style: normal;
           font-weight: 700;
@@ -468,7 +493,7 @@ defineExpose({ getInfo })
         span {
           color: #faffd3;
           text-align: center;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.2rem;
           font-style: normal;
           font-weight: 400;
@@ -585,7 +610,7 @@ defineExpose({ getInfo })
         span {
           color: #d24400;
           text-align: center;
-          font-family: 'Geeza Pro';
+          font-family: "Geeza Pro";
           font-size: 0.26rem;
           font-style: normal;
           font-weight: 700;

@@ -10,19 +10,22 @@
       </div>
       <Space :val="0.16" />
       <!-- 头像 -->
-      <OptAvatar :data="info || {}" :option="option" />
+      <OptA :data="info || {}" :option="option" />
       <Space :val="0.16" />
 
-      <div class="name ov">{{ info.name || '---' }}</div>
+      <div class="name ov">{{ info.name || "---" }}</div>
 
       <Space :val="0.29" />
       <div class="score ov fc">
         <OssImg class="score-img" :src="'score'"></OssImg>
-        {{ TOOL_NUM(info.score) || '---' }}
+        {{ TOOL_NUM(info.score) || "---" }}
       </div>
     </div>
 
-    <div class="bottom-info" v-if="isDaily && !isUser && Number(info.idx) <= 3 && computedIsDaily">
+    <div
+      class="bottom-info"
+      v-if="isDaily && !isUser && Number(info.idx) <= 3 && computedIsDaily"
+    >
       <OssImg class="bottom-info-img" :src="'family/d-f-b-info'"></OssImg>
       <Space :val="0.38" />
       <div class="gift-icon shake">
@@ -33,7 +36,9 @@
       <NoticeBar :w="4.5" :h="0.8">
         <div style="display: flex; align-items: center">
           <template v-for="rewardObj in info.reward">
-            <template v-if="info.idx >= rewardObj.start && info.idx <= rewardObj.end">
+            <template
+              v-if="info.idx >= rewardObj.start && info.idx <= rewardObj.end"
+            >
               <div class="gift-wrap" v-for="gift in rewardObj.rewards">
                 <Space :val="0.05" />
                 <OssImg src="b-rew" class="gift-box">
@@ -54,60 +59,66 @@
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
+import injectTool from "@publicComponents/injectTool";
+import OptA from "../../../static-common/OptA.vue";
+import { css } from "../../../static-common/tool";
 
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    type?: number // card 类型，不同背景
+    info: any;
+    isUser?: boolean;
+    type?: number; // card 类型，不同背景
   }>(),
   { isUser: false }
-)
-const homeInfo = inject('homeInfo')
-const getRew = inject('getRew')
+);
+const homeInfo = inject("homeInfo");
+const getRew = inject("getRew");
 
-const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
-const ossUrl = inject('ossUrl')
+const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool();
+const ossUrl = inject("ossUrl");
 
 const isTop3 = computed(() => {
-  return Number(props.info.idx) <= 3
-})
+  return Number(props.info.idx) <= 3;
+});
 
-const rankTempInfo = inject('rankTempInfo')
+const rankTempInfo = inject("rankTempInfo");
 const computedIsDaily = computed(() => {
-  return props.info.reward?.length >= props.info.idx
-})
+  return props.info.reward?.length >= props.info.idx;
+});
 
 const isDaily = computed(() => {
-  return rankTempInfo.isDaily
-})
+  return rankTempInfo.isDaily;
+});
 
 const option = {
-  w: 0.79,
-  h: 0.88,
+  styles: css`
+    width: 0.79rem;
+    height: 0.88rem;
+  `,
   adorns: [
     {
-      w: '100%',
-      h: '100%',
-      img: 'f-a'
-    }
+      img: "f-a",
+      styles: css`
+        width: 100%;
+        height: 100%;
+      `,
+    },
   ],
-  avatar: {
-    w: 0.55,
-    h: 0.55,
-    borderRadius: '0.15rem'
-  },
-  live: {
-    w: 0.36,
-    h: 0.24,
-    bottom: 0.05,
-    display: 'none'
-  },
-  liveIcon: {
-    w: 0.29
-  }
-}
+  avatar: css`
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 0.15rem;
+  `,
+  live: css`
+    width: 0.36rem;
+    height: 0.24rem;
+    bottom: 0.05rem;
+    display: none;
+  `,
+  liveIcon: css`
+    width: 0.29rem;
+  `,
+};
 </script>
 
 <style lang="scss" scoped>

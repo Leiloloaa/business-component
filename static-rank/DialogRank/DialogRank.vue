@@ -1,7 +1,7 @@
 <template>
   <OssImg src="g-d-bg" class="dialog-rank">
     <OssImg src="d-sub-title" class="title fc">
-      <span>{{ TOOL_TEXT[98] || 'record' }}</span>
+      <span>{{ TOOL_TEXT[98] || "record" }}</span>
     </OssImg>
     <!-- <div class="th fc">
       <span>{{ TOOL_TEXT[23] }}</span>
@@ -51,37 +51,38 @@
 </template>
 
 <script lang="ts" setup name="DialogRank">
-import injectTool from '@publicComponents/injectTool'
+import injectTool from "@publicComponents/injectTool";
+import RankLoad from "../../static-common/RankLoad.vue";
 
 // import DialogCard from './DialogCardSZ.vue'
-import DialogCard from './DialogCardBJ.vue'
-import UserInfo from './UserInfo.vue'
+import DialogCard from "./DialogCardBJ.vue";
+import UserInfo from "./UserInfo.vue";
 
-const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool()
-const ossUrl = inject('ossUrl')
-const activityId = inject('activityId')
-const isData = inject('isData')
+const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
+const ossUrl = inject("ossUrl");
+const activityId = inject("activityId");
+const isData = inject("isData");
 
-const tabType = ref(0)
+const tabType = ref(0);
 const changeTab = (idx) => {
-  tabType.value = idx
-}
+  tabType.value = idx;
+};
 
 const api = computed(() => {
-  return '/api/activity/trNational2025/lotteryRecords'
-})
-const props = defineProps({ urlType: {} })
+  return "/api/activity/trNational2025/lotteryRecords";
+});
+const props = defineProps({ urlType: {} });
 const apiParams = computed(() => {
-  return Object.assign({ date: '' })
-})
+  return Object.assign({ date: "" });
+});
 
-const selDate = ref<string | number>('') // 默认当天传 空 999 为总榜
+const selDate = ref<string | number>(""); // 默认当天传 空 999 为总榜
 const pageInfo = reactive({
-  list: []
-})
+  list: [],
+});
 const getPageInfo = (info) => {
-  Object.assign(pageInfo, info)
-}
+  Object.assign(pageInfo, info);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,7 +107,7 @@ const getPageInfo = (info) => {
       span {
         color: #112155;
         text-align: center;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 700;
@@ -117,7 +118,7 @@ const getPageInfo = (info) => {
         span {
           color: #9c0d0d;
           text-align: center;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.24rem;
           font-style: normal;
           font-weight: 700;
@@ -192,7 +193,7 @@ const getPageInfo = (info) => {
       span {
         margin-top: 2.8rem;
         color: #fff0cc;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 300;

@@ -7,7 +7,7 @@
         <span>{{ info.rank }}</span>
       </div>
       <Space :val="0.24" />
-      <OptAvatar :data="info || {}" :option="option" />
+      <OptA :data="info || {}" :option="option" />
       <Space :val="0.24" />
 
       <!-- 没有荣誉勋章的情况 -->
@@ -45,6 +45,8 @@
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
 import Card from './Card.vue'
+import OptA from '../../static-common/OptA.vue'
+import { css } from '../../static-common/tool'
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const imgUrl = inject('imgUrl')
@@ -61,28 +63,32 @@ defineProps({
 })
 
 const option = {
-  w: 0.88,
-  h: 0.88,
+  styles: css`
+    width: 0.88rem;
+    height: 0.88rem;
+  `,
   adorns: [
     {
       img: 'a',
-      w: '100%',
-      h: '100%',
-      'z-index': '-1'
+      styles: css`
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+      `
     }
   ],
-  avatar: {
-    w: 0.84,
-    h: 0.84
-  },
-  live: {
-    bottom: 0,
-    w: 0.8,
-    h: 0.28
-  },
-  liveIcon: {
-    w: 0.29
-  }
+  avatar: css`
+    width: 0.84rem;
+    height: 0.84rem;
+  `,
+  live: css`
+    bottom: 0;
+    width: 0.8rem;
+    height: 0.28rem;
+  `,
+  liveIcon: css`
+    width: 0.29rem;
+  `
 }
 </script>
 

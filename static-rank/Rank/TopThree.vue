@@ -62,6 +62,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
+import { css } from '../../static-common/tool'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
@@ -72,55 +73,91 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: `width: 2.26rem;
-height: 2.28rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 2.26rem;
+      height: 2.28rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
         img: 'a1',
-        styles: `width: 2.26rem;
-height: 2.28rem;
-flex-shrink: 0;`
+        styles: css`
+          width: 2.26rem;
+          height: 2.28rem;
+          flex-shrink: 0;
+        `
       }
     ],
-    avatar: `width: 1.6rem;
-height: 1.6rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0.2rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 1.6rem;
+      height: 1.6rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
   },
   1: {
-    styles: `width: 1.9775rem;
-height: 1.995rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.9775rem;
+      height: 1.995rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
         img: 'a2',
-        styles: `width: 1.9775rem;
-height: 1.995rem;
-flex-shrink: 0;`
+        styles: css`
+          width: 1.9775rem;
+          height: 1.995rem;
+          flex-shrink: 0;
+        `
       }
     ],
-    avatar: `width: 1.4rem;
-height: 1.4rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0.2rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 1.4rem;
+      height: 1.4rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
   },
   2: {
-    styles: `width: 1.9775rem;
-height: 1.995rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.9775rem;
+      height: 1.995rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
         img: 'a3',
-        styles: `width: 1.9775rem;
-height: 1.995rem;
-flex-shrink: 0;`
+        styles: css`
+          width: 1.9775rem;
+          height: 1.995rem;
+          flex-shrink: 0;
+        `
       }
     ],
-    avatar: `width: 1.4rem;
-height: 1.4rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0.2rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 1.4rem;
+      height: 1.4rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
   }
 }
 </script>

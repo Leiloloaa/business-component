@@ -15,7 +15,7 @@
       </div>
       <Space :val="-0.15" v-if="isTop3" />
       <div v-jump.fmily="info?.other">
-        <OptAvatar
+        <OptA
           :data="{ ...info, avatar: info.other?.cover } || {}"
           :option="option"
           style="pointer-events: none"
@@ -48,7 +48,7 @@
       <div class="superpose-avatar-wrap">
         <SuperposeAvatar :overlap="0.4" @click="showToast(info)">
           <div class="avatar-wrap" v-for="tp in 3">
-            <OptAvatar
+            <OptA
               :data="info.extraInfos?.[tp - 1] || {}"
               :option="optionList.optionSmall"
               style="pointer-events: none"
@@ -125,15 +125,17 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
+import OptA from '../../static-common/OptA.vue'
+import { css } from '../../static-common/tool'
 
-const props = withDefults(
+const props = withDefaults(
   defineProps<{
     info: any
     isUser?: boolean
     type?: number | string // card 类型，不同背景
     isDailyRank?: boolean // 日榜/总榜
   }>(),
-  { isUser: flse, isDailyRank: true }
+  { isUser: false, isDailyRank: true }
 )
 
 const getRew = inject('getRew')
@@ -181,131 +183,151 @@ const option = computed(() => {
 
 const optionList = {
   option1: {
-    w: 1.74,
-    h: 1.74,
+    styles: css`
+      width: 1.74rem;
+      height: 1.74rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'f-a1'
+        img: 'f-a1',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.1,
-      h: 1.1,
-      top: 0.4,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.1rem;
+      height: 1.1rem;
+      top: 0.4rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option2: {
-    w: 1.74,
-    h: 1.74,
+    styles: css`
+      width: 1.74rem;
+      height: 1.74rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'f-a2'
+        img: 'f-a2',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.1,
-      h: 1.1,
-      top: 0.4,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.1rem;
+      height: 1.1rem;
+      top: 0.4rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option3: {
-    w: 1.74,
-    h: 1.74,
+    styles: css`
+      width: 1.74rem;
+      height: 1.74rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'f-a3'
+        img: 'f-a3',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.1,
-      h: 1.1,
-      top: 0.4,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.1rem;
+      height: 1.1rem;
+      top: 0.4rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option: {
-    w: 1.48,
-    h: 1.48,
+    styles: css`
+      width: 1.48rem;
+      height: 1.48rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'f-a'
+        img: 'f-a',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.1,
-      h: 1.1,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   optionSmall: {
-    w: 0.98,
-    h: 0.98,
+    styles: css`
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'f-small-a'
+        img: 'f-small-a',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 0.72,
-      h: 0.72
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.72rem;
+      height: 0.72rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   }
 }
 </script>

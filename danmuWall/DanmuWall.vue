@@ -1,11 +1,24 @@
 <template>
   <div class="danmu-wall-wrap">
-    <Danmu v-if="info?.bulletScreenList?.length > 0" :list="info?.bulletScreenList" :duration="9.5" :interval="0.9"
-      :toplist="['2.96rem', '3.86rem', '4.76rem']" :offsetend="40"
-      :direction="TOOL_countryCode == 'EG' ? 'right' : 'left'" ref="danmuRef" v-slot="{ item, index }">
+    <Danmu
+      v-if="info?.bulletScreenList?.length > 0"
+      :list="info?.bulletScreenList"
+      :duration="9.5"
+      :interval="0.9"
+      :toplist="['2.96rem', '3.86rem', '4.76rem']"
+      :offsetend="40"
+      :direction="TOOL_countryCode == 'EG' ? 'right' : 'left'"
+      ref="danmuRef"
+      v-slot="{ item, index }"
+    >
       <div class="item" :key="index">
         <div class="fc box">
-          <OptAvatar v-EG.self style="pointer-events: none" :data="item?.userInfo" :option="option0" />
+          <OptA
+            v-EG.self
+            style="pointer-events: none"
+            :data="item?.userInfo"
+            :option="option0"
+          />
         </div>
 
         <Space :val="-0.3" />
@@ -19,50 +32,57 @@
 </template>
 
 <script lang="ts" setup>
-import injectTool from '@publicComponents/injectTool'
+import injectTool from "@publicComponents/injectTool";
+import OptA from "../static-common/OptA.vue";
+import { css } from "../static-common/tool";
 
-const activityId = inject('activityId')
-const ossUrl = inject('ossUrl')
-const { TOOL_BPFunc, TOOL_httpClient, TOOL_countryCode, TOOL_TEXT } = injectTool()
+const activityId = inject("activityId");
+const ossUrl = inject("ossUrl");
+const { TOOL_BPFunc, TOOL_httpClient, TOOL_countryCode, TOOL_TEXT } =
+  injectTool();
 
 const props = defineProps({
   info: {
     type: Object,
-    default: () => ({})
-  }
-})
+    default: () => ({}),
+  },
+});
 
-const danmuRef = ref(null)
+const danmuRef = ref(null);
 
 const option0 = {
-  w: 1.22,
-  h: 1.22,
+  styles: css`
+    width: 1.22rem;
+    height: 1.22rem;
+  `,
   adorns: [
     {
-      img: 'a',
-      w: '100%',
-      h: '100%'
-    }
+      img: "a",
+      styles: css`
+        width: 100%;
+        height: 100%;
+      `,
+    },
   ],
-  avatar: {
-    top: 0.12,
-    w: 0.9,
-    h: 0.9
-  },
-  live: {
-    display: 'none'
-  }
-}
+  avatar: css`
+    top: 0.12rem;
+    width: 0.9rem;
+    height: 0.9rem;
+  `,
+  live: css`
+    display: none;
+  `,
+};
 
 const shootMsg = (item) => {
   if (pageInfo.list?.length == 0) {
-    pageInfo.list.push(item)
+    pageInfo.list.push(item);
   } else {
-    danmuRef.value?.shootMsg(item)
+    danmuRef.value?.shootMsg(item);
   }
-}
+};
 
-defineExpose({ shootMsg })
+defineExpose({ shootMsg });
 </script>
 
 <style lang="scss" scoped>

@@ -6,91 +6,131 @@
       <span>{{ info.idx }}</span>
     </div>
     <Space :val="isUser ? 0.2 : 0.1" />
-    <JumpAvatar :data="info || {}" v-bind="option" />
+    <OptA :data="info || {}" :option="option" />
     <Space :val="0.16" :h="0" />
-    <div class="name ov">{{ info.name || '---' }}</div>
+    <div class="name ov">{{ info.name || "---" }}</div>
     <Space :val="0.7" />
-    <OssImg src="score" class="score fc">{{ TOOL_NUM(info.score) || '---' }}</OssImg>
+    <OssImg src="score" class="score fc">{{
+      TOOL_NUM(info.score) || "---"
+    }}</OssImg>
   </OssImg>
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
-import dayjs from 'dayjs'
+import injectTool from "@publicComponents/injectTool";
+import dayjs from "dayjs";
+import { css } from "../../static-common/tool";
 
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    type?: number // card 类型，不同背景
+    info: any;
+    isUser?: boolean;
+    type?: number; // card 类型，不同背景
   }>(),
   { isUser: false }
-)
+);
 
-const { TOOL_countryCode, TOOL_NUM } = injectTool()
-const ossUrl = inject('ossUrl')
-const getRew = inject('getRew')
+const { TOOL_countryCode, TOOL_NUM } = injectTool();
+const ossUrl = inject("ossUrl");
+const getRew = inject("getRew");
 
 const isTop3 = computed(() => {
-  return Number(props.info.idx) <= 3
-})
+  return Number(props.info.idx) <= 3;
+});
 
 const isDailyRank = computed(() => {
-  return props.info.selDate != 999
-})
+  return props.info.selDate != 999;
+});
 
 const optionList = {
   1: {
-    pic: { frame: 'a1', sofa: 'sofa', live: 'live' },
-    styleConfig: {
-      frame: { width: '1.27125rem', height: '1.27125rem' },
-      avatar: { width: '.9rem', height: '.9rem' }
-    }
+    styles: css`
+      width: 1.27125rem;
+      height: 1.27125rem;
+    `,
+    adorns: [
+      {
+        img: "a1",
+        styles: css`
+          width: 1.27125rem;
+          height: 1.27125rem;
+        `,
+      },
+    ],
+    avatar: css`
+      width: 0.9rem;
+      height: 0.9rem;
+    `,
   },
   2: {
-    pic: { frame: 'a2', sofa: 'sofa', live: 'live' },
-    styleConfig: {
-      frame: { width: '1.27125rem', height: '1.27125rem' },
-      avatar: { width: '.9rem', height: '.9rem' }
-    }
+    styles: css`
+      width: 1.27125rem;
+      height: 1.27125rem;
+    `,
+    adorns: [
+      {
+        img: "a2",
+        styles: css`
+          width: 1.27125rem;
+          height: 1.27125rem;
+        `,
+      },
+    ],
+    avatar: css`
+      width: 0.9rem;
+      height: 0.9rem;
+    `,
   },
   3: {
-    pic: { frame: 'a3', sofa: 'sofa', live: 'live' },
-    styleConfig: {
-      frame: { width: '1.27125rem', height: '1.27125rem' },
-      avatar: { width: '.9rem', height: '.9rem' }
-    }
+    styles: css`
+      width: 1.27125rem;
+      height: 1.27125rem;
+    `,
+    adorns: [
+      {
+        img: "a3",
+        styles: css`
+          width: 1.27125rem;
+          height: 1.27125rem;
+        `,
+      },
+    ],
+    avatar: css`
+      width: 0.9rem;
+      height: 0.9rem;
+    `,
   },
   0: {
-    pic: { frame: 'a', sofa: 'sofa', live: 'live' },
-    styleConfig: {
-      frame: { width: '1.04rem', height: '1.04rem' },
-      avatar: { width: '.9rem', height: '.9rem' }
-    }
-  }
-}
+    styles: css`
+      width: 1.04rem;
+      height: 1.04rem;
+    `,
+    adorns: [
+      {
+        img: "a",
+        styles: css`
+          width: 1.04rem;
+          height: 1.04rem;
+        `,
+      },
+    ],
+    avatar: css`
+      width: 0.9rem;
+      height: 0.9rem;
+    `,
+  },
+};
 
 const option = computed(() => {
-  let baseOption
+  let baseOption;
   if (isTop3.value && !props.isUser) {
-    baseOption = optionList[props.info.idx]
+    baseOption = optionList[props.info.idx];
   } else {
-    baseOption = optionList['0']
+    baseOption = optionList["0"];
   }
 
-  // // 处理 adorns 中的 styles，如果没有值则使用上层的 styles
-  // const processedOption = {
-  //   ...baseOption,
-  //   adorns: baseOption.adorns.map((adorn) => ({
-  //     ...adorn,
-  //     styles: adorn.styles || baseOption.styles
-  //   }))
-  // }
-
-  // console.log(processedOption)
-
-  return baseOption
-})
+  return baseOption;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -113,7 +153,7 @@ const option = computed(() => {
     span {
       color: #fffedf;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
@@ -127,7 +167,7 @@ const option = computed(() => {
 
     color: #fffedf;
     text-align: center;
-    font-family: 'SF UI Text';
+    font-family: "SF UI Text";
     font-size: 0.32rem;
     font-style: normal;
     font-weight: 700;
@@ -141,7 +181,7 @@ const option = computed(() => {
 
     color: #fffedf;
     text-align: center;
-    font-family: 'SF UI Text';
+    font-family: "SF UI Text";
     font-size: 0.24rem;
     font-style: normal;
     font-weight: 700;

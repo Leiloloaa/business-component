@@ -5,13 +5,21 @@
     class="card"
     :class="{
       top: Number(info.idx) <= 3 && !isUser,
-      isUser: isUser
+      isUser: isUser,
     }"
   >
-    <OssImg v-if="info?.status == 0 && info?.stamp" src="stamp" class="stamp" tag="img"></OssImg>
+    <OssImg
+      v-if="info?.status == 0 && info?.stamp"
+      src="stamp"
+      class="stamp"
+      tag="img"
+    ></OssImg>
     <div class="content">
       <!-- 新人 -->
-      <div class="new-or-back fc" v-if="info.name && !isUser && info?.isNewUser">
+      <div
+        class="new-or-back fc"
+        v-if="info.name && !isUser && info?.isNewUser"
+      >
         <img class="obg" :src="`${ossUrl}/n1.png`" alt="" />
         <NoticeBar :w="1.32" :h="0.28">
           <span style="min-width: 1.32rem">{{ TOOL_TEXT[733] }}</span>
@@ -37,7 +45,7 @@
           <OptA :data="info || {}" :option="option" />
 
           <span class="name ov">
-            {{ info.name || '---' }}
+            {{ info.name || "---" }}
           </span>
         </div>
 
@@ -49,9 +57,15 @@
         >
           <NoticeBar :w="2" :h="0.8">
             <template v-for="rewardObj in userReward">
-              <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+              <template
+                v-if="
+                  info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
+                "
+              >
                 <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <OssImg src="b-rew" class="rew fc"> <cdnImg :info="gift" /> </OssImg>
+                  <OssImg src="b-rew" class="rew fc">
+                    <cdnImg :info="gift" />
+                  </OssImg>
                   <div class="text-wrap">
                     <Outline
                       :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
@@ -68,16 +82,27 @@
       </div>
 
       <div class="middle">
-        <img v-if="isTop3" :src="`${ossUrl}/num${info.idx}.png`" alt="" class="top-rank" />
+        <img
+          v-if="isTop3"
+          :src="`${ossUrl}/num${info.idx}.png`"
+          alt=""
+          class="top-rank"
+        />
 
-        <OssImg class="cp-type" :src="getCpType(info.gender, info.cp?.gender)" tag="png" />
-        <OssImg src="score" class="score fc">{{ TOOL_NUM(info.score) || '--' }}</OssImg>
+        <OssImg
+          class="cp-type"
+          :src="getCpType(info.gender, info.cp?.gender)"
+          tag="png"
+        />
+        <OssImg src="score" class="score fc">{{
+          TOOL_NUM(info.score) || "--"
+        }}</OssImg>
       </div>
 
       <div class="right part" :class="{ isUser }">
         <div class="user-info">
           <OptA :data="info?.cp || {}" :option="option" />
-          <span class="name ov"> {{ info?.cp?.name || '---' }} </span>
+          <span class="name ov"> {{ info?.cp?.name || "---" }} </span>
         </div>
 
         <!-- 奖励信息 -->
@@ -88,9 +113,15 @@
         >
           <NoticeBar :w="2" :h="0.8">
             <template v-for="rewardObj in cpReward">
-              <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+              <template
+                v-if="
+                  info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
+                "
+              >
                 <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <OssImg src="b-rew" class="rew fc"> <cdnImg :info="gift" /> </OssImg>
+                  <OssImg src="b-rew" class="rew fc">
+                    <cdnImg :info="gift" />
+                  </OssImg>
                   <div class="text-wrap">
                     <Outline
                       :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
@@ -110,137 +141,186 @@
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
-import OptA from './OptA.vue'
+import injectTool from "@publicComponents/injectTool";
+import OptA from "../../static-common/OptA.vue";
+import { css } from "../../static-common/tool";
 
-const getRew = inject('getRew')
-const imgUrl = inject('imgUrl')
-const isDaily = inject('isDaily', false)
-const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool()
-const rankLoadInfo = inject('rankLoadInfo')
-const ossUrl = inject('ossUrl')
+const getRew = inject("getRew");
+const imgUrl = inject("imgUrl");
+const isDaily = inject("isDaily", false);
+const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool();
+const rankLoadInfo = inject("rankLoadInfo");
+const ossUrl = inject("ossUrl");
 
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    type?: string // card 类型，不同背景
-    idx?: number | string
-    isLink?: boolean
+    info: any;
+    isUser?: boolean;
+    type?: string; // card 类型，不同背景
+    idx?: number | string;
+    isLink?: boolean;
   }>(),
   { isUser: false, isLink: false, idx: 0 }
-)
+);
 
 // 获取cp类型 男-男 'mm' 女-女 'ff' 男-女 'mf'
 const getCpType = (gender1, gender2) => {
   if (gender1 == gender2 && gender1 == 2) {
-    return 'cp-mm'
+    return "cp-mm";
   } else if (gender1 == gender2 && gender1 == 1) {
-    return 'cp-ff'
+    return "cp-ff";
   } else {
-    return 'cp-mf'
+    return "cp-mf";
   }
-}
+};
 
 const userReward = computed(() => {
-  let gender = props.info?.gender
+  let gender = props.info?.gender;
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? []
+    return rankLoadInfo.reward.femaleReward ?? [];
   } else {
-    return rankLoadInfo.reward.maleReward ?? []
+    return rankLoadInfo.reward.maleReward ?? [];
   }
-})
+});
 
 const cpReward = computed(() => {
-  let gender = props.info?.cp?.gender
+  let gender = props.info?.cp?.gender;
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? []
+    return rankLoadInfo.reward.femaleReward ?? [];
   } else {
-    return rankLoadInfo.reward.maleReward ?? []
+    return rankLoadInfo.reward.maleReward ?? [];
   }
-})
+});
 
 const optionList = {
   0: {
-    styles: `width: 1.425rem;
-height: 1.425rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.425rem;
+      height: 1.425rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
-        img: 'a',
-        styles: `width: 100%;
-height: 100%;
-flex-shrink: 0;`
-      }
+        img: "a",
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `,
+      },
     ],
-    avatar: `width: 1rem;
-height: 1rem;
-flex-shrink: 0;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0.2rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 1rem;
+      height: 1rem;
+      flex-shrink: 0;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `,
   },
   1: {
-    styles: `width: 1.39484rem;
-height: 1.40719rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.39484rem;
+      height: 1.40719rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
-        img: 'a1',
-        styles: `width: 100%;
-height: 100%;
-flex-shrink: 0;`
-      }
+        img: "a1",
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `,
+      },
     ],
-    avatar: `width: 0.9875rem;
-height: 0.9875rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 0.9875rem;
+      height: 0.9875rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `,
   },
   2: {
-    styles: `width: 1.39484rem;
-height: 1.40719rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.39484rem;
+      height: 1.40719rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
-        img: 'a2',
-        styles: `width: 100%;
-height: 100%;
-flex-shrink: 0;`
-      }
+        img: "a2",
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `,
+      },
     ],
-    avatar: `width: 0.9875rem;
-height: 0.9875rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0rem;`,
-    liveIcon: `width: 0.18rem;`
+    avatar: css`
+      width: 0.9875rem;
+      height: 0.9875rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `,
   },
   3: {
-    styles: `width: 1.39484rem;
-height: 1.40719rem;
-flex-shrink: 0;`,
+    styles: css`
+      width: 1.39484rem;
+      height: 1.40719rem;
+      flex-shrink: 0;
+    `,
     adorns: [
       {
-        img: 'a3',
-        styles: `width: 100%;
-height: 100%;
-flex-shrink: 0;`
-      }
+        img: "a3",
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `,
+      },
     ],
-    avatar: `width: 0.9875rem;
-height: 0.9875rem;`,
-    live: `width: 0.41rem; height: 0.24rem; bottom: 0rem;`,
-    liveIcon: `width: 0.18rem;`
-  }
-}
+    avatar: css`
+      width: 0.9875rem;
+      height: 0.9875rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `,
+  },
+};
 
-const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
+const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser); // info.idx从1开始
 
 const option = computed(() => {
   if (isTop3.value && !props.isUser) {
-    return optionList[props?.info?.idx]
+    return optionList[props?.info?.idx];
   } else {
-    return optionList['0']
+    return optionList["0"];
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -308,7 +388,7 @@ const option = computed(() => {
         z-index: 2;
 
         color: #f7e1ff;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.22rem;
         font-style: normal;
         font-weight: 400;
@@ -323,7 +403,7 @@ const option = computed(() => {
 
       color: #faf0ff;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.28rem;
       font-style: normal;
       font-weight: 700;
@@ -411,7 +491,7 @@ const option = computed(() => {
               color: #fff7e1;
               -webkit-text-stroke-width: 2px;
               -webkit-text-stroke-color: #e0007f;
-              font-family: 'SF UI Text';
+              font-family: "SF UI Text";
               font-size: 0.16rem;
               font-style: normal;
               font-weight: 700;
@@ -460,7 +540,7 @@ const option = computed(() => {
         flex-shrink: 0;
         color: #faf0ff;
         text-align: center;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.22rem;
         font-style: normal;
         font-weight: 400;

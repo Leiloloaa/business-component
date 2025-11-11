@@ -4,7 +4,7 @@
       <OssImg class="title-img" :src="'family/d-info-title'"></OssImg>
       <Space :val="0.43" />
       <div class="left" v-jump.family="rankTempInfo.curInfo">
-        <OptAvatar
+        <OptA
           :data="{ avatar: rankTempInfo.curInfo?.familyInfo?.cover } || {}"
           :option="optionList.option1"
           style="pointer-events: none"
@@ -15,7 +15,7 @@
       <Space :val="0.65" />
       <div class="right">
         <div class="top" v-jump="{ uid: rankTempInfo.curInfo?.familyInfo?.patriarchId }">
-          <OptAvatar
+          <OptA
             :data="{ avatar: rankTempInfo.curInfo?.familyInfo?.patriarchAvatar }"
             :option="optionList.option2"
             style="pointer-events: none"
@@ -77,6 +77,9 @@
 <script lang="ts" setup name="DialogRank">
 import injectTool from '@publicComponents/injectTool'
 import dayjs from 'dayjs'
+import RankLoad from '../../../static-common/RankLoad.vue'
+import OptA from '../../../static-common/OptA.vue'
+import { css } from '../../../static-common/tool'
 
 import DialogCard from './DialogCard.vue'
 import UserInfo from './UserInfo.vue'
@@ -97,125 +100,145 @@ const pageInfo = reactive({
 
 const optionList = {
   option1: {
-    w: 1.2,
-    h: 1.045,
+    styles: css`
+      width: 1.2rem;
+      height: 1.045rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'a1'
+        img: 'a1',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 0.54,
-      h: 0.54,
-      'border-radius': '0.15rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.54rem;
+      height: 0.54rem;
+      border-radius: 0.15rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option2: {
-    w: 0.87,
-    h: 0.96,
+    styles: css`
+      width: 0.87rem;
+      height: 0.96rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'family/f-a'
+        img: 'family/f-a',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 0.6,
-      h: 0.6
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.6rem;
+      height: 0.6rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option3: {
-    w: 1.74,
-    h: 1.74,
+    styles: css`
+      width: 1.74rem;
+      height: 1.74rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'fa-avatar3'
+        img: 'fa-avatar3',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.1,
-      h: 1.1,
-      top: 0.4,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.1rem;
+      height: 1.1rem;
+      top: 0.4rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   option: {
-    w: 0.79,
-    h: 0.88,
+    styles: css`
+      width: 0.79rem;
+      height: 0.88rem;
+    `,
     adorns: [
       {
-        w: 0.79,
-        h: 0.88,
-        img: 'family/f-a'
+        img: 'family/f-a',
+        styles: css`
+          width: 0.79rem;
+          height: 0.88rem;
+        `
       }
     ],
-    avatar: {
-      w: 0.55,
-      h: 0.55
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.55rem;
+      height: 0.55rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   optionSmall: {
-    w: 0.98,
-    h: 0.98,
+    styles: css`
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
     adorns: [
       {
-        w: 0.98,
-        h: 0.98,
-        img: 'fa-card-avatar'
+        img: 'fa-card-avatar',
+        styles: css`
+          width: 0.98rem;
+          height: 0.98rem;
+        `
       }
     ],
-    avatar: {
-      w: 0.72,
-      h: 0.72
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.05
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.72rem;
+      height: 0.72rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.05rem;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   }
 }
 

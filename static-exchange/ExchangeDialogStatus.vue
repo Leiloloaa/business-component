@@ -41,7 +41,7 @@
           nameW: 1.22, // 奖励名称宽度
           nameH: 0.32, // 奖励名称高度
           useOutline: true, // 外边框
-          outline: `0.05rem #5E005C`
+          outline: `0.05rem #5E005C`,
         }"
       />
       <Space :val="0.4" h />
@@ -74,7 +74,7 @@
             nameW: 1.22, // 奖励名称宽度
             nameH: 0.32, // 奖励名称高度
             useOutline: true, // 外边框
-            outline: `0.05rem #5E005C`
+            outline: `0.05rem #5E005C`,
           }"
         />
 
@@ -93,7 +93,7 @@
             nameW: 1.22, // 奖励名称宽度
             nameH: 0.32, // 奖励名称高度
             useOutline: true, // 外边框
-            outline: `0.05rem #5E005C`
+            outline: `0.05rem #5E005C`,
           }"
         />
       </div>
@@ -101,7 +101,7 @@
       <div class="tip3">
         {{
           TOOL_TEXT[25] ||
-          'Tips:奖池为空时只能获得免费礼物，给CP赠送活动礼物，产生积分可增加奖池金币数哦'
+          "Tips:奖池为空时只能获得免费礼物，给CP赠送活动礼物，产生积分可增加奖池金币数哦"
         }}
       </div>
       <Space :val="0.24" h />
@@ -156,37 +156,40 @@
 </template>
 
 <script lang="ts" setup name="DrawStatusDialog">
-import injectTool from '@publicComponents/injectTool'
-import { toAppUrl } from '@publicComponents/shared'
-import useRequest from '@hooks/useRequest'
+import injectTool from "@publicComponents/injectTool";
+import { toAppUrl } from "@publicComponents/shared";
+import useApi from "@hooks/useApi";
 
-const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT } = injectTool()
-const ossUrl = inject('ossUrl')
-const emit = defineEmits(['hide', 'confirm', 'changePageInfo'])
+const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT } = injectTool();
+const ossUrl = inject("ossUrl");
+const emit = defineEmits(["hide", "confirm", "changePageInfo"]);
 const props = defineProps({
   type: {},
-  rewardList: {}
-})
+  rewardList: {},
+});
 
-const isSelect = ref(false)
+const isSelect = ref(false);
 
 const hide = () => {
-  emit('hide')
-}
+  emit("hide");
+};
 
 const confirm = () => {
-  emit('confirm', {
-    isSelect: isSelect.value
-  })
-}
+  emit("confirm", {
+    isSelect: isSelect.value,
+  });
+};
 
 const toRoom = () => {
   if (props.obj?.presenter == 0) {
-    toAppUrl('live', { uid: props.obj?.uid })
+    toAppUrl("live", { uid: props.obj?.uid });
   } else {
-    toAppUrl('gift', { roomId: props.obj?.presenter, giftId: props.obj?.giftId })
+    toAppUrl("gift", {
+      roomId: props.obj?.presenter,
+      giftId: props.obj?.giftId,
+    });
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -214,7 +217,7 @@ const toRoom = () => {
       color: #da00b9;
 
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.28rem;
       font-style: normal;
       font-weight: 700;
@@ -229,7 +232,7 @@ const toRoom = () => {
     .item {
       margin-bottom: 0.24rem;
       color: #fdffe7;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.32rem;
       font-style: normal;
       font-weight: 500;

@@ -13,7 +13,7 @@
             v-img
           />
           <div v-jump.family="info.list?.[item]?.other">
-            <OptAvatar
+            <OptA
               :data="{ ...info.list[item], avatar: info.list?.[item]?.other?.cover } || {}"
               :option="option[item]"
               style="pointer-events: none"
@@ -44,7 +44,7 @@
         <!-- 层叠头像组件 -->
         <SuperposeAvatar :overlap="0.4">
           <div class="avatar-container" v-for="tp in 3" @click="showToast(info.list[item])">
-            <OptAvatar
+            <OptA
               :data="info.list?.[item]?.extraInfos?.[tp - 1] || {}"
               :option="option.optionSmall"
               style="pointer-events: none"
@@ -60,6 +60,8 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
+import OptA from '../../static-common/OptA.vue'
+import { css } from '../../static-common/tool'
 
 const imgUrl = inject('imgUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT, TOOL_BPFunc } = injectTool()
@@ -82,106 +84,122 @@ const showToast = (info) => {
 
 const option = {
   0: {
-    w: 3.251,
-    h: 3.251,
+    styles: css`
+      width: 3.251rem;
+      height: 3.251rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'fa-a1'
+        img: 'fa-a1',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.82,
-      h: 1.82,
-      top: 0.9,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.7,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.82rem;
+      height: 1.82rem;
+      top: 0.9rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.7rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   1: {
-    w: 3.251,
-    h: 3.251,
+    styles: css`
+      width: 3.251rem;
+      height: 3.251rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'fa-a2'
+        img: 'fa-a2',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.82,
-      h: 1.82,
-      top: 0.9,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.7,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.82rem;
+      height: 1.82rem;
+      top: 0.9rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.7rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   2: {
-    w: 3.251,
-    h: 3.251,
+    styles: css`
+      width: 3.251rem;
+      height: 3.251rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'fa-a3'
+        img: 'fa-a3',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 1.82,
-      h: 1.82,
-      top: 0.9,
-      'border-radius': '0.35rem'
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.7,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 1.82rem;
+      height: 1.82rem;
+      top: 0.9rem;
+      border-radius: 0.35rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.7rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   },
   optionSmall: {
-    w: 0.98,
-    h: 0.98,
+    styles: css`
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
     adorns: [
       {
-        w: '100%',
-        h: '100%',
-        img: 'fa-a'
+        img: 'fa-a',
+        styles: css`
+          width: 100%;
+          height: 100%;
+        `
       }
     ],
-    avatar: {
-      w: 0.72,
-      h: 0.72
-    },
-    live: {
-      w: 0.36,
-      h: 0.24,
-      bottom: 0.2,
-      display: 'none'
-    },
-    liveIcon: {
-      w: 0.29
-    }
+    avatar: css`
+      width: 0.72rem;
+      height: 0.72rem;
+    `,
+    live: css`
+      width: 0.36rem;
+      height: 0.24rem;
+      bottom: 0.2rem;
+      display: none;
+    `,
+    liveIcon: css`
+      width: 0.29rem;
+    `
   }
 }
 </script>
