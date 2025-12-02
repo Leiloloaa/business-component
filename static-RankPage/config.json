@@ -1,0 +1,7 @@
+{
+  "name": "rank",
+  "path": "Rank",
+  "displayName": "自定义榜单页面",
+  "category": "rank",
+  "description": "自定义榜单页面，支持自定义榜单页面、自定义榜单卡片、自定义榜单用户信息等功能"
+}

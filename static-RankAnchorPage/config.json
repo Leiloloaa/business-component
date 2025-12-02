@@ -1,7 +1,7 @@
 {
   "name": "rank",
   "path": "Rank",
-  "displayName": "用户、主播榜单页面",
+  "displayName": "主播榜单页面",
   "category": "rank",
-  "description": "通用榜单组件"
+  "description": "主播榜单页面，支持主播榜单页面、主播榜单卡片、主播榜单用户信息等功能"
 }
