@@ -2,6 +2,6 @@
   "name": "dialogRank",
   "path": "DialogRank/DialogRank.vue",
   "displayName": "榜单弹窗",
-  "category": "static-rank",
+  "category": "rank",
   "description": "榜单弹窗"
 }

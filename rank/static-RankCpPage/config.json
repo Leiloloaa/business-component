@@ -2,6 +2,6 @@
   "name": "rankCp",
   "path": "RankCp",
   "displayName": "cp榜单页面",
-  "category": "static-rank",
+  "category": "rank",
   "description": "cp榜单"
 }

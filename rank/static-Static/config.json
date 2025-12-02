@@ -2,6 +2,6 @@
   "name": "static",
   "path": "static",
   "displayName": "榜单基础组件",
-  "category": "static-rank",
+  "category": "rank",
   "description": "榜单基础组件，支持榜单页面、榜单卡片、榜单用户信息等功能"
 }
