@@ -141,7 +141,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../Static/OptA.vue'
+import OptA from '../../Static/OptA.vue'
 import { css } from '../../Static/Tool/tool'
 
 const imgUrl = inject('imgUrl')

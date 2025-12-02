@@ -53,7 +53,19 @@
 
 <script lang="ts" setup name="RankLoad">
 import injectTool from '@publicComponents/injectTool'
-import { TRank } from '../../types/rank'
+
+interface TRank {
+  status: number
+  timeLeft: number
+  pageIndex: number
+  pageSize: number
+  loading: boolean
+  isEndPage: boolean
+  list: any[]
+  userInfo: any
+  relatedToMeUsers: any
+  reward: any[]
+}
 
 const props = withDefaults(
   defineProps<{

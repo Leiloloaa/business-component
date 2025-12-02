@@ -66,8 +66,8 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../tool'
-import OptA from '../OptA.vue'
+import { css } from '../../Static/Tool/tool'
+import OptA from '../../Static/OptA.vue'
 import SuperposeAvatar from './SuperposeAvatar.vue'
 import DialogRank from './DialogRank/DialogRank.vue';
 

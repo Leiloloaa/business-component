@@ -48,7 +48,7 @@
 
 <script lang="ts" setup name="userInfo">
 import injectTool from "@publicComponents/injectTool";
-import Card from "./RankCard/Card.vue";
+import Card from "./Card.vue";
 import { css } from "../../Static/Tool/tool";
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool();

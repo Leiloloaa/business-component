@@ -49,8 +49,8 @@
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
 import Card from './Card.vue'
-import { css } from '../tool'
-import OptA from '../OptA.vue'
+import { css } from '../../Static/Tool/tool'
+import OptA from '../../Static/OptA.vue'
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const imgUrl = inject('imgUrl')

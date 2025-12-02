@@ -75,9 +75,9 @@ import injectTool from "@publicComponents/injectTool";
 import useUserInfo from "@hooks/useUserInfo";
 import RankLoad from "./RankLoad.vue";
 // 榜单
-import TopThree from "../Rank/TopThree.vue";
-import Card from "../Rank/Card.vue";
-import UserInfo from "../Rank/UserInfo.vue";
+import TopThree from "../Rank/RankCard/TopThree.vue";
+import Card from "../Rank/RankCard/Card.vue";
+import UserInfo from "../Rank/RankCard/UserInfo.vue";
 
 const route = useRoute();
 const router = useRouter();
