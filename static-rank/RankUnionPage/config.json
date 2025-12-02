@@ -1,0 +1,7 @@
+{
+  "name": "rankGuild",
+  "path": "RankGuild",
+  "displayName": "公会榜单组件",
+  "category": "static-rank",
+  "description": "公会榜单"
+}

@@ -13,7 +13,7 @@
     </div>
     <div class="stage-rank-buttons" :style="{ width: containerWidth }">
       <div
-        v-for="(stage, index) in stageList"
+        v-for="(item, index) in stageList"
         :key="index"
         ref="listItemRef"
         class="stage-button-wrapper"
@@ -33,7 +33,7 @@
           <div class="stage-title fc">
             <Outline
               :color="getTitleColor(index)"
-              :text="stage.title"
+              :text="item.title || `Stage ${item.stage}`"
               noColor
             />
           </div>
@@ -58,14 +58,14 @@
           <!-- 底部信息 -->
           <div class="stage-info f-column">
             <div class="info-line" :class="getInfoClass(index)">
-              {{ stage.info }}
+              {{ item.text1 || "" }}
             </div>
             <div
               class="info-line"
               :class="getInfoClass(index)"
               style="margin-top: 0.04rem"
             >
-              {{ removeSpace(stage.date) }}
+              {{ removeSpace(item.text2 || "") }}
             </div>
           </div>
         </div>
@@ -75,16 +75,17 @@
 </template>
 
 <script lang="ts" setup name="StageRankButtons">
-import { scrollFn } from "../../../Static/DatePicker/dateFunc";
+import { ref, computed, nextTick, onMounted, watch, inject } from "vue";
 import injectTool from "@publicComponents/injectTool";
 
 const ossUrl = inject("ossUrl");
 const { TOOL_TEXT, TOOL_toast, TOOL_countryCode } = injectTool();
 
 interface StageItem {
-  title?: string;
-  info?: string;
-  date?: string;
+  stage: number; // 阶段编号
+  text1?: string; // 第一行文本
+  text2?: string; // 第二行文本
+  title?: string; // 可选标题，如果没有则使用 "Stage {stage}"
 }
 
 // 使用 defineModel 支持 v-model:selStage
@@ -92,7 +93,7 @@ const selStage = defineModel<number>("selStage", { required: true });
 
 const props = withDefaults(
   defineProps<{
-    currentStage: number; // 当前激活的阶段索引 (0-4)
+    currentStage: number; // 当前激活的阶段编号（从1开始）
     stageList?: StageItem[]; // 阶段列表数据
   }>(),
   {}
@@ -148,6 +149,52 @@ const getInfoClass = (index: number): string => {
     return "info-active";
   }
   return "info-inactive";
+};
+
+// 内部实现的滚动函数
+const scrollFn = (
+  scrollContainer: HTMLElement,
+  listItems: HTMLElement[],
+  direction: "x" | "y",
+  list: any[],
+  targetIndex: number
+) => {
+  if (!scrollContainer || !listItems || !listItems[targetIndex]) {
+    return;
+  }
+
+  const targetElement = listItems[targetIndex];
+  const containerRect = scrollContainer.getBoundingClientRect();
+  const targetRect = targetElement.getBoundingClientRect();
+
+  if (direction === "x") {
+    // 水平滚动：计算目标元素相对于容器的位置
+    const scrollLeft = scrollContainer.scrollLeft;
+    const targetLeft = targetRect.left - containerRect.left + scrollLeft;
+    const containerWidth = scrollContainer.clientWidth;
+    const targetWidth = targetRect.width;
+
+    // 计算滚动位置，使目标元素居中
+    const scrollTo = targetLeft - containerWidth / 2 + targetWidth / 2;
+
+    scrollContainer.scrollTo({
+      left: scrollTo,
+      behavior: "smooth",
+    });
+  } else {
+    // 垂直滚动
+    const scrollTop = scrollContainer.scrollTop;
+    const targetTop = targetRect.top - containerRect.top + scrollTop;
+    const containerHeight = scrollContainer.clientHeight;
+    const targetHeight = targetRect.height;
+
+    const scrollTo = targetTop - containerHeight / 2 + targetHeight / 2;
+
+    scrollContainer.scrollTo({
+      top: scrollTo,
+      behavior: "smooth",
+    });
+  }
 };
 
 // 滚动到指定阶段
@@ -322,9 +369,6 @@ watch(
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  &.stage-done {
-  }
 
   &.stage-ing {
     .stage-title {

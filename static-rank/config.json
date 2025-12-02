@@ -1,6 +1,6 @@
 {
-  "name": "rank",
-  "path": "rank/rankPageTemp.vue",
+  "name": "rankPage",
+  "path": "rankPage/rankPageTemp.vue",
   "displayName": "基础榜单配置",
   "category": "static-rank",
   "description": "基础榜单配置，支持榜单页面、榜单卡片、榜单用户信息等功能",

@@ -10,7 +10,7 @@
       />
     </FixedTop>
 
-    <RankTemplate
+    <RankTemp
       frameType="rank"
       :rankType="rankType"
       :url="tempConfig.url"
@@ -19,21 +19,21 @@
       :dayTotal="dayTotal"
       :selDate="selDate"
       paddingBottom="0.72rem"
-    ></RankTemplate>
+    ></RankTemp>
   </div>
 </template>
 
 <script lang="ts" setup name="RankNew">
-import { useRankPage } from "./Static/Tool/useRankPage";
+import { useRankPage } from "../Static/Tool/useRankPage";
+import RankTemp from "../Static/RankTemp.vue";
 
 // 使用通用榜单页面逻辑
-// 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: "user", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  rankType: "anchor", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
   dayTotal: 0, // 0-日榜，1-总榜
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
   params: () => ({
-    other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+    other: 2, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
   }),
 });
 </script>

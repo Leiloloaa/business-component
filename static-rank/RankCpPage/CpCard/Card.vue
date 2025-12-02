@@ -143,7 +143,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
 import OptA from "../Static/OptA.vue";
-import { css } from "../Static/Tool/tool";
+import { css } from "../../Static/Tool/tool";
 
 const getRew = inject("getRew");
 const imgUrl = inject("imgUrl");

@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../Static/Tool/tool'
+import { css } from '../../Static/Tool/tool'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
