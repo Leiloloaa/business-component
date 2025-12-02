@@ -77,9 +77,9 @@
 <script lang="ts" setup name="DialogRank">
 import injectTool from '@publicComponents/injectTool'
 import dayjs from 'dayjs'
-import RankLoad from '../../../static-common/RankLoad.vue'
-import OptA from '../../../static-common/OptA.vue'
-import { css } from '../../../static-common/tool'
+import RankLoad from '../../Static/RankLoad.vue'
+import OptA from '../../Static/OptA.vue'
+import { css } from '../../Static/Tool/tool'
 
 import DialogCard from './DialogCard.vue'
 import UserInfo from './UserInfo.vue'

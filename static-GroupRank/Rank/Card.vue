@@ -143,7 +143,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import { css } from "../../static-common/tool";
+import { css } from "../Static/Tool/tool";
 const router = useRouter();
 console.log(router.currentRoute.value.name);
 const props = withDefaults(

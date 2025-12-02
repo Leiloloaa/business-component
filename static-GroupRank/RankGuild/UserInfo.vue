@@ -1,5 +1,9 @@
 <template>
-  <div class="info fc" :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }">
+  <OssImg
+    src="m-info"
+    class="info fc"
+    :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }"
+  >
     <Card :info="{ ...info, idx: info.rank }" isUser v-if="isCardStyle" />
     <div class="cards" v-else>
       <Space :val="0.24" />
@@ -39,14 +43,14 @@
       </SuperposeAvatar>
       </div> -->
     </div>
-  </div>
+  </OssImg>
 </template>
 
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
 import Card from './Card.vue'
-import OptA from '../../static-common/OptA.vue'
-import { css } from '../../static-common/tool'
+import { css } from '../tool'
+import OptA from '../OptA.vue'
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const imgUrl = inject('imgUrl')
@@ -64,30 +68,31 @@ defineProps({
 
 const option = {
   styles: css`
-    width: 0.88rem;
-    height: 0.88rem;
+    width: 1.55375rem;
+    height: 1.5675rem;
+    flex-shrink: 0;
   `,
   adorns: [
     {
       img: 'a',
       styles: css`
-        width: 100%;
-        height: 100%;
-        z-index: -1;
+        width: 1.55375rem;
+        height: 1.5675rem;
+        flex-shrink: 0;
       `
     }
   ],
   avatar: css`
-    width: 0.84rem;
-    height: 0.84rem;
+    width: 1.1rem;
+    height: 1.1rem;
   `,
   live: css`
-    bottom: 0;
-    width: 0.8rem;
-    height: 0.28rem;
+    width: 0.41rem;
+    height: 0.24rem;
+    bottom: 0.2rem;
   `,
   liveIcon: css`
-    width: 0.29rem;
+    width: 0.18rem;
   `
 }
 </script>
@@ -99,7 +104,7 @@ const option = {
 
   position: fixed;
   left: 0rem;
-  bottom: 0rem;
+  bottom: 1.8rem;
   z-index: 49;
 
   :deep(.card) {

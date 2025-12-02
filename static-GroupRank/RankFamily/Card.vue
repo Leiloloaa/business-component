@@ -125,8 +125,8 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../../static-common/OptA.vue'
-import { css } from '../../static-common/tool'
+import OptA from '../Static/OptA.vue'
+import { css } from '../Static/Tool/tool'
 
 const props = withDefaults(
   defineProps<{

@@ -1,6 +1,6 @@
 <template>
   <OssImg
-    src="info"
+    src="d-info"
     class="info fc"
     :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }"
   >
@@ -11,13 +11,13 @@
         <span>{{ info.rank }}</span>
       </div>
       <Space :val="0.24" />
-      <OptA :data="info || {}" :option="option" />
+      <!-- <OptA :data="info || {}" :option="option" /> -->
       <Space :val="0.24" />
 
       <!-- 没有荣誉勋章的情况 -->
-      <div class="name ov">{{ info.name || '---' }}</div>
+      <div class="name ov">{{ info.name || "---" }}</div>
       <div class="score ov">
-        {{ TOOL_NUM(info.score) || '---' }}
+        {{ TOOL_NUM(info.score) || "---" }}
       </div>
 
       <!-- 有荣誉勋章的情况 -->
@@ -47,23 +47,24 @@
 </template>
 
 <script lang="ts" setup name="userInfo">
-import injectTool from '@publicComponents/injectTool'
-import Card from './Card.vue'
-import { css } from '../../static-common/tool'
+import { inject } from "vue";
+import injectTool from "@publicComponents/injectTool";
+import Card from "./DialogCardSZ.vue";
+import { css } from "../Static/Tool/tool";
 
-const { TOOL_countryCode, TOOL_NUM } = injectTool()
-const imgUrl = inject('imgUrl')
+const { TOOL_countryCode, TOOL_NUM } = injectTool();
+const imgUrl = inject("imgUrl");
 
 defineProps({
   info: {
     type: Object,
-    default: () => {}
+    default: () => {},
   },
   isCardStyle: {
     type: Boolean,
-    default: false
-  }
-})
+    default: false,
+  },
+});
 
 const option = {
   styles: css`
@@ -73,13 +74,13 @@ const option = {
   `,
   adorns: [
     {
-      img: 'a',
+      img: "a",
       styles: css`
         width: 1.55375rem;
         height: 1.5675rem;
         flex-shrink: 0;
-      `
-    }
+      `,
+    },
   ],
   avatar: css`
     width: 1.1rem;
@@ -92,25 +93,29 @@ const option = {
   `,
   liveIcon: css`
     width: 0.18rem;
-  `
-}
+  `,
+};
 </script>
 
 <style lang="scss" scoped>
 .info {
-  width: 7.5rem;
-  height: 1.82rem;
+  width: 6.67rem;
+  height: 1.44rem;
+  flex-shrink: 0;
 
-  position: fixed;
-  left: 0rem;
-  bottom: -0.01rem;
-  z-index: 49;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0rem;
+  z-index: 9;
 
   :deep(.card) {
     background: none !important;
-    margin-bottom: 0rem !important;
+    // margin-bottom: 0rem !important;
+    padding-top: 0;
     .top-info {
       height: 100%;
+      // margin-top: 0.21rem;
 
       .stamp {
         display: none !important;
@@ -122,7 +127,7 @@ const option = {
     &::after {
       z-index: -1;
       position: absolute;
-      content: '';
+      content: "";
       width: 100%;
       height: 100%;
     }

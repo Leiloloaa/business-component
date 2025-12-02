@@ -60,8 +60,8 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../../static-common/OptA.vue'
-import { css } from '../../static-common/tool'
+import OptA from '../Static/OptA.vue'
+import { css } from '../Static/Tool/tool'
 
 const imgUrl = inject('imgUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT, TOOL_BPFunc } = injectTool()

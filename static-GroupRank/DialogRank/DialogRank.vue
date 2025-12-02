@@ -52,7 +52,7 @@
 
 <script lang="ts" setup name="DialogRank">
 import injectTool from "@publicComponents/injectTool";
-import RankLoad from "../../static-common/RankLoad.vue";
+import RankLoad from "../Static/RankLoad.vue";
 
 // import DialogCard from './DialogCardSZ.vue'
 import DialogCard from "./DialogCardBJ.vue";

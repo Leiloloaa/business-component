@@ -24,13 +24,17 @@
 </template>
 
 <script lang="ts" setup name="RankNew">
-import { useRankPage } from "./useRankPage";
+import { useRankPage } from "./Static/Tool/useRankPage";
 
 // 使用通用榜单页面逻辑
+// 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: "user",
-  dayTotal: 0,
-  params: {},
+  rankType: "user", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  dayTotal: 0, // 0-日榜，1-总榜
+  use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
+  params: () => ({
+    other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+  }),
 });
 </script>
 

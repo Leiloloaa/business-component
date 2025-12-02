@@ -73,7 +73,7 @@
 <script lang="ts" setup name="Rank">
 import injectTool from "@publicComponents/injectTool";
 import useUserInfo from "@hooks/useUserInfo";
-import RankLoad from "../static-common/RankLoad.vue";
+import RankLoad from "./RankLoad.vue";
 // 榜单
 import TopThree from "../Rank/TopThree.vue";
 import Card from "../Rank/Card.vue";
@@ -119,7 +119,8 @@ const isShowComp = (info, comp) => {
 };
 
 const apiParams = computed(() => {
-  const dateObj = isDaily.value ? { date: props.selDate } : {};
+  // 通用榜单接口，传 version = 1，表示走必传 date 逻辑
+  const dateObj = isDaily.value ? { date: props.selDate, version: 1 } : {};
   return { activityId, ...dateObj, ...props.params };
 });
 

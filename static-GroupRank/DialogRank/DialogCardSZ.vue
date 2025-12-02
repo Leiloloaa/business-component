@@ -19,7 +19,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
 import dayjs from "dayjs";
-import { css } from "../../static-common/tool";
+import { css } from "../Static/Tool/tool";
 
 const props = withDefaults(
   defineProps<{
