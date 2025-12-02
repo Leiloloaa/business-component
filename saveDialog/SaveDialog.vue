@@ -50,7 +50,6 @@ import {
   useSysSave,
   shareToMoment,
 } from "@saveImage";
-import useApi from "@hooks/useApi";
 import FamilyAvatar from "./FamilyAvatar.vue";
 
 const {
@@ -152,38 +151,44 @@ const toShare = async (fid) => {
     });
   } else {
     const url = "/api/activity/commonBusiness/share";
-    const data = await useApi(
-      url,
-      {
-        activityId: 10600,
-        imgFids: [fid],
-        link: `https://activity-h5${
-          ENV === "build" ? "" : "-test"
-        }.yoho.media/act_v_${
-          ossUrl.split("/")?.[4]
-        }/index.html?isData=1&lang=${TOOL_countryCode}`,
-        content: `#年中巅峰家族#我的家族火箭升级至Lv.${
-          taskInfos.curIdx + 1
-        }，我们家族即将遨游太空。”查看详情>>`,
-      },
-      "POST"
-    );
-    const _key = data["code"];
-    const messages = {
-      401: TOOL_TEXT[608], // coming
-      402: TOOL_TEXT[609], // end
-      403: TOOL_TEXT[92], // 次数不足
-      420: "", // 长度不符合
-      504: TOOL_TEXT[92], // 次数已达上线
-      default: TOOL_TEXT[627], // 网络异常
-    };
-    const message = messages[_key] || messages.default;
-    taskInfos.showSaveDialog = false;
-    if (_key == 200) {
-      // 成功 刷新页面
-      TOOL_toast({ text: TOOL_TEXT[94] });
-    } else {
-      TOOL_toast({ text: message });
+    try {
+      const res = await TOOL_httpClient({
+        url: url,
+        method: "post",
+        params: {
+          activityId: 10600,
+          imgFids: [fid],
+          link: `https://activity-h5${
+            ENV === "build" ? "" : "-test"
+          }.yoho.media/act_v_${
+            ossUrl.split("/")?.[4]
+          }/index.html?isData=1&lang=${TOOL_countryCode}`,
+          content: `#年中巅峰家族#我的家族火箭升级至Lv.${
+            taskInfos.curIdx + 1
+          }，我们家族即将遨游太空。”查看详情>>`,
+        },
+      });
+      const { data, errorCode } = res.data;
+      if (errorCode != 0) throw res;
+      const _key = data["code"];
+      const messages = {
+        401: TOOL_TEXT[608], // coming
+        402: TOOL_TEXT[609], // end
+        403: TOOL_TEXT[92], // 次数不足
+        420: "", // 长度不符合
+        504: TOOL_TEXT[92], // 次数已达上线
+        default: TOOL_TEXT[627], // 网络异常
+      };
+      const message = messages[_key] || messages.default;
+      taskInfos.showSaveDialog = false;
+      if (_key == 200) {
+        // 成功 刷新页面
+        TOOL_toast({ text: TOOL_TEXT[94] });
+      } else {
+        TOOL_toast({ text: message });
+      }
+    } catch (error) {
+      // 错误处理
     }
   }
 };

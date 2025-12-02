@@ -170,15 +170,25 @@ const exchange = (item, idx) => {
   toExchange();
 };
 
-import useApi from "@hooks/useApi";
 const getInfo = async () => {
   TOOL_loading();
   const url = "/api/activity/commonBusiness/exchangeInfo";
-  const data = await useApi(url, {
-    activityId,
-  });
-  Object.assign(pageInfo, data);
-  TOOL_loading(false);
+  try {
+    const res = await TOOL_httpClient({
+      url: url,
+      method: "get",
+      params: {
+        activityId,
+      },
+    });
+    const { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
+    Object.assign(pageInfo, data);
+  } catch (error) {
+    // 错误处理
+  } finally {
+    TOOL_loading(false);
+  }
 };
 
 getInfo();
@@ -192,31 +202,41 @@ const toExchange = async () => {
     activityId +
     "&index=" +
     pageInfo.actIdx;
-  const data = await useApi(url, {}, "POST");
-  TOOL_loading(false);
+  try {
+    const res = await TOOL_httpClient({
+      url: url,
+      method: "post",
+    });
+    const { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
 
-  const _key = data["code"];
-  const messages = {
-    200: TOOL_TEXT[626], // 兑换成功
-    401: TOOL_TEXT[608], // coming
-    402: TOOL_TEXT[609], // end
-    403: TOOL_TEXT[623], // 积分不足
-    420: "", // 长度不符合
-    461: TOOL_TEXT[624], // 库存为0
-    462: TOOL_TEXT[628]
-      ?.replace("%s", pageInfo.actItem?.privateStock)
-      ?.replace("s%", pageInfo.actItem?.privateStock),
-    default: TOOL_TEXT[627], // 网络异常
-  };
-  const message = messages[_key] || messages.default;
-  if (_key == 200) {
-    TOOL_toast({ text: message });
-    // 成功 刷新页面
-    getInfo();
-    // 通知父组件兑换成功，让父组件也刷新数据
-    emit("exchangeSuccess");
-  } else {
-    TOOL_toast({ text: message });
+    const _key = data["code"];
+    const messages = {
+      200: TOOL_TEXT[626], // 兑换成功
+      401: TOOL_TEXT[608], // coming
+      402: TOOL_TEXT[609], // end
+      403: TOOL_TEXT[623], // 积分不足
+      420: "", // 长度不符合
+      461: TOOL_TEXT[624], // 库存为0
+      462: TOOL_TEXT[628]
+        ?.replace("%s", pageInfo.actItem?.privateStock)
+        ?.replace("s%", pageInfo.actItem?.privateStock),
+      default: TOOL_TEXT[627], // 网络异常
+    };
+    const message = messages[_key] || messages.default;
+    if (_key == 200) {
+      TOOL_toast({ text: message });
+      // 成功 刷新页面
+      getInfo();
+      // 通知父组件兑换成功，让父组件也刷新数据
+      emit("exchangeSuccess");
+    } else {
+      TOOL_toast({ text: message });
+    }
+  } catch (error) {
+    // 错误处理
+  } finally {
+    TOOL_loading(false);
   }
 };
 

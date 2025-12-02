@@ -158,7 +158,6 @@
 <script lang="ts" setup name="DrawStatusDialog">
 import injectTool from "@publicComponents/injectTool";
 import { toAppUrl } from "@publicComponents/shared";
-import useApi from "@hooks/useApi";
 
 const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT } = injectTool();
 const ossUrl = inject("ossUrl");

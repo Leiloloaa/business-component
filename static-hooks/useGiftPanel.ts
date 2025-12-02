@@ -14,7 +14,6 @@
 import { inject } from "vue";
 import injectTool from "@publicComponents/injectTool";
 import { toAppUrl, isLiveBanner, getRoomList } from "@publicComponents/shared";
-import useApi from "@hooks/useApi";
 
 interface LiveRoomInfo {
   uid: string;
@@ -24,7 +23,7 @@ interface LiveRoomInfo {
 
 export default function useGiftPanel() {
   const activityId = inject<any>("activityId");
-  const { TOOL_loading, TOOL_BPFunc } = injectTool();
+  const { TOOL_loading, TOOL_BPFunc, TOOL_httpClient } = injectTool();
 
   // 常量：默认埋点文案
   const DEFAULT_BP_DESC = "Send_gift_button_click";
@@ -35,7 +34,13 @@ export default function useGiftPanel() {
   const getRoomInfo = async (): Promise<LiveRoomInfo | undefined> => {
     const url = "/api/activity/commonBusiness/liveRecommendRooms";
     try {
-      const data: any = await useApi(url, { count: 1, activityId });
+      const res = await TOOL_httpClient({
+        url: url,
+        method: 'get',
+        params: { count: 1, activityId }
+      });
+      const { data, errorCode } = res.data;
+      if (errorCode != 0) throw res;
       return data?.liveRecommendsList?.[0];
     } catch (error) {
       // 记录错误但不抛出，避免影响主流程

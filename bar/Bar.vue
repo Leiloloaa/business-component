@@ -39,7 +39,7 @@
                 nameW: 1.22, // 奖励名称宽度
                 nameH: 0.32, // 奖励名称高度
                 useOutline: false, // 外边框
-                outline: `0.05rem #090F07`
+                outline: `0.05rem #090F07`,
               }"
             />
           </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script lang="ts" setup name="puzzleTask">
-import injectTool from '@publicComponents/injectTool'
+import injectTool from "@publicComponents/injectTool";
 
 const {
   TOOL_toast,
@@ -66,127 +66,138 @@ const {
   TOOL_countryCode,
   TOOL_TEXT,
   TOOL_loading,
-  TOOL_NUM
-} = injectTool()
+  TOOL_NUM,
+} = injectTool();
 
-const groupInfo: any = inject('groupInfo')
+const groupInfo: any = inject("groupInfo");
 
 const statusMap = {
   1: 67, // 未领取
   2: 83, // 已领取
   3: 68, // 未完成
   4: 83, // 已完成
-  5: 66 // 已失效
-}
+  5: 66, // 已失效
+};
 
-const rewardList = ref([])
-import useApi from '@hooks/useApi'
+const rewardList = ref([]);
 const obtainReward = async (item, idx) => {
-  if (item.status != 1) return
+  if (item.status != 1) return;
 
-  TOOL_BPFunc({ desc: 'open_button_click', action: 'click' })
-  TOOL_loading()
-  const url = '/api/activity/anniversaryGameCarnival2025/winMasterReward?index=' + Number(idx + 1)
-  const data = await useApi(url)
-  TOOL_loading(false)
+  TOOL_BPFunc({ desc: "open_button_click", action: "click" });
+  TOOL_loading();
+  const url =
+    "/api/activity/anniversaryGameCarnival2025/winMasterReward?index=" +
+    Number(idx + 1);
+  try {
+    const res = await TOOL_httpClient({
+      url: url,
+      method: "get",
+    });
+    const { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
 
-  const _key = data['code']
-  const messages = {
-    401: TOOL_TEXT[608], // coming
-    402: TOOL_TEXT[609], // end
-    403: TOOL_TEXT[627], // 次数不足
-    420: '', // 长度不符合
-    504: TOOL_TEXT[627], // 次数已达上线
-    default: TOOL_TEXT[627] // 网络异常
+    const _key = data["code"];
+    const messages = {
+      401: TOOL_TEXT[608], // coming
+      402: TOOL_TEXT[609], // end
+      403: TOOL_TEXT[627], // 次数不足
+      420: "", // 长度不符合
+      504: TOOL_TEXT[627], // 次数已达上线
+      default: TOOL_TEXT[627], // 网络异常
+    };
+    const message = messages[_key] || messages.default;
+    if (_key == 200) {
+      // 成功 刷新页面
+      // getInfo()
+      // TOOL_toast({ text: TOOL_TEXT[60] })
+      rewardList.value = data.reward?.packageSpecificRewards;
+      // showMicoDialog.value = true
+      groupInfo.getInfo();
+    } else {
+      TOOL_toast({ text: message });
+    }
+  } catch (error) {
+    // 错误处理
+  } finally {
+    TOOL_loading(false);
   }
-  const message = messages[_key] || messages.default
-  if (_key == 200) {
-    // 成功 刷新页面
-    // getInfo()
-    // TOOL_toast({ text: TOOL_TEXT[60] })
-    rewardList.value = data.reward?.packageSpecificRewards
-    // showMicoDialog.value = true
-    groupInfo.getInfo()
-  } else {
-    TOOL_toast({ text: message })
-  }
-}
+};
 
 const taskList = computed(() => {
-  const isReverse = false // 是否倒序显示
-  console.log('groupInfo.tasks===', groupInfo.tasks)
-  const data = unref(groupInfo.tasks)
+  const isReverse = false; // 是否倒序显示
+  console.log("groupInfo.tasks===", groupInfo.tasks);
+  const data = unref(groupInfo.tasks);
   if (Array.isArray(data)) {
-    return isReverse ? [...data]?.reverse() : data
+    return isReverse ? [...data]?.reverse() : data;
   } else {
-    return []
+    return [];
   }
-})
+});
 
 const currentLevel = computed(() => {
-  let list = taskList.value
-  let listLength = Number(list?.length) || 0
+  let list = taskList.value;
+  let listLength = Number(list?.length) || 0;
 
-  let curLv = 0
+  let curLv = 0;
   list?.forEach((item, index) => {
-    if (item.progress >= item.required && curLv + 1 <= listLength) curLv++
-  })
-  console.log('当前进行等级==', curLv)
-  return curLv
-})
+    if (item.progress >= item.required && curLv + 1 <= listLength) curLv++;
+  });
+  console.log("当前进行等级==", curLv);
+  return curLv;
+});
 
 const barLength = computed(() => {
   //type 1: 分段计算 第一段是长度特殊设置, 后续段均等分
   //type 2: 分段计算 所有等级均等分
-  let totalLen = 11.42 // 进度条总长度
-  let len1 = 0.48 // 第一段长度
-  let type = 1
-  let list = taskList.value
-  let listLength = Number(list?.length) || 0
+  let totalLen = 11.42; // 进度条总长度
+  let len1 = 0.48; // 第一段长度
+  let type = 1;
+  let list = taskList.value;
+  let listLength = Number(list?.length) || 0;
 
-  let currentIndex = currentLevel.value
+  let currentIndex = currentLevel.value;
 
   // 平均长度
   let avgLen = Number(
     type == 1 ? (totalLen - len1) / (listLength - 1) : totalLen / listLength
-  ).toFixed(5)
+  ).toFixed(5);
   // 实际长度
-  let resLen = 0
+  let resLen = 0;
   list?.forEach((item, index) => {
-    let percent = Number(((item?.progress / item?.required) * 100).toFixed(5))
-    let realLen = Number(index == 0 && type == 1 ? len1 : avgLen)
-    let lvLen = Number(((percent * realLen) / 100).toFixed(5))
-    if (index <= currentIndex) resLen += lvLen
+    let percent = Number(((item?.progress / item?.required) * 100).toFixed(5));
+    let realLen = Number(index == 0 && type == 1 ? len1 : avgLen);
+    let lvLen = Number(((percent * realLen) / 100).toFixed(5));
+    if (index <= currentIndex) resLen += lvLen;
     console.log(
-      'type ==',
+      "type ==",
       type,
-      'avgLen ==',
+      "avgLen ==",
       avgLen,
-      'progress=',
+      "progress=",
       item?.progress,
-      'required=',
+      "required=",
       item?.required,
-      'index==',
+      "index==",
       index,
-      'currentIndex==',
+      "currentIndex==",
       currentIndex,
-      'index<=currentIndex',
+      "index<=currentIndex",
       index <= currentIndex,
-      index <= currentIndex ? '[加上此长度]' : '[不加此长度]',
-      'percent=',
+      index <= currentIndex ? "[加上此长度]" : "[不加此长度]",
+      "percent=",
       percent,
-      '%',
-      '*',
+      "%",
+      "*",
       realLen,
-      '=',
+      "=",
       lvLen,
-      '结果resLen',
+      "结果resLen",
       resLen
-    )
-  })
-  console.log('resLen', resLen)
-  return resLen + 'rem'
-})
+    );
+  });
+  console.log("resLen", resLen);
+  return resLen + "rem";
+});
 </script>
 
 <style lang="scss" scoped>
@@ -222,7 +233,12 @@ const barLength = computed(() => {
         width: 0.32rem;
 
         border-radius: 0.8rem;
-        background: linear-gradient(270deg, #f86aff 0%, #df00be 50%, #ff3ed5 100%);
+        background: linear-gradient(
+          270deg,
+          #f86aff 0%,
+          #df00be 50%,
+          #ff3ed5 100%
+        );
         position: relative;
       }
     }
@@ -271,7 +287,7 @@ const barLength = computed(() => {
           .text-1 {
             margin-top: 0.27rem;
             color: #faf0ff;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.26rem;
             font-style: normal;
             font-weight: 700;
@@ -280,7 +296,7 @@ const barLength = computed(() => {
           .text-2 {
             margin-top: 0.08rem;
             color: #cd8bff;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.24rem;
             font-style: normal;
             font-weight: 400;
@@ -289,7 +305,7 @@ const barLength = computed(() => {
           .text-3 {
             margin-top: 0.04rem;
             color: #fff760;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.24rem;
             font-style: normal;
             font-weight: 400;
@@ -327,7 +343,7 @@ const barLength = computed(() => {
               text-align: center;
               -webkit-text-stroke-width: 2px;
               -webkit-text-stroke-color: #464646;
-              font-family: 'SF UI Text';
+              font-family: "SF UI Text";
               font-size: 0.26rem;
               font-style: normal;
               font-weight: 700;
@@ -340,7 +356,7 @@ const barLength = computed(() => {
                 text-align: center;
                 -webkit-text-stroke-width: 2px;
                 -webkit-text-stroke-color: #fff48f;
-                font-family: 'SF UI Text';
+                font-family: "SF UI Text";
                 font-size: 0.26rem;
                 font-style: normal;
                 font-weight: 700;
@@ -358,7 +374,7 @@ const barLength = computed(() => {
 
             color: #faf0ff;
             text-align: center;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.24rem;
             font-style: normal;
             font-weight: 600;
@@ -387,7 +403,7 @@ const barLength = computed(() => {
 
           span {
             color: #fff;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.24rem;
             font-style: normal;
             font-weight: 400;
@@ -399,7 +415,7 @@ const barLength = computed(() => {
       .span3 {
         margin-top: 0.08rem;
         color: #ac3fff;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.22rem;
         font-style: normal;
         font-weight: 600;
@@ -429,7 +445,7 @@ const barLength = computed(() => {
         z-index: 2;
 
         color: #faf0ff;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.15rem;
         font-style: normal;
         font-weight: 500;

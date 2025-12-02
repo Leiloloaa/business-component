@@ -25,7 +25,6 @@
 import { defineAsyncComponent, ref, watch } from "vue";
 import injectTool from "@publicComponents/injectTool";
 import { toAppUrl } from "@publicComponents/shared";
-import useApi from "@hooks/useApi";
 
 const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool();
 const ossUrl = inject("ossUrl");

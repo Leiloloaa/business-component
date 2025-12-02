@@ -36,7 +36,6 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import useApi from '@hooks/useApi'
 import DialogStatus from './DialogStatus.vue'
 import MICOReward from './MICOReward.vue'
 
@@ -57,21 +56,41 @@ const pageInfo = reactive({
 
 const confirm = async (info) => {
   TOOL_loading()
-  if (pageInfo.popType == 1) {
-    // 勾选下次不在提示弹框
-    const url = `/api/activity/commonBusiness/popUp?activityId=${activityId}&notTips=${info.isSelect}`
-    const data = await useApi(url, {})
-    toDraw(pageInfo.times)
+  try {
+    if (pageInfo.popType == 1) {
+      // 勾选下次不在提示弹框
+      const url = `/api/activity/commonBusiness/popUp?activityId=${activityId}&notTips=${info.isSelect}`
+      const res = await TOOL_httpClient({
+        url: url,
+        method: 'get'
+      })
+      const { data, errorCode } = res.data
+      if (errorCode != 0) throw res
+      toDraw(pageInfo.times)
+    }
+    pageInfo.showDialogStatus = false
+  } catch (error) {
+    // 错误处理
+  } finally {
+    TOOL_loading(false)
   }
-  pageInfo.showDialogStatus = false
-  TOOL_loading(false)
 }
 
 // 是否弹出确认弹框
 const popType1 = async () => {
   const url = `/api/activity/commonBusiness/popUp?activityId=${activityId}&notTips=false`
-  const data = await useApi(url, {})
-  return data.isFirst
+  try {
+    const res = await TOOL_httpClient({
+      url: url,
+      method: 'get'
+    })
+    const { data, errorCode } = res.data
+    if (errorCode != 0) throw res
+    return data.isFirst
+  } catch (error) {
+    // 错误处理
+    return false
+  }
 }
 
 const toDraw = async (times = 1) => {
@@ -102,17 +121,19 @@ const toDraw = async (times = 1) => {
   TOOL_loading()
   const url =
     '/api/activity/trVictoryDay/lottery?count=' + times + '&number=' + Number(groupInfo.curIdx + 1)
-  const data = await useApi(
-    url,
-    {
-      count: times,
-      number: Number(groupInfo.curIdx + 1)
-    },
-    'POST'
-  )
-  TOOL_loading(false)
+  try {
+    const res = await TOOL_httpClient({
+      url: url,
+      method: 'post',
+      params: {
+        count: times,
+        number: Number(groupInfo.curIdx + 1)
+      }
+    })
+    const { data, errorCode } = res.data
+    if (errorCode != 0) throw res
 
-  const _key = data['code']
+    const _key = data['code']
   const messages = {
     401: TOOL_TEXT[608], // coming
     402: TOOL_TEXT[609], // end
@@ -121,19 +142,24 @@ const toDraw = async (times = 1) => {
     504: TOOL_TEXT[84], // 次数已达上线
     default: TOOL_TEXT[627] // 网络异常
   }
-  const message = messages[_key] || messages.default
-  if (_key == 200) {
-    pageInfo.rewardList = data.data
-    pageInfo.popType = 2
-    pageInfo.showDialogStatus = true
-  } else {
-    TOOL_toast({ text: message })
-  }
+    const message = messages[_key] || messages.default
+    if (_key == 200) {
+      pageInfo.rewardList = data.data
+      pageInfo.popType = 2
+      pageInfo.showDialogStatus = true
+    } else {
+      TOOL_toast({ text: message })
+    }
 
-  // 刷新页面
-  TOOL_loading()
-  await groupInfo.getInfo()
-  TOOL_loading(false)
+    // 刷新页面
+    TOOL_loading()
+    await groupInfo.getInfo()
+    TOOL_loading(false)
+  } catch (error) {
+    // 错误处理
+  } finally {
+    TOOL_loading(false)
+  }
 }
 </script>
 

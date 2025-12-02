@@ -120,7 +120,6 @@
 <script lang="ts" setup name="TaskList">
 import injectTool from "@publicComponents/injectTool";
 import { toAppUrl, isLiveBanner, getRoomList } from "@publicComponents/shared";
-import useApi from "@hooks/useApi";
 import Progress from "./Progress.vue";
 
 const props = defineProps({
@@ -139,6 +138,7 @@ const {
   TOOL_countryCode,
   TOOL_toast,
   TOOL_NUM,
+  TOOL_httpClient,
 } = injectTool();
 const activityId = inject("activityId");
 
@@ -218,14 +218,24 @@ const toFinish = (idx, status) => {
 const getReward = (idx) => {
   TOOL_BPFunc({ desc: "Newbie Receive_click", action: "click" });
   return async () => {
-    const data = await useApi("/api/activity/missionImpossible/receiveReward", {
-      type: props?.type,
-      index: idx,
-    });
-    if (data.code === 200) {
-      close();
-      // 领取成功
-      TOOL_toast({ text: TOOL_TEXT[64] });
+    try {
+      const res = await TOOL_httpClient({
+        url: "/api/activity/missionImpossible/receiveReward",
+        method: 'get',
+        params: {
+          type: props?.type,
+          index: idx,
+        }
+      });
+      const { data, errorCode } = res.data;
+      if (errorCode != 0) throw res;
+      if (data.code === 200) {
+        close();
+        // 领取成功
+        TOOL_toast({ text: TOOL_TEXT[64] });
+      }
+    } catch (error) {
+      // 错误处理
     }
   };
 };
@@ -234,11 +244,18 @@ const getReward = (idx) => {
 const getJumpLivingUid = async () => {
   TOOL_loading();
   try {
-    const data = await useApi("/api/activity/commonBusiness/jumpLiveRoom", {
-      activityId,
+    const res = await TOOL_httpClient({
+      url: "/api/activity/commonBusiness/jumpLiveRoom",
+      method: 'get',
+      params: {
+        activityId,
+      }
     });
+    const { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
     toAppUrl("live", { uid: data?.userInfo?.uid, roomId: data?.roomId });
   } catch (error) {
+    // 错误处理
   } finally {
     TOOL_loading(false);
   }
