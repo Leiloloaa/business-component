@@ -1,6 +1,6 @@
 {
-  "name": "RouterTab",
-  "path": "RouterTab/RouterTab.vue",
+  "name": "TabRouter",
+  "path": "TabRouter/TabRouter.vue",
   "displayName": "路由按钮组件",
   "category": "static-common",
   "description": "路由按钮组件，用于展示路由按钮"
