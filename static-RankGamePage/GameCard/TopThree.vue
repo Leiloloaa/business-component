@@ -68,8 +68,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../../Static/Tool/tool'
-import OptA from '../../Static/OptA.vue'
+import { cssFormat } from "@publicComponents/shared";
 import GameTop3 from '../GameTop3.vue'
 
 const ossUrl = inject('ossUrl')
@@ -81,83 +80,83 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a1',
-        styles: css`
+        styles: cssFormat`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a2',
-        styles: css`
+        styles: cssFormat`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a3',
-        styles: css`
+        styles: cssFormat`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   }

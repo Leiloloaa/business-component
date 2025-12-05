@@ -60,8 +60,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../Static/OptA.vue'
-import { css } from '../../Static/Tool/tool'
+import { cssFormat } from "@publicComponents/shared";
 
 const imgUrl = inject('imgUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT, TOOL_BPFunc } = injectTool()
@@ -84,120 +83,120 @@ const showToast = (info) => {
 
 const option = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 3.251rem;
       height: 3.251rem;
     `,
     adorns: [
       {
         img: 'fa-a1',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.7rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 3.251rem;
       height: 3.251rem;
     `,
     adorns: [
       {
         img: 'fa-a2',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.7rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 3.251rem;
       height: 3.251rem;
     `,
     adorns: [
       {
         img: 'fa-a3',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.7rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: css`
+    styles: cssFormat`
       width: 0.98rem;
       height: 0.98rem;
     `,
     adorns: [
       {
         img: 'fa-a',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.72rem;
       height: 0.72rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   }

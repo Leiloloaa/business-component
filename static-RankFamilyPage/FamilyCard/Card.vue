@@ -125,8 +125,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../Static/OptA.vue'
-import { css } from '../Static/Tool/tool'
+import { cssFormat } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{
@@ -183,149 +182,149 @@ const option = computed(() => {
 
 const optionList = {
   option1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a1',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   option2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a2',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   option3: {
-    styles: css`
+    styles: cssFormat`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a3',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   option: {
-    styles: css`
+    styles: cssFormat`
       width: 1.48rem;
       height: 1.48rem;
     `,
     adorns: [
       {
         img: 'f-a',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
       border-radius: 0.35rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: css`
+    styles: cssFormat`
       width: 0.98rem;
       height: 0.98rem;
     `,
     adorns: [
       {
         img: 'f-small-a',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.72rem;
       height: 0.72rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.29rem;
     `
   }

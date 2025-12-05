@@ -30,7 +30,7 @@
               <OptA
                 :data="info.list?.[item]?.extraInfos?.[tp - 1] || {}"
                 :option="{
-                  styles: css`
+                  styles: cssFormat`
                     width: 0.72105rem;
                     height: 0.70713rem;
                   `,
@@ -40,7 +40,7 @@
                       styles: `width: 100%; height:100%;`
                     }
                   ],
-                  avatar: css`
+                  avatar: cssFormat`
                     width: 0.58947rem;
                     height: 0.58947rem;
                     border-radius: 50%;
@@ -66,8 +66,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../../Static/Tool/tool'
-import OptA from '../../Static/OptA.vue'
+import { cssFormat } from "@publicComponents/shared";
 import SuperposeAvatar from './SuperposeAvatar.vue'
 import DialogRank from './DialogRank/DialogRank.vue';
 
@@ -80,86 +79,86 @@ const showSubRankDialog = ref(false)
 
 const optionList = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 2.6rem;
       height: 2.29rem;
     `,
     adorns: [
       {
         img: 'm-g-a1',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 2.6rem;
       height: 2.29rem;
     `,
     adorns: [
       {
         img: 'm-g-a2',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 2.6rem;
       height: 2.29rem;
     `,
     adorns: [
       {
         img: 'm-g-a3',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   }

@@ -52,7 +52,7 @@
             <OptA
               :data="info?.extraInfos?.[tp - 1] || {}"
               :option="{
-                styles: css`
+                styles: cssFormat`
                   width: 0.72105rem;
                   height: 0.70713rem;
                 `,
@@ -62,7 +62,7 @@
                     styles: `width: 100%; height:100%;`,
                   },
                 ],
-                avatar: css`
+                avatar: cssFormat`
                   width: 0.58947rem;
                   height: 0.58947rem;
                   border-radius: 50%;
@@ -92,8 +92,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import { css } from "../../Static/Tool/tool";
-import OptA from "../Static/OptA.vue";
+import { cssFormat } from "@publicComponents/shared";
 import SuperposeAvatar from "./SuperposeAvatar.vue";
 import DialogRank from "./DialogRank/DialogRank.vue";
 
@@ -110,117 +109,117 @@ const props = withDefaults(
   { isUser: false, isDailyRank: true }
 );
 
-// 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
+// 可以直接粘贴 CSS 代码，使用 cssFormat`...` 模板字符串自动转换
 const optionList = {
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.4rem;
       height: 1.23rem;
     `,
     adorns: [
       {
         img: "m-g-a1",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.7568rem;
       height: 0.7568rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.4rem;
       height: 1.23rem;
     `,
     adorns: [
       {
         img: "m-g-a2",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.7568rem;
       height: 0.7568rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   3: {
-    styles: css`
+    styles: cssFormat`
       width: 1.4rem;
       height: 1.23rem;
     `,
     adorns: [
       {
         img: "m-g-a3",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.7568rem;
       height: 0.7568rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 0.99949rem;
       height: 0.96rem;
     `,
     adorns: [
       {
         img: "m-g-a",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.7568rem;
       height: 0.7568rem;
       border-radius: unset;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },

@@ -141,8 +141,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import OptA from '../../Static/OptA.vue'
-import { css } from '../../Static/Tool/tool'
+import { cssFormat } from "@publicComponents/shared";
 
 const imgUrl = inject('imgUrl')
 const ossUrl = inject('ossUrl')
@@ -163,7 +162,7 @@ const getCpType = (gender1, gender2) => {
 
 const option = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 2.11875rem;
       height: 2.1375rem;
       flex-shrink: 0;
@@ -171,28 +170,28 @@ const option = {
     adorns: [
       {
         img: 'a1',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.5rem;
       height: 1.5rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.80094rem;
       height: 1.81688rem;
       flex-shrink: 0;
@@ -200,28 +199,28 @@ const option = {
     adorns: [
       {
         img: 'a2',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.275rem;
       height: 1.275rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.80094rem;
       height: 1.81688rem;
       flex-shrink: 0;
@@ -229,23 +228,23 @@ const option = {
     adorns: [
       {
         img: 'a3',
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.275rem;
       height: 1.275rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   }

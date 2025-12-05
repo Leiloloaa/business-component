@@ -11,14 +11,14 @@
       <OptA
         :data="info || {}"
         :option="{
-          styles: css`
+          styles: cssFormat`
             width: 0.88rem;
             height: 0.8448rem;
           `,
           adorns: [
             {
               img: 'm-g-a',
-              styles: css`
+              styles: cssFormat`
                 width: 0.88rem;
                 height: 0.8448rem;
                 flex-shrink: 0;
@@ -26,7 +26,7 @@
               `
             }
           ],
-          avatar: css`
+          avatar: cssFormat`
             width: 0.7568rem;
             height: 0.7568rem;
           `,
@@ -90,8 +90,7 @@
 <script lang="ts" setup name="DialogRank">
 import injectTool from '@publicComponents/injectTool'
 import RankLoad from '../../../Static/RankLoad.vue'
-import { css } from '../../../Static/Tool/tool'
-import OptA from '../../../Static/OptA.vue'
+import { cssFormat } from "@publicComponents/shared";
 
 import DialogCard from './DialogCard.vue'
 import UserInfo from './UserInfo.vue'

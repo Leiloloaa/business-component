@@ -62,7 +62,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../../Static/Tool/tool'
+import { cssFormat } from "@publicComponents/shared";
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
@@ -73,7 +73,7 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 2.26rem;
       height: 2.28rem;
       flex-shrink: 0;
@@ -81,28 +81,28 @@ const optionList = {
     adorns: [
       {
         img: 'a1',
-        styles: css`
+        styles: cssFormat`
           width: 2.26rem;
           height: 2.28rem;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.6rem;
       height: 1.6rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.9775rem;
       height: 1.995rem;
       flex-shrink: 0;
@@ -110,28 +110,28 @@ const optionList = {
     adorns: [
       {
         img: 'a2',
-        styles: css`
+        styles: cssFormat`
           width: 1.9775rem;
           height: 1.995rem;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.4rem;
       height: 1.4rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.9775rem;
       height: 1.995rem;
       flex-shrink: 0;
@@ -139,23 +139,23 @@ const optionList = {
     adorns: [
       {
         img: 'a3',
-        styles: css`
+        styles: cssFormat`
           width: 1.9775rem;
           height: 1.995rem;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.4rem;
       height: 1.4rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `
   }

@@ -143,7 +143,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import { css } from "../../Static/Tool/tool";
+import { cssFormat } from "@publicComponents/shared";
 const router = useRouter();
 console.log(router.currentRoute.value.name);
 const props = withDefaults(
@@ -166,39 +166,39 @@ const config = {
 };
 
 // 2. 使用对象形式存储样式配置
-// 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
+// 可以直接粘贴 CSS 代码，使用 cssFormat`...` 模板字符串自动转换
 const optionList = {
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.6rem;
       height: 1.15rem;
     `,
     adorns: [
       {
         img: "a1",
-        styles: css`
+        styles: cssFormat`
           width: 1.6rem;
           height: 1.15rem;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.55375rem;
       height: 1.5675rem;
       flex-shrink: 0;
@@ -206,28 +206,28 @@ const optionList = {
     adorns: [
       {
         img: "a2",
-        styles: css`
+        styles: cssFormat`
           width: 1.55375rem;
           height: 1.5675rem;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   3: {
-    styles: css`
+    styles: cssFormat`
       width: 1.55375rem;
       height: 1.5675rem;
       flex-shrink: 0;
@@ -235,28 +235,28 @@ const optionList = {
     adorns: [
       {
         img: "a3",
-        styles: css`
+        styles: cssFormat`
           width: 1.55375rem;
           height: 1.5675rem;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 1.55375rem;
       height: 1.5675rem;
       flex-shrink: 0;
@@ -264,23 +264,23 @@ const optionList = {
     adorns: [
       {
         img: "a",
-        styles: css`
+        styles: cssFormat`
           width: 1.55375rem;
           height: 1.5675rem;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1.1rem;
       height: 1.1rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },

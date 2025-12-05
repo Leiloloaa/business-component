@@ -33,8 +33,7 @@
 
 <script lang="ts" setup>
 import injectTool from "@publicComponents/injectTool";
-import OptA from "../static-common/OptA.vue";
-import { css } from "../static-common/tool";
+import { cssFormat } from "@publicComponents/shared";
 
 const activityId = inject("activityId");
 const ossUrl = inject("ossUrl");
@@ -51,25 +50,25 @@ const props = defineProps({
 const danmuRef = ref(null);
 
 const option0 = {
-  styles: css`
+  styles: cssFormat`
     width: 1.22rem;
     height: 1.22rem;
   `,
   adorns: [
     {
       img: "a",
-      styles: css`
+      styles: cssFormat`
         width: 100%;
         height: 100%;
       `,
     },
   ],
-  avatar: css`
+  avatar: cssFormat`
     top: 0.12rem;
     width: 0.9rem;
     height: 0.9rem;
   `,
-  live: css`
+  live: cssFormat`
     display: none;
   `,
 };

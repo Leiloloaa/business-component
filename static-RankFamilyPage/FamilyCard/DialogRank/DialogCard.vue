@@ -60,8 +60,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import OptA from "../../Static/OptA.vue";
-import { css } from "../../Static/Tool/tool";
+import { cssFormat } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{
@@ -91,31 +90,31 @@ const isDaily = computed(() => {
 });
 
 const option = {
-  styles: css`
+  styles: cssFormat`
     width: 0.79rem;
     height: 0.88rem;
   `,
   adorns: [
     {
       img: "f-a",
-      styles: css`
+      styles: cssFormat`
         width: 100%;
         height: 100%;
       `,
     },
   ],
-  avatar: css`
+  avatar: cssFormat`
     width: 0.55rem;
     height: 0.55rem;
     border-radius: 0.15rem;
   `,
-  live: css`
+  live: cssFormat`
     width: 0.36rem;
     height: 0.24rem;
     bottom: 0.05rem;
     display: none;
   `,
-  liveIcon: css`
+  liveIcon: cssFormat`
     width: 0.29rem;
   `,
 };

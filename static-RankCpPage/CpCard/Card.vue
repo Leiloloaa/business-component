@@ -142,8 +142,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import OptA from "../../Static/OptA.vue";
-import { css } from "../../Static/Tool/tool";
+import { cssFormat } from "@publicComponents/shared";
 
 const getRew = inject("getRew");
 const imgUrl = inject("imgUrl");
@@ -194,7 +193,7 @@ const cpReward = computed(() => {
 
 const optionList = {
   0: {
-    styles: css`
+    styles: cssFormat`
       width: 1.425rem;
       height: 1.425rem;
       flex-shrink: 0;
@@ -202,29 +201,29 @@ const optionList = {
     adorns: [
       {
         img: "a",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 1rem;
       height: 1rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   1: {
-    styles: css`
+    styles: cssFormat`
       width: 1.39484rem;
       height: 1.40719rem;
       flex-shrink: 0;
@@ -232,28 +231,28 @@ const optionList = {
     adorns: [
       {
         img: "a1",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.9875rem;
       height: 0.9875rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   2: {
-    styles: css`
+    styles: cssFormat`
       width: 1.39484rem;
       height: 1.40719rem;
       flex-shrink: 0;
@@ -261,28 +260,28 @@ const optionList = {
     adorns: [
       {
         img: "a2",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.9875rem;
       height: 0.9875rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },
   3: {
-    styles: css`
+    styles: cssFormat`
       width: 1.39484rem;
       height: 1.40719rem;
       flex-shrink: 0;
@@ -290,23 +289,23 @@ const optionList = {
     adorns: [
       {
         img: "a3",
-        styles: css`
+        styles: cssFormat`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `,
       },
     ],
-    avatar: css`
+    avatar: cssFormat`
       width: 0.9875rem;
       height: 0.9875rem;
     `,
-    live: css`
+    live: cssFormat`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: css`
+    liveIcon: cssFormat`
       width: 0.18rem;
     `,
   },

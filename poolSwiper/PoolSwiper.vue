@@ -7,7 +7,7 @@
 -->
 <template>
   <div v-bg="`g-pool-bg`" class="pool-swiper-wrap">
-    <SwiperTemp
+    <SwiperFrame
       class="swiper-container"
       :list="list"
       :swiper-options="swiperOptions"
@@ -46,13 +46,12 @@
           />
         </div>
       </template>
-    </SwiperTemp>
+    </SwiperFrame>
   </div>
 </template>
 
 <script lang="ts" setup name="GiftSwiperFrame">
 import injectTool from "@publicComponents/injectTool";
-import SwiperTemp from "../Static/SwiperTemp.vue";
 
 const { TOOL_countryCode } = injectTool();
 

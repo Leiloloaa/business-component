@@ -7,20 +7,20 @@
     <OptA
       :data="info || {}"
       :option="{
-        styles: css`
+        styles: cssFormat`
           width: 0.88rem;
           height: 0.8448rem;
         `,
         adorns: [
           {
             img: 'm-a',
-            styles: css`
+            styles: cssFormat`
               width: 0.88rem;
               height: 0.8448rem;
             `
           }
         ],
-        avatar: css`
+        avatar: cssFormat`
           width: 0.7568rem;
           height: 0.7568rem;
           border-radius: 50%;
@@ -38,8 +38,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { css } from '../../../Static/Tool/tool'
-import OptA from '../../../Static/OptA.vue'
+import { cssFormat } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{

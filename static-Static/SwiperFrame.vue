@@ -52,7 +52,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="SwiperTemp">
+<script lang="ts" setup name="SwiperFrame">
 import injectTool from "@publicComponents/injectTool";
 import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/vue";
