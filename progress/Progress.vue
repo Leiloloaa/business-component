@@ -1,24 +1,48 @@
+<!--
+  使用示例：
+  方式一：通过 props 传入数据
+  <Progress
+    :curScore="100"
+    :reqScore="200"
+  />
+  
+  方式二：通过 inject 的 groupInfo 获取数据（如果未传 props）
+  <Progress />
+  
+  Props:
+  - curScore?: number - 当前分数，默认 0（如果未传则从 groupInfo.curScore 获取）
+  - reqScore?: number - 所需分数，默认 0（如果未传则从 groupInfo.reqScore 获取）
+  
+  说明：
+  - 显示格式：当前分数/所需分数（如：100/200）
+  - 进度条会根据 curScore/reqScore 的比例自动计算宽度
+  - 当 curScore >= reqScore 时，显示 reqScore/reqScore
+  - 自动监听窗口大小变化，重新计算进度条宽度
+-->
+
 <template>
   <div class="progress-wrap">
-    <!-- <OssImg src="g-p-desc" class="progress-desc" tag="img"></OssImg> -->
     <div class="progress" ref="progressRef">
-      <img :src="`${ossUrl}/g-p-bg.png`" alt="" class="obg" />
-
-      <div class="progress-inner">
+      <img :src="`${ossUrl}/g-progress-bg.png`" alt="" class="bg" />
+      <div class="progress-inner" ref="progressInnerRef">
         <div
           class="act"
           v-EG.self
           :style="{
-            width: barHeight
+            width: barHeight,
           }"
         ></div>
-
         <div class="score fc">
           <div style="direction: ltr">
-            <span style="color: #a65b00">{{
-              TOOL_NUM(curScore >= reqScore ? curScore : reqScore)
-            }}</span>
-            <span>/{{ TOOL_NUM(reqScore) }}</span>
+            <Outline
+              style="color: #e5ff1d"
+              :color="'0.05rem #940E0E'"
+              :text="TOOL_NUM(curScore >= reqScore ? reqScore : curScore)"
+            />
+            <Outline
+              :color="'0.05rem #940E0E'"
+              :text="'/' + TOOL_NUM(reqScore)"
+            />
           </div>
         </div>
       </div>
@@ -27,170 +51,112 @@
 </template>
 
 <script lang="ts" setup name="progress">
-import injectTool from '@publicComponents/injectTool'
-import useBar from './hooks/useBar'
+import { inject, ref, computed, onMounted, onUnmounted } from "vue";
+import injectTool from "@publicComponents/injectTool";
 
-const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool()
-const groupInfo: any = inject('groupInfo')
+const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool();
+const groupInfo: any = inject("groupInfo", {
+  curScore: 0,
+  reqScore: 0,
+});
 
-const ossUrl = inject('ossUrl')
-const progressRef: any = ref()
+const props = defineProps({
+  curScore: {
+    type: Number,
+    default: 0,
+  },
+  reqScore: {
+    type: Number,
+    default: 0,
+  },
+});
+const ossUrl = inject("ossUrl");
+const progressRef: any = ref();
+const progressInnerRef: any = ref();
 
-// status 状态 -1未开始、0已结束 、1未领取（完成了但没有手动领取）、 2已领取 、3未完成（去完成）、4已完成
+// 存储 progress-inner 的宽度（rem）
+const progressInnerWidth = ref(2); // 默认值，防止初始化时出错
 
-// 使用 useBar hook 计算进度条高度
-// type 1: 当前等级 curProgress/curRequired
-// type 2: 所有等级 curProgress/totalRequired
-// type 3: 分段计算 第一段是长度特殊设置, 后续段均等分
-// type 4: 分段计算 所有等级均等分
-const useBarResult = computed(() =>
-  useBar({
-    list: groupInfo.task?.task,
-    type: 4,
-    totalLen: OutWidth.value, // 总长度，对应 progress-inner 的宽度
-    lenStart: 0.36, // 第一段长度
-    isReverse: false
-  })
-)
+// 获取 progress-inner 的宽度（rem）
+const getProgressInnerWidth = () => {
+  if (progressInnerRef.value) {
+    const widthPx = progressInnerRef.value.offsetWidth;
+    const rootFontSize = parseFloat(
+      getComputedStyle(document.documentElement).fontSize
+    );
+    const widthRem = widthPx / rootFontSize;
+    progressInnerWidth.value = widthRem;
+  }
+};
 
 const barHeight = computed(() => {
-  return (groupInfo.curTotal / groupInfo.per) * 5.66 + 'rem'
-})
-const curStatus = computed(() => useBarResult.value.curStatus.value)
-const curScore = computed(() => useBarResult.value.curScore.value)
-const reqScore = computed(() => useBarResult.value.reqScore.value)
+  if (reqScore.value === 0) return "0rem";
+  return (curScore.value / reqScore.value) * progressInnerWidth.value + "rem";
+});
+
+const curScore = computed(() => props.curScore || groupInfo.curScore);
+const reqScore = computed(() => props.reqScore || groupInfo.reqScore);
+
+onMounted(() => {
+  getProgressInnerWidth();
+  // 监听窗口大小变化，重新计算宽度
+  window.addEventListener("resize", getProgressInnerWidth);
+});
+
+onUnmounted(() => {
+  // 清理事件监听器
+  window.removeEventListener("resize", getProgressInnerWidth);
+});
 </script>
 
 <style lang="scss" scoped>
 .progress-wrap {
-  width: auto;
+  width: 1.92rem;
   z-index: 10;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .info {
-    width: 5.82rem;
-
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .span1 {
-      color: #ff9b7a;
-      text-align: center;
-      font-family: 'SF UI Text';
-      font-size: 0.24rem;
-      font-style: normal;
-      font-weight: 300;
-      line-height: 0.3rem; /* 125% */
-    }
-
-    .span2 {
-      color: #ffdeb6;
-      text-align: center;
-      font-family: 'SF UI Text';
-      font-size: 0.24rem;
-      font-style: normal;
-      font-weight: 600;
-      line-height: 0.3rem; /* 125% */
-    }
-  }
-
-  .desc {
-    margin-top: -0.1rem;
-    display: flex;
-
-    .step {
-      position: relative;
-      .s {
-        width: 0.3rem;
-        height: 0.3rem;
-        flex-shrink: 0;
-        object-fit: contain;
-      }
-
-      .bottom {
-        position: absolute;
-        top: 0.3rem;
-        left: -0.95rem;
-
-        .img {
-          width: 0.444rem;
-          height: 0.444rem;
-          flex-shrink: 0;
-          object-fit: contain;
-          margin-right: 0.05rem;
-        }
-
-        .text {
-          min-width: 1.2rem;
-          height: 0.56rem;
-
-          span {
-            color: #e9886b;
-            text-align: center;
-            font-family: 'SF UI Text';
-            font-size: 0.24rem;
-            font-style: normal;
-            font-weight: 300;
-            line-height: 0.28rem; /* 116.667% */
-          }
-        }
-      }
-
-      &.act {
-        position: relative;
-
-        .bottom {
-          position: absolute;
-          top: 0.3rem;
-          left: -0.95rem;
-
-          .text {
-            // width: 1.7rem;
-            span {
-              color: #ffdeb6;
-              text-align: center;
-              font-family: 'SF UI Text';
-              font-size: 0.24rem;
-              font-style: normal;
-              font-weight: 300;
-              line-height: 0.28rem; /* 116.667% */
-            }
-          }
-        }
-      }
-    }
-  }
-
   .progress {
-    width: 5.82rem;
-    height: 0.73rem;
-    flex-shrink: 0;
+    width: 1.92rem;
+    height: 0.2rem;
 
-    margin-top: 0.3rem;
+    margin-top: 0.15rem;
 
     position: relative;
     display: flex;
     align-items: center;
 
+    .bg {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+    }
+
     .progress-inner {
-      width: 5.66rem;
-      height: 0.46rem;
+      width: 1.9rem;
+      height: 0.18rem;
       flex-shrink: 0;
       overflow: hidden;
       position: relative;
       border-radius: 1rem;
 
       margin: 0 auto;
-      margin-top: 0.03rem;
 
       .act {
-        height: 0.46rem;
-        border-radius: 1rem;
-        background: linear-gradient(180deg, #ff9e27 0%, #fff5cb 34.14%, #ffb233 100%);
+        height: 0.18rem;
+        border-radius: 0.4rem;
+        background: linear-gradient(
+          180deg,
+          #ffb83e 0%,
+          #a22613 52.4%,
+          #ff472a 100%
+        );
         z-index: 1;
       }
     }
@@ -201,17 +167,16 @@ const reqScore = computed(() => useBarResult.value.reqScore.value)
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -56%);
       z-index: 3;
       direction: ltr;
 
       span {
-        color: #ff5a4a;
-        font-family: 'SF UI Text';
-        font-size: 0.26rem;
+        color: #e5ff1d;
+        font-family: "SF UI Text";
+        font-size: 0.18rem;
         font-style: normal;
         font-weight: 600;
-        line-height: 0.28rem;
       }
     }
   }

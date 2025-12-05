@@ -1,119 +1,201 @@
+<!--
+  使用示例：
+  方式一：通过 API 获取数据
+  <TextDanmu
+    api="/api/activity/getDanmuList"
+    :content="TOOL_TEXT[1]"
+  />
+  
+  方式二：通过 list 传入数据
+  <TextDanmu
+    :list="[]"
+    :content="TOOL_TEXT[1]"
+  />
+  
+  Props:
+  - api?: string - API 地址，如果提供则通过接口获取数据（优先级高于 list）
+  - list?: any[] - 弹幕列表数据，数据项需包含 name 和 reward 字段
+  - content?: string - 内容模板，支持占位符：%s（用户名）、%z（奖励名称），默认 'xxx%sxxx%d'
+  - interval?: number - 切换间隔时间（毫秒），默认 2000
+-->
+
 <template>
-  <div class="marquee-wrap" v-if="obj.arr && obj.arr.length != 0">
-    <ul class="marquee-list" :class="{ 'animate-up': obj.animateUp, EG: TOOL_countryCode == 'EG' }">
-      <li v-for="item in obj.arr">
-        <div class="marquee-item fc">
-          <Rep
-            :content="TOOL_TEXT[textMap[TOOL_countryCode == 'EG' ? 'EG' : 'TR'][gameInfo.cur]]"
-            :rule="[
-              {
-                reg: '%s',
-                eg: true,
-                val: item.userInfo?.name,
-                type: 'text',
-                options: { color: '#FFE601', fontSize: 0.28, width: 0.8, y: 0.08 },
-                className: 'ov'
-              },
-              {
-                reg: '%s',
-                eg: true,
-                val: getRew(item.reward?.packageSpecificRewards?.[0])?.name,
-                type: 'text',
-                options: { color: '#FFE601', fontSize: 0.28 }
-              }
-            ]"
-          />
-        </div>
-      </li>
-    </ul>
+  <div
+    class="text-danmu-wrap"
+    v-if="danmuState.danmuList && danmuState.danmuList.length != 0"
+  >
+    <div
+      class="text-danmu-list"
+      :class="{ 'animate-up': danmuState.animateUp }"
+    >
+      <div class="text-danmu-item fc" v-for="item in danmuState.danmuList">
+        <Rep
+          :content="content"
+          :rule="[
+            {
+              reg: '%s',
+              eg: true,
+              val: item?.name,
+              type: 'text',
+              options: { color: '#FFE601', fontSize: 0.28, width: 1, y: 0.08 },
+              className: 'ov',
+            },
+            {
+              reg: '%z',
+              eg: true,
+              val: getRew(item.reward?.packageSpecificRewards?.[0])?.name,
+              type: 'text',
+              options: { color: '#FFE601', fontSize: 0.28 },
+            },
+          ]"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onUnmounted, reactive, toRefs } from 'vue'
-import injectTool from '@publicComponents/injectTool'
-import NoticeBar from '../business/NoticeBar.vue'
+import { onUnmounted, reactive, toRefs, watch, onMounted, inject } from "vue";
+import injectTool from "@publicComponents/injectTool";
 
-const { TOOL_TEXT, TOOL_httpClient, TOOL_countryCode } = injectTool()
-let obj = reactive({
-  arr: [],
-  count: 0,
-  animateUp: false
-})
-const getRew = inject('getRew')
-
-const textMap = {
-  TR: {
-    0: 133,
-    1: 132,
-    2: 131
-  },
-  EG: {
-    0: 130,
-    1: 129,
-    2: 128
+// 定义 props
+const props = withDefaults(
+  defineProps<{
+    api?: string;
+    list?: any[];
+    content?: string;
+    interval?: number; // 切换间隔时间（毫秒）
+  }>(),
+  {
+    api: "",
+    list: () => [],
+    content: "xxx%sxxx%d",
+    interval: 2000, // 默认 2 秒
   }
-}
+);
 
-const gameInfo: any = inject('gameInfo')
+const { TOOL_httpClient, TOOL_countryCode } = injectTool();
+const danmuState = reactive({
+  danmuList: [],
+  animateUp: false,
+});
+const getRew = inject("getRew");
 
-let timer: any = null
+let timer: any = null;
+const ANIMATION_DURATION = 500; // 动画持续时间（毫秒）
+
 function scrollAnimate() {
-  const { animateUp, arr } = toRefs(obj)
-  animateUp.value = true
+  const { animateUp, danmuList } = toRefs(danmuState);
+  if (danmuList.value.length === 0) return;
+
+  animateUp.value = true;
   setTimeout(() => {
-    arr.value.push(arr.value[0])
-    arr.value.shift()
-    animateUp.value = false
-  }, 500)
+    danmuList.value.push(danmuList.value[0]);
+    danmuList.value.shift();
+    animateUp.value = false;
+  }, ANIMATION_DURATION);
 }
 
-timer = setInterval(scrollAnimate, 5000)
-
-const getDanmu = async () => {
-  await TOOL_httpClient({
-    url: '/api/activity/commonBusiness/bulletScreenList',
-    method: 'GET',
-    params: {
-      activityId: 20104,
-      type: gameInfo.cur
-    }
-  })
-    .then((response) => {
-      const {
-        data: { data, errorCode }
-      } = response
-      if (errorCode != 0) throw response
-      Object.assign(obj.arr, data)
-      console.log(obj.arr)
-    })
-    .catch((error) => {
-      console.log('Requeset Api Error! =====', error)
-    })
-}
-
-watch(
-  () => gameInfo.cur,
-  async () => {
-    await getDanmu()
+// 启动定时器
+function startTimer() {
+  if (timer) {
+    clearInterval(timer);
   }
-)
+  timer = setInterval(scrollAnimate, props.interval);
+}
 
-getDanmu()
+// 停止定时器
+function stopTimer() {
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+  }
+}
+
+const appInfo = inject("appInfo") as any;
+
+// 获取弹幕数据
+const getDanmu = async () => {
+  // 如果 props.api 有值，则请求 API
+  if (props.api) {
+    await TOOL_httpClient({
+      url: props.api,
+      method: "GET",
+      params: {
+        activityId: appInfo.curId,
+      },
+    })
+      .then((response) => {
+        const {
+          data: { data, errorCode },
+        } = response;
+        if (errorCode != 0) throw response;
+        Object.assign(danmuState.danmuList, data);
+        console.log(danmuState.danmuList);
+        // 数据更新后启动定时器
+        if (danmuState.danmuList && danmuState.danmuList.length > 0) {
+          startTimer();
+        }
+      })
+      .catch((error) => {
+        console.log("Request Api Error! =====", error);
+      });
+  } else if (props.list && props.list.length > 0) {
+    // 否则使用 props.list 的值
+    Object.assign(danmuState.danmuList, props.list);
+    // 数据更新后启动定时器
+    if (danmuState.danmuList && danmuState.danmuList.length > 0) {
+      startTimer();
+    }
+  }
+};
+
+// 监听 props.list 的变化
+watch(
+  () => props.list,
+  (newList) => {
+    if (!props.api && newList && newList.length > 0) {
+      Object.assign(danmuState.danmuList, newList);
+      // 数据更新后启动定时器
+      if (danmuState.danmuList && danmuState.danmuList.length > 0) {
+        startTimer();
+      }
+    }
+  },
+  { deep: true }
+);
+
+// 监听 props.interval 的变化，重新设置定时器
+watch(
+  () => props.interval,
+  () => {
+    if (danmuState.danmuList && danmuState.danmuList.length > 0) {
+      startTimer();
+    }
+  }
+);
+
+onMounted(() => {
+  getDanmu().then(() => {
+    // 数据加载完成后启动定时器
+    if (danmuState.danmuList && danmuState.danmuList.length > 0) {
+      startTimer();
+    }
+  });
+});
 
 onUnmounted(() => {
-  clearInterval(timer)
-})
+  stopTimer();
+});
 </script>
 
 <style scoped lang="scss">
-.marquee-wrap {
-  width: 6.54rem;
-  height: 0.72rem;
-  flex-shrink: 0;
+.text-danmu-wrap {
+  width: 100%;
+  height: 100%;
+
   overflow: hidden;
   margin: 0 auto;
-  margin-top: 0.16rem;
 
   display: flex;
   align-items: center;
@@ -121,62 +203,31 @@ onUnmounted(() => {
   position: relative;
   z-index: 2;
 
-  .notice {
-    width: 0.42542rem;
-    height: 0.35119rem;
-    flex-shrink: 0;
-    object-fit: contain;
-  }
+  .text-danmu-list {
+    width: 100%;
+    height: 100%;
 
-  .marquee-list {
-    width: 6.54rem;
-    height: 0.72rem;
-    margin: 0 auto;
+    .text-danmu-item {
+      width: 100%;
+      height: 100%;
 
-    span {
-      color: #ffe89a;
-
-      text-align: center;
-      font-family: Arial;
-      font-size: 0.28rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 0.36rem; /* 128.571% */
-    }
-    li {
-      width: 6.54rem;
-      height: 0.72rem;
-      list-style: none;
-      text-align: center;
-      display: flex;
-      // justify-content: center;
-      align-items: center;
-      .marquee-item {
-        width: 6.54rem;
-        height: 0.72rem;
-        margin: 0 auto;
-        span {
-          color: #ffe89a;
-
-          text-align: center;
-          font-family: Arial;
-          font-size: 0.28rem;
-          font-style: normal;
-          font-weight: 400;
-          line-height: 0.36rem; /* 128.571% */
-        }
-      }
-    }
-
-    .EG {
       span {
-        margin-top: -0.08rem;
+        margin-top: -0.1rem;
+        color: #ffe9a8;
+        text-align: center;
+        font-family: "SF UI Text";
+        font-size: 0.26rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 0.24rem; /* 123.077% */
+        letter-spacing: -0.00805rem;
       }
     }
   }
-  .animate-up {
-    transition: all 0.6s ease-in-out;
-    transform: translateY(-30px);
-  }
+}
+
+.animate-up {
+  transition: all 0.6s ease-in-out;
+  transform: translateY(-100%);
 }
 </style>
