@@ -1,16 +1,16 @@
 <template>
-  <OssImg src="g-d-bg" class="dialog-rank">
-    <OssImg src="d-sub-title" class="title fc">
+  <div v-bg="`game-venue-d`" class="dialog-rank">
+    <!-- <div v-bg="`d-sub-title`" class="title fc">
       <span>{{ TOOL_TEXT[98] || "record" }}</span>
-    </OssImg>
+    </div> -->
     <!-- <div class="th fc">
       <span>{{ TOOL_TEXT[23] }}</span>
       <Space :val="0.46" />
       <span>{{ TOOL_TEXT[23] }}</span>
     </div> -->
     <!-- <div class="btn-list fc">
-      <OssImg
-        :src="tabType == idx ? 'g-draw-btn-act' : `g-draw-btn`"
+      <div
+        v-bg="tabType == idx ? 'g-draw-btn-act' : `g-draw-btn`"
         class="btn fc"
         :class="{ act: tabType == idx }"
         v-for="(item, idx) in 2"
@@ -21,10 +21,16 @@
           :text="TOOL_TEXT[82 + idx]"
           noColor
         />
-      </OssImg>
+      </div>
     </div> -->
-    <OssImg src="d-rank-content" class="content">
-      <div class="scroll">
+
+    <div class="content">
+      <div
+        class="scroll"
+        :class="{
+          'short-scroll': pageInfo.userInfo?.isOnTheRank,
+        }"
+      >
         <RankLoad
           :api="api"
           :apiParams="apiParams"
@@ -38,45 +44,36 @@
           </template>
           <template #empty>
             <div class="empty fcc">
+              <img :src="`${ossUrl}/empty.png`" alt="" />
               <span>{{ TOOL_TEXT[731] }}</span>
             </div>
           </template>
-          <!-- <template #userInfo="{ info }">
-          <UserInfo v-show="info.isOnTheRank" :info="info" isCardStyle />
-        </template> -->
+
+          <template #userInfo="{ info }" v-if="props.type == 'rank'">
+            <UserInfo v-if="info.isOnTheRank" :info="info" isCardStyle />
+          </template>
         </RankLoad>
       </div>
-    </OssImg>
-  </OssImg>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup name="DialogRank">
 import injectTool from "@publicComponents/injectTool";
-import RankLoad from "../Static/RankLoad.vue";
 
-// import DialogCard from './DialogCardSZ.vue'
 import DialogCard from "./DialogCardBJ.vue";
-import UserInfo from "./UserInfo.vue";
+// import DialogCard from "./DialogCardSZ.vue";
 
-const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
+const { TOOL_TEXT } = injectTool();
 const ossUrl = inject("ossUrl");
 const activityId = inject("activityId");
-const isData = inject("isData");
-
-const tabType = ref(0);
-const changeTab = (idx) => {
-  tabType.value = idx;
-};
-
 const api = computed(() => {
-  return "/api/activity/trNational2025/lotteryRecords";
+  return "/api/activity/commonBusiness/lotteryRecords";
 });
-const props = defineProps({ urlType: {} });
 const apiParams = computed(() => {
-  return Object.assign({ date: "" });
+  return Object.assign({ activityId });
 });
 
-const selDate = ref<string | number>(""); // 默认当天传 空 999 为总榜
 const pageInfo = reactive({
   list: [],
 });
@@ -87,9 +84,8 @@ const getPageInfo = (info) => {
 
 <style lang="scss" scoped>
 .dialog-rank {
-  width: 7.02rem;
-  height: 8.6rem;
-  flex-shrink: 0;
+  width: 7.04rem;
+  height: 8.41rem;
 
   display: flex;
   flex-direction: column;
@@ -163,20 +159,23 @@ const getPageInfo = (info) => {
   }
 
   .content {
-    width: 5.52rem;
+    width: 5.86rem;
     height: 6.5rem;
     flex-shrink: 0;
-    margin-top: 0.22rem;
+    margin-top: 0.12rem;
   }
 
   .scroll {
-    width: 5.52rem;
+    width: 5.86rem;
     height: 6.5rem;
     flex-shrink: 0;
-    padding-top: 0.11rem;
     overflow-y: scroll;
     scroll-behavior: smooth;
     transition-duration: 1s;
+
+    &.short-scroll {
+      height: 5.2rem;
+    }
 
     &::-webkit-scrollbar {
       display: none;
@@ -184,9 +183,9 @@ const getPageInfo = (info) => {
 
     .empty {
       img {
-        margin-top: 1rem;
-        width: 1.6rem;
-        height: 1.6rem;
+        margin-top: 2.75rem;
+        width: 2.4rem;
+        height: 1.23rem;
         flex-shrink: 0;
       }
 
