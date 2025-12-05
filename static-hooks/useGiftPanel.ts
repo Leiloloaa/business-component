@@ -1,15 +1,40 @@
 /**
- * useGiftPanel
+ * 使用示例：
  *
- * 封装跳转送礼/直播间的通用逻辑：
- * - getRoomInfo: 拉取推荐直播间信息
- * - toGiftPanel: 根据当前环境跳转至送礼面板或直播间
+ * import useGiftPanel from '@/static-hooks/useGiftPanel'
  *
- * 依赖注入：
- * - injectTool: 业务工具（埋点、Loading、Toast 等）
- *
- * 使用方式：
+ * // 在组件中使用
  * const { getRoomInfo, toGiftPanel } = useGiftPanel()
+ *
+ * // 方式一：获取推荐直播间信息
+ * const roomInfo = await getRoomInfo()
+ * if (roomInfo) {
+ *   console.log('直播间信息:', roomInfo.uid, roomInfo.roomId)
+ * }
+ *
+ * // 方式二：跳转送礼面板或直播间
+ * // 默认跳转（根据 isLiveBanner 自动判断）
+ * await toGiftPanel()
+ *
+ * // 带礼物ID跳转（Banner场景）
+ * await toGiftPanel({ giftId: '123' })
+ *
+ * // 自定义埋点文案
+ * await toGiftPanel({ giftId: '123', bp: 'Custom_button_click' })
+ *
+ * 说明：
+ * - 该 hook 封装了跳转送礼面板/直播间的通用逻辑
+ * - 自动根据 isLiveBanner 判断跳转场景：
+ *   - Banner 场景：跳转到送礼面板（需要 giftId）
+ *   - 非 Banner 场景：跳转到推荐直播间
+ * - 自动处理 Loading 状态和埋点上报
+ * - 需要注入 activityId 依赖
+ *
+ * 返回值：
+ * - getRoomInfo: 获取推荐直播间信息，返回 Promise<LiveRoomInfo | undefined>
+ * - toGiftPanel: 跳转送礼面板或直播间，参数可选：
+ *   - giftId?: string | number - 礼物ID（Banner场景必需）
+ *   - bp?: string - 自定义埋点文案（默认: "Send_gift_button_click"）
  */
 import { inject } from "vue";
 import injectTool from "@publicComponents/injectTool";
@@ -36,8 +61,8 @@ export default function useGiftPanel() {
     try {
       const res = await TOOL_httpClient({
         url: url,
-        method: 'get',
-        params: { count: 1, activityId }
+        method: "get",
+        params: { count: 1, activityId },
       });
       const { data, errorCode } = res.data;
       if (errorCode != 0) throw res;
