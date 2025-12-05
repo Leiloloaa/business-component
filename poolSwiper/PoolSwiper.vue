@@ -1,7 +1,13 @@
+<!--
+  组件使用示例：
+  <PoolSwiper :list="rewardList" />
+  
+  Props:
+  - list: Array - 奖励列表数据
+-->
 <template>
-  <!--  奖池奖励预览   -->
-  <OssImg src="g-pool-bg" class="pool-swiper-wrap">
-    <CommonSwiper
+  <div v-bg="`g-pool-bg`" class="pool-swiper-wrap">
+    <SwiperTemp
       class="swiper-container"
       :list="list"
       :swiper-options="swiperOptions"
@@ -10,7 +16,7 @@
         'arr-width': 0.54,
         'arr-height': 0.54,
         'arr-top': 0.44,
-        'arr-margin': 0
+        'arr-margin': 0,
       }"
       swiper-id="pool-swiper"
       :allow-touch-move="false"
@@ -23,7 +29,7 @@
               size: 'rew-pool', // 尺寸
               bgObj: {
                 rew: 'rew',
-                corner: 'corner'
+                corner: 'corner',
               },
               num: false,
               name: false,
@@ -35,30 +41,27 @@
               nameH: 0.32, // 奖励名称高度
               useOutline: false, // 外边框
               outline: `0.05rem #090F07`,
-              nameNoScroll: false
+              nameNoScroll: false,
             }"
           />
         </div>
       </template>
-    </CommonSwiper>
-  </OssImg>
+    </SwiperTemp>
+  </div>
 </template>
 
 <script lang="ts" setup name="GiftSwiperFrame">
-import injectTool from '@publicComponents/injectTool'
-import CommonSwiper from './Components/CommonSwiper.vue'
+import injectTool from "@publicComponents/injectTool";
+import SwiperTemp from "../Static/SwiperTemp.vue";
 
-const { TOOL_countryCode, TOOL_TEXT, TOOL_httpClient, TOOL_loading, TOOL_BPFunc } = injectTool()
-
-const ossUrl = inject('ossUrl')
-const groupInfo: any = inject('groupInfo')
+const { TOOL_countryCode } = injectTool();
 
 const props = defineProps({
   list: {
     type: Array,
-    default: []
-  }
-})
+    default: [],
+  },
+});
 
 // Swiper 配置
 const swiperOptions = computed(() => {
@@ -67,22 +70,17 @@ const swiperOptions = computed(() => {
     speed: 2000,
     initialSlide: groupInfo.curIdx,
     slidesPerView: 3.5,
-    // centeredSlides: itemCount === 2, // 当只有两个元素时启用居中
     autoplay: {
       delay: 1800,
       disableOnInteraction: false,
-      reverseDirection: TOOL_countryCode == 'EG' ? true : false
-    }
-    // navigation: {
-    //   nextEl: '.next',
-    //   prevEl: '.prev'
-    // }
-  }
-})
+      reverseDirection: TOOL_countryCode == "EG" ? true : false,
+    },
+  };
+});
 
 const list = computed(() => {
-  return props?.list || [{}, {}, {}]
-})
+  return props?.list || [{}, {}, {}];
+});
 </script>
 
 <style lang="scss" scoped>
@@ -93,18 +91,6 @@ const list = computed(() => {
   margin-top: 0.65rem;
 
   position: relative;
-
-  .pool-before {
-    width: 6.4rem;
-    height: 3.6rem;
-    flex-shrink: 0;
-
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1;
-  }
 
   .title {
     width: 4.42rem;
@@ -121,25 +107,23 @@ const list = computed(() => {
       rgba(237, 138, 45, 0) 92.85%
     );
 
-    color: #fff;
-    font-family: 'SF UI Text';
-    font-size: 0.24rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 0.26rem; /* 108.333% */
+    span {
+      color: #fff;
+      font-family: "SF UI Text";
+      font-size: 0.24rem;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 0.26rem; /* 108.333% */
+    }
   }
 
   .swiper-container {
-    width: 6.4rem;
-    height: 1.6rem;
+    width: 100%;
+    height: 100%;
     position: relative;
     .reward-wrap {
       width: 1.6rem;
       height: 1.6rem;
-      // display: flex;
-      // flex-direction: column;
-      // align-items: center;
-      // justify-content: center;
     }
   }
 }

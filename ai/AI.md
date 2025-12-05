@@ -6,6 +6,7 @@
 - GameList 游戏列表
 - Progress 进度条
 - TextDanmu 文字弹幕
+- PoolSwiper 奖池预览
 
 ## 任务列表
 
