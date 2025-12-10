@@ -17,7 +17,7 @@
           :text="(info.list[item] && info.list[item].name) || '--'"
         />
 
-        <div v-bg="'g-v-score'" class="score ov">
+        <div v-bg="'g-v-score'" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
         </div>
 

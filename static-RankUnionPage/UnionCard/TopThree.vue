@@ -17,7 +17,7 @@
           :text="(info.list[item] && info.list[item].unionName) || '--'"
         />
 
-        <OssImg :src="'m-score'" class="score ov">
+        <OssImg :src="'m-score'" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
         </OssImg>
 

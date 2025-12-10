@@ -5,4 +5,3 @@
   "category": "static-common",
   "description": "Tab切换组件，通过 v-model 控制选中状态"
 }
-

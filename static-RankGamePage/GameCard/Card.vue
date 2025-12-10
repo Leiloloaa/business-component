@@ -38,7 +38,7 @@
       <template v-if="info.other">
         <div>
           <Outline class="name ov" :color="'0.05rem #7D2759'" :text="info?.name || '--'" noColor />
-          <OssImg src="g-v-score" class="score ov">{{ TOOL_NUM(info?.score) || '--' }}</OssImg>
+          <OssImg src="g-v-score" class="score">{{ TOOL_NUM(info?.score) || '--' }}</OssImg>
         </div>
         <Space :val="0.2" />
         <GameTop3 class="honor-game-top3" :gameList="info.other" />
@@ -48,7 +48,7 @@
       <template v-else>
         <div class="name ov">{{ info?.name || '---' }}</div>
         <Space :val="0.3" />
-        <OssImg :src="`g-v-score`" class="score ov">{{ TOOL_NUM(info?.score) || '---' }}</OssImg>
+        <OssImg :src="`g-v-score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</OssImg>
       </template>
     </div>
 

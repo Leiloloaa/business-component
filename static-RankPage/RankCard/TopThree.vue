@@ -22,7 +22,7 @@
           <Honor :data="info.list[item] || {}" top3 />
         </div> -->
 
-        <OssImg :src="'score'" class="score ov">
+        <OssImg :src="'score'" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
         </OssImg>
 

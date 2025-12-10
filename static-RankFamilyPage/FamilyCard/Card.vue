@@ -34,7 +34,7 @@
             paddingLeft: TOOL_countryCode != 'EG' ? '0.06rem' : ''
           }"
         />
-        <div class="score ov">{{ TOOL_NUM(info.score) || '--' }}</div>
+        <div class="score">{{ TOOL_NUM(info.score) || '--' }}</div>
         <div class="box-score">
           <Space :val="0.17" />
           <img :src="`${imgUrl}/fa-score-icon.png${webp}`" class="score-icon" />

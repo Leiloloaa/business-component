@@ -86,7 +86,7 @@
           </div>
         </div>
         <Space :val="0.2" />
-        <OssImg src="score" class="score ov">{{
+        <OssImg src="score" class="score">{{
           TOOL_NUM(info?.score) || "--"
         }}</OssImg>
       </template>
@@ -97,7 +97,7 @@
           <div class="fc">
             <div class="name ov">{{ info?.name || "---" }}</div>
             <Space :val="0.06" />
-            <OssImg src="score" class="score ov">{{
+            <OssImg src="score" class="score">{{
               TOOL_NUM(info?.score) || "---"
             }}</OssImg>
           </div>

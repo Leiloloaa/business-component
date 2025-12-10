@@ -16,7 +16,7 @@
 
       <!-- 没有荣誉勋章的情况 -->
       <div class="name ov">{{ info.name || '---' }}</div>
-      <div class="score ov">
+      <div class="score">
         {{ TOOL_NUM(info.score) || '---' }}
       </div>
 
@@ -24,7 +24,7 @@
       <!-- <div :style="{ marginTop: info.selDate != 999 && Number(info.idx) <= 3 ? '0.42rem' : '0.24rem' }">
       <div class="fc">
         <div class="name ov">{{ info.name || '---' }}</div>
-        <div class="score ov">
+        <div class="score">
           {{ TOOL_NUM(info.score) || '---' }}
         </div>
       </div>

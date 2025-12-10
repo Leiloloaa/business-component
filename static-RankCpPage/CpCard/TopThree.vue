@@ -63,7 +63,7 @@
           tag="png"
         />
 
-        <OssImg src="score" class="score ov">
+        <OssImg src="score" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
         </OssImg>
       </div>
@@ -130,7 +130,7 @@
             tag="png"
           />
 
-          <OssImg src="score" class="score ov">
+          <OssImg src="score" class="score">
             {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
           </OssImg>
         </div>

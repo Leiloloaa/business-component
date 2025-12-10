@@ -38,7 +38,7 @@
           :text="info?.unionName || '--'"
           noColor
         />
-        <OssImg src="m-guild-score" class="score ov">{{
+        <OssImg src="m-guild-score" class="score">{{
           TOOL_NUM(info?.score) || "--"
         }}</OssImg>
       </div>

@@ -30,7 +30,7 @@
           />
         </div>
 
-        <div class="score ov">
+        <div class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item]?.score)) || '--' }}
         </div>
 
