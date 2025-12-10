@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    src="info"
+  <div
+    v-bg="`info`"
     class="info fc"
     :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }"
   >
@@ -43,7 +43,7 @@
       </SuperposeAvatar>
       </div> -->
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="userInfo">

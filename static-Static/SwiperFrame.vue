@@ -24,9 +24,9 @@
 
     <template v-if="swiperOptions.navigation?.prevEl">
       <!-- 导航按钮 -->
-      <OssImg
+      <div
         v-show="canShowPrev"
-        :src="arrowConfig['name-start'] + 'l'"
+        v-bg="arrowConfig['name-start'] + 'l'"
         class="swiper-btn prev"
         :style="{
           display: 'block',
@@ -36,9 +36,9 @@
           left: arrowConfig['arr-margin'] + 'rem',
           objectFit: 'contain',
         }" />
-      <OssImg
+      <div
         v-show="canShowNext"
-        :src="arrowConfig['name-start'] + 'r'"
+        v-bg="arrowConfig['name-start'] + 'r'"
         class="swiper-btn next"
         :style="{
           display: 'block',

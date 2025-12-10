@@ -7,7 +7,7 @@
       info.other == 2
     "
   >
-    <OssImg class="info-img" :src="'family/d-f-info'"></OssImg>
+    <div class="info-img" v-bg="'family/d-f-info'"></div>
     <Card :info="{ ...info, idx: info.rank }" isUser v-if="isCardStyle" />
     <div class="cards" v-else>
       <!-- 自定义 -->

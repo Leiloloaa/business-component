@@ -10,13 +10,13 @@
     {{ TOOL_TEXT[27] }}
   </div>
   <Space :val="0.6" h />
-  <OssImg src="d-big-confirm" class="big-btn fc" @click="handleConfirm">
+  <div v-bg="`d-big-confirm`" class="big-btn fc" @click="handleConfirm">
     <Outline
       :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
       :text="TOOL_TEXT[618]"
       noColor
     />
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup>

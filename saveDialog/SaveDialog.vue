@@ -1,19 +1,19 @@
 <template>
-  <OssImg src="family/d-save" class="save-dialog">
+  <div v-bg="`family/d-save`" class="save-dialog">
     <div class="title">
       {{ TOOL_TEXT[88] }}
     </div>
-    <OssImg src="family/f-save-bg" class="content" id="downloadXXX">
-      <OssImg
-        :src="`family/f-fire-${taskInfos.curIdx + 1}-1`"
+    <div v-bg="`family/f-save-bg`" class="content" id="downloadXXX">
+      <div
+        v-bg="`family/f-fire-${taskInfos.curIdx + 1}-1`"
         class="center-img"
         tag="img"
-      ></OssImg>
+      ></div>
       <FamilyAvatar />
-    </OssImg>
+    </div>
     <div class="btn-list fc">
-      <OssImg
-        src="family/d-save-btn"
+      <div
+        v-bg="`family/d-save-btn`"
         class="btn confirm fc"
         v-animate
         @click="saveFun(1)"
@@ -23,10 +23,10 @@
           :text="TOOL_TEXT[635]"
           noColor
         />
-      </OssImg>
+      </div>
       <Space :val="0.24" />
-      <OssImg
-        src="family/d-share-btn"
+      <div
+        v-bg="`family/d-share-btn`"
         class="btn cancel fc"
         v-animate
         @click="saveFun(2)"
@@ -36,9 +36,9 @@
           :text="TOOL_TEXT[636]"
           noColor
         />
-      </OssImg>
+      </div>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="">

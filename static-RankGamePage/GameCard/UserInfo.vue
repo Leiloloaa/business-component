@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    src="m-info"
+  <div
+    v-bg="`m-info`"
     class="info fc"
     :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }"
   >
@@ -8,7 +8,7 @@
     <div class="cards" v-else>
       <!-- 自定义 -->
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="userInfo">

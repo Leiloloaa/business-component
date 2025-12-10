@@ -21,8 +21,8 @@
     }"
   />
   <Space :val="0.4" h />
-  <OssImg
-    :src="groupInfo.curStatus == 4 ? 'd-big-confirm' : 'd-big-confirm-act'"
+  <div
+    v-bg="groupInfo.curStatus == 4 ? 'd-big-confirm' : 'd-big-confirm-act'"
     :class="{ act: groupInfo.curStatus == 4 }"
     class="big-btn fc"
     @click="handleConfirm"
@@ -32,7 +32,7 @@
       :text="TOOL_TEXT[618]"
       noColor
     />
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <OssImg src="ex-card" class="card">
+  <div v-bg="`ex-card`" class="card">
     <Space :val="0.48" />
     <div class="left">
       {{ dayjs(info.createTime).format('MM-DD HH:mm:ss') }}
@@ -13,7 +13,7 @@
       <Space :val="0.08" />
       <span class="num">{{ getRew(info)?.num }}</span>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

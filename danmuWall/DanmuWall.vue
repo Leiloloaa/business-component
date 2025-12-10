@@ -23,9 +23,9 @@
 
         <Space :val="-0.3" />
 
-        <OssImg src="danmu-bg" class="msg" :class="`style${item?.style + 1}`">
+        <div v-bg="`danmu-bg`" class="msg" :class="`style${item?.style + 1}`">
           <Outline color="0.05rem #F338A4" :text="item?.text" noColor />
-        </OssImg>
+        </div>
       </div>
     </Danmu>
   </div>

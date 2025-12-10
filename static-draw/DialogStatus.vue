@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    :src="type == 6 ? 'g-d-bg' : 'g-d-bg2'"
+  <div
+    v-bg="type == 6 ? 'g-d-bg' : 'g-d-bg2'"
     class="draw-status-dialog"
     :class="`draw-status-dialog-${type}`"
   >
@@ -18,7 +18,7 @@
       @confirm="confirm"
       @hide="hide"
     />
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="DrawStatusDialog">

@@ -1,6 +1,6 @@
 <template>
   <!-- info.idx 从 1 开始 -->
-  <OssImg :src="`m-g-d-card`" class="d-card">
+  <div v-bg="`m-g-d-card`" class="d-card">
     <Space :val="0.24" :h="0" />
     <div class="num">{{ info.idx }}</div>
     <Space :val="0.16" :h="0" />
@@ -32,8 +32,8 @@
     <Space :val="0.16" :h="0" />
     <div class="name ov">{{ info.name }}</div>
     <Space :val="0.35" :h="0" />
-    <OssImg src="m-score" class="score">{{ TOOL_NUM(info.score) }}</OssImg>
-  </OssImg>
+    <div v-bg="`m-score`" class="score">{{ TOOL_NUM(info.score) }}</div>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

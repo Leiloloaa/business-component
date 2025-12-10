@@ -3,9 +3,9 @@
   <!-- import DrawBtn from '../business/DrawGroup/DrawBtn.vue' -->
   <!-- 使用界面 provide('groupInfo',pageInfo) -->
   <div class="draw-btn-wrap fc">
-    <OssImg
+    <div
       v-for="(item, idx) in [1, 10, 100]"
-      :src="`g-btn${idx == 2 ? '-act' : ''}`"
+      v-bg="`g-btn${idx == 2 ? '-act' : ''}`"
       class="btn fc"
       v-animate
       :class="`btn-${idx + 1}`"
@@ -16,7 +16,7 @@
         :text="TOOL_TEXT[30 + idx]"
         noColor
       />
-    </OssImg>
+    </div>
   </div>
 
   <Dialog v-model="pageInfo.showDialogStatus" :frame="false">

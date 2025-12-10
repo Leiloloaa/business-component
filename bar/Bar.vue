@@ -1,22 +1,22 @@
 <template>
   <div class="bar-wrap">
     <!-- 进度条 绝对定位 -->
-    <OssImg src="bar-bg" class="bar-bg">
+    <div v-bg="`bar-bg`" class="bar-bg">
       <div class="bar-inner" :class="TOOL_countryCode">
         <!-- width/height -->
         <div class="act" :style="{ height: barLength }"></div>
       </div>
-    </OssImg>
+    </div>
 
     <!-- 进度条 头部 desc -->
-    <!-- <OssImg src="bar-desc" class="bar-desc">
-    </OssImg> -->
+    <!-- <div v-bg="`bar-desc`" class="bar-desc">
+    </div> -->
 
     <template v-for="(item, idx) in taskList">
       <div class="bar-lv-info">
         <div class="icon">
-          <OssImg
-            :src="currentLevel >= idx + 1 ? `bar-icon-act` : `bar-icon`"
+          <div
+            v-bg="currentLevel >= idx + 1 ? `bar-icon-act` : `bar-icon`"
             class="icon"
             tag="img"
           />
@@ -43,13 +43,13 @@
               }"
             />
           </div>
-          <OssImg
-            :src="`bar-btn${item.status == 1 ? '-act' : ''}`"
+          <div
+            v-bg="`bar-btn${item.status == 1 ? '-act' : ''}`"
             class="btn"
             @class="obtainReward"
           >
             <span>{{ TOOL_TEXT[statusMap[item.status]] }}</span>
-          </OssImg>
+          </div>
         </div>
       </div>
     </template>

@@ -1,5 +1,5 @@
 <template>
-  <OssImg src="ex-dialog" class="dialog-rank">
+  <div v-bg="`ex-dialog`" class="dialog-rank">
     <div class="title">{{ TOOL_TEXT[68] }}</div>
     <div class="col">
       <span>{{ TOOL_TEXT[69] }}</span>
@@ -28,7 +28,7 @@
         </template>
       </RankLoad>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="ExchangeRank">

@@ -1,19 +1,19 @@
 <template>
-  <OssImg src="ex-dialog" class="draw-status-dialog">
+  <div v-bg="`ex-dialog`" class="draw-status-dialog">
     <!-- type -->
     <!-- 1: 兑换规则 -->
     <!-- 2: 积分不足 -->
     <!-- 3: 二次确认弹框 -->
     <template v-if="type == 1">
       <Space :val="0.26" h />
-      <OssImg src="ex-title" class="title">
+      <div v-bg="`ex-title`" class="title">
         <Outline
           class="text"
           :color="1 ? '0.05rem #FFFCAB' : '0.05rem #581604'"
           :text="TOOL_TEXT[94]"
           :noColor="false"
         />
-      </OssImg>
+      </div>
 
       <div class="rule">
         <div class="item" v-for="item in [95, 124, 125]">
@@ -45,13 +45,13 @@
         }"
       />
       <Space :val="0.4" h />
-      <OssImg src="d-big-confirm" class="big-btn fc" @click="confirm">
+      <div v-bg="`d-big-confirm`" class="big-btn fc" @click="confirm">
         <Outline
           :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
           :text="TOOL_TEXT[618]"
           noColor
         />
-      </OssImg>
+      </div>
     </template>
 
     <template v-if="type == 3">
@@ -105,13 +105,13 @@
         }}
       </div>
       <Space :val="0.24" h />
-      <OssImg src="d-big-confirm" class="big-btn fc" @click="confirm">
+      <div v-bg="`d-big-confirm`" class="big-btn fc" @click="confirm">
         <Outline
           :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
           :text="TOOL_TEXT[618]"
           noColor
         />
-      </OssImg>
+      </div>
     </template>
 
     <template v-if="type == 4">
@@ -126,13 +126,13 @@
         {{ TOOL_TEXT[27] }}
       </div>
       <Space :val="0.6" h />
-      <OssImg src="d-big-confirm" class="big-btn fc" @click="confirm">
+      <div v-bg="`d-big-confirm`" class="big-btn fc" @click="confirm">
         <Outline
           :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
           :text="TOOL_TEXT[618]"
           noColor
         />
-      </OssImg>
+      </div>
     </template>
 
     <template v-if="type == 5">
@@ -144,15 +144,15 @@
       <img :src="`${ossUrl}/fail.png`" class="fail" />
 
       <Space :val="0.6" h />
-      <OssImg src="d-big-confirm" class="big-btn fc" @click="confirm">
+      <div v-bg="`d-big-confirm`" class="big-btn fc" @click="confirm">
         <Outline
           :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
           :text="TOOL_TEXT[618]"
           noColor
         />
-      </OssImg>
+      </div>
     </template>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="DrawStatusDialog">

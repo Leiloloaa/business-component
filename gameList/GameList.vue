@@ -22,7 +22,7 @@
     >
       <template #default="{ item, index }">
         <div class="item fc" @click="jumpGame(item)">
-          <OssImg src="game-rew" class="obg" tag="img"></OssImg>
+          <div v-bg="`game-rew`" class="obg" tag="img"></div>
           <img
             :src="`//image.${secondDomain}.media/activity/202406_midYearGame/icon${item}.png`"
             alt=""

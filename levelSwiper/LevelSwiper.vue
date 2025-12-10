@@ -1,7 +1,7 @@
 <template>
   <div class="lv-swiper-wrap">
     <!-- 等级背景 -->
-    <!-- <OssImg :src="`g-lv${groupInfo.curIdx}-bg`" class="g-lv-bg" tag="img" /> -->
+    <!-- <div v-bg="`g-lv${groupInfo.curIdx}-bg`" class="g-lv-bg" tag="img" /> -->
 
     <CommonSwiper
       class="swiper-container-wrap"
@@ -13,7 +13,7 @@
         'arr-width': 0.64,
         'arr-height': 0.64,
         'arr-top': 2.48,
-        'arr-margin': 0
+        'arr-margin': 0,
       }"
       swiper-id="level-swiper"
       :allow-touch-move="true"
@@ -26,8 +26,8 @@
         </div>
 
         <!-- 等级图 -->
-        <!-- <OssImg
-          :src="`g-lv${
+        <!-- <div
+          v-bg="`g-lv${
             false
               ? groupInfo.status == -1
                 ? '--1'
@@ -38,21 +38,21 @@
           }`"
           class="g-lv"
           tag="img"
-        ></OssImg> -->
+        ></div> -->
 
         <!-- 按钮和文字 -->
-        <!-- <OssImg
-            src="g-btn"
+        <!-- <div
+            v-bg="`g-btn`"
             class="tip-lock fc"
             v-if="groupInfo.status == -1 || item > groupInfo.curLevel"
           >
             <span class="tip" v-if="groupInfo.status == -1">{{ TOOL_TEXT[608] }}</span>
-            <OssImg src="g-lock" class="lock" tag="img" v-else />
-          </OssImg> -->
+            <div v-bg="`g-lock`" class="lock" tag="img" v-else />
+          </div> -->
 
         <!-- 纯图 lock -->
-        <!-- <OssImg
-          src="g-lock"
+        <!-- <div
+          v-bg="`g-lock`"
           class="g-lock"
           tag="img"
           v-if="groupInfo.status == -1 || item > groupInfo.curLevel"
@@ -69,13 +69,13 @@
       </template>
     </CommonSwiper>
 
-    <OssImg
-      src="to-send"
+    <div
+      v-bg="`to-send`"
       class="to-send fc breath"
       @click="toGiftPanel({ giftId: page1.jumpGift })"
     >
       <span>{{ TOOL_TEXT[56] }}</span>
-    </OssImg>
+    </div>
 
     <!-- <Dialog v-model="showRecord" :frame="false">
       <DialogRank />
@@ -84,24 +84,30 @@
 </template>
 
 <script lang="ts" setup name="GiftSwiperFrame">
-import injectTool from '@publicComponents/injectTool'
-import CommonSwiper from './Public/CommonSwiper.vue'
-import Progress from './Progress.vue'
-import DialogRank from './Draw/DialogRank.vue'
-import PoolSwiper from './PoolSwiper.vue'
-import useGiftPanel from './hooks/useGiftPanel'
+import injectTool from "@publicComponents/injectTool";
+import CommonSwiper from "./Public/CommonSwiper.vue";
+import Progress from "./Progress.vue";
+import DialogRank from "./Draw/DialogRank.vue";
+import PoolSwiper from "./PoolSwiper.vue";
+import useGiftPanel from "./hooks/useGiftPanel";
 
-const { toGiftPanel } = useGiftPanel()
+const { toGiftPanel } = useGiftPanel();
 
-const { TOOL_countryCode, TOOL_TEXT, TOOL_BPFunc, TOOL_toast, TOOL_NUM, TOOL_loading } =
-  injectTool()
+const {
+  TOOL_countryCode,
+  TOOL_TEXT,
+  TOOL_BPFunc,
+  TOOL_toast,
+  TOOL_NUM,
+  TOOL_loading,
+} = injectTool();
 
-const groupInfo: any = inject('groupInfo')
+const groupInfo: any = inject("groupInfo");
 
-const showRecord = ref(false)
+const showRecord = ref(false);
 const showRecordDialog = () => {
-  showRecord.value = true
-}
+  showRecord.value = true;
+};
 
 // Swiper 配置
 const swiperOptions = reactive({
@@ -110,32 +116,32 @@ const swiperOptions = reactive({
   initialSlide: 0,
   slidesPerView: 1,
   navigation: {
-    nextEl: '.next',
-    prevEl: '.prev'
-  }
-})
+    nextEl: ".next",
+    prevEl: ".prev",
+  },
+});
 
-const flag = ref(false)
+const flag = ref(false);
 watch(
   () => groupInfo.curIdx,
   async (newVal) => {
-    if (flag.value) return
-    await nextTick()
-    const mySwiper: any = document?.querySelector(`#level-swiper`)?.swiper
+    if (flag.value) return;
+    await nextTick();
+    const mySwiper: any = document?.querySelector(`#level-swiper`)?.swiper;
     setTimeout(() => {
       if (mySwiper) {
-        mySwiper?.slideTo(groupInfo.curIdx, 300)
-        groupInfo.curIdx = groupInfo.curIdx
+        mySwiper?.slideTo(groupInfo.curIdx, 300);
+        groupInfo.curIdx = groupInfo.curIdx;
       }
-    }, 600)
+    }, 600);
   },
   { immediate: true }
-)
+);
 
 const handleSlideChange = (data: any) => {
-  groupInfo.curIdx = data.realIndex
-  console.log('data.realIndex', data.realIndex)
-}
+  groupInfo.curIdx = data.realIndex;
+  console.log("data.realIndex", data.realIndex);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -158,7 +164,7 @@ const handleSlideChange = (data: any) => {
     span {
       color: #fff;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.26rem;
       font-style: normal;
       font-weight: 600;
@@ -178,7 +184,7 @@ const handleSlideChange = (data: any) => {
     span {
       color: #3a0400;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 600;
@@ -257,7 +263,7 @@ const handleSlideChange = (data: any) => {
           text-align: center;
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: #022751;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.28rem;
           font-style: normal;
           font-weight: 500;
@@ -288,7 +294,7 @@ const handleSlideChange = (data: any) => {
           text-align: center;
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: #022751;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.28rem;
           font-style: normal;
           font-weight: 500;

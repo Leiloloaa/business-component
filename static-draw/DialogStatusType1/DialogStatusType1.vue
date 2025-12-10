@@ -20,13 +20,13 @@
     <span>{{ TOOL_TEXT[65] }}</span>
   </div>
   <div class="btn-list fc">
-    <OssImg src="d-confirm" class="btn confirm fc" @click="handleConfirm">
+    <div v-bg="`d-confirm`" class="btn confirm fc" @click="handleConfirm">
       <span>{{ TOOL_TEXT[618] }}</span>
-    </OssImg>
+    </div>
     <Space :val="0.16" />
-    <OssImg src="d-cancel" class="btn cancel fc" @click="handleHide">
+    <div v-bg="`d-cancel`" class="btn cancel fc" @click="handleHide">
       <span>{{ TOOL_TEXT[617] }}</span>
-    </OssImg>
+    </div>
   </div>
 </template>
 

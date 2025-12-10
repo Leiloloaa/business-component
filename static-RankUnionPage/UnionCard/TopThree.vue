@@ -17,9 +17,9 @@
           :text="(info.list[item] && info.list[item].unionName) || '--'"
         />
 
-        <OssImg :src="'m-score'" class="score">
+        <div v-bg="'m-score'" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
-        </OssImg>
+        </div>
 
         <Space :val="0.11" :h="1" />
 

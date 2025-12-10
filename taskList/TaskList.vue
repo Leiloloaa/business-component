@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    src="task-card"
+  <div
+    v-bg="`task-card`"
     class="task-card"
     :class="`task-card${idx + 1}`"
     v-for="(item, idx) in list"
@@ -95,8 +95,8 @@
     <Space :val="0.16" />
     <div class="right fcc">
       <!-- status 任务按钮的状态 -1未开始、0已结束 、1未领取（完成了但没有手动领取） 、 2已领取 、3未完成（去完成）、4已完成 -->
-      <OssImg
-        :src="`task-btn${getBtnStatus(idx, item.status)}`"
+      <div
+        v-bg="`task-btn${getBtnStatus(idx, item.status)}`"
         class="task-btn fc"
         :class="{ act: item.status == 4 }"
       >
@@ -105,16 +105,16 @@
           :text="TOOL_TEXT[getBtnText(idx, item.status)]"
           :noColor="item.status != 4"
         />
-      </OssImg>
+      </div>
     </div>
 
-    <OssImg
-      src="task-btn4-ok"
+    <div
+      v-bg="`task-btn4-ok`"
       class="task-btn4-ok"
       v-EG
       v-if="item.status == 4"
-    ></OssImg>
-  </OssImg>
+    ></div>
+  </div>
 </template>
 
 <script lang="ts" setup name="TaskList">

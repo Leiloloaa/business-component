@@ -1,12 +1,12 @@
 <template>
-  <OssImg src="m-g-d-bg" class="dialog-rank">
-    <!-- <OssImg src="m-top1-tile" class="title fc">
+  <div v-bg="`m-g-d-bg`" class="dialog-rank">
+    <!-- <div v-bg="`m-top1-tile`" class="title fc">
       <Outline
         :color="1 ? '0.05rem #6D0701' : '0.05rem #581604'"
         :text="TOOL_TEXT[59]"
         :noColor="false"
       />
-    </OssImg> -->
+    </div> -->
     <div class="info fc">
       <OptA
         :data="info || {}"
@@ -23,19 +23,19 @@
                 height: 0.8448rem;
                 flex-shrink: 0;
                 aspect-ratio: 88/84.48;
-              `
-            }
+              `,
+            },
           ],
           avatar: cssFormat`
             width: 0.7568rem;
             height: 0.7568rem;
           `,
           live: `width: 0.41rem; height: 0.24rem; bottom: 0rem`,
-          liveIcon: `width: 0.18rem;`
+          liveIcon: `width: 0.18rem;`,
         }"
       />
 
-      <div class="name ov">{{ info.unionName || '--' }}</div>
+      <div class="name ov">{{ info.unionName || "--" }}</div>
     </div>
 
     <div class="info-text">{{ TOOL_TEXT[91] }}</div>
@@ -46,8 +46,8 @@
       <span>{{ TOOL_TEXT[23] }}</span>
     </div> -->
     <!-- <div class="btn-list fc">
-      <OssImg
-        :src="tabType == idx ? 'g-draw-btn-act' : `g-draw-btn`"
+      <div
+        v-bg="tabType == idx ? 'g-draw-btn-act' : `g-draw-btn`"
         class="btn fc"
         :class="{ act: tabType == idx }"
         v-for="(item, idx) in 2"
@@ -58,9 +58,9 @@
           :text="TOOL_TEXT[82 + idx]"
           noColor
         />
-      </OssImg>
+      </div>
     </div> -->
-    <OssImg src="" class="content">
+    <div v-bg="''" class="content">
       <div class="scroll">
         <RankLoad
           :api="api"
@@ -83,44 +83,47 @@
         </template> -->
         </RankLoad>
       </div>
-    </OssImg>
-  </OssImg>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup name="DialogRank">
-import injectTool from '@publicComponents/injectTool'
-import RankLoad from '../../../Static/RankLoad.vue'
+import injectTool from "@publicComponents/injectTool";
+import RankLoad from "../../../Static/RankLoad.vue";
 import { cssFormat } from "@publicComponents/shared";
 
-import DialogCard from './DialogCard.vue'
-import UserInfo from './UserInfo.vue'
+import DialogCard from "./DialogCard.vue";
+import UserInfo from "./UserInfo.vue";
 
-const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool()
-const ossUrl = inject('ossUrl')
-const activityId = inject('activityId')
-const isData = inject('isData')
+const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
+const ossUrl = inject("ossUrl");
+const activityId = inject("activityId");
+const isData = inject("isData");
 
-const tabType = ref(0)
+const tabType = ref(0);
 const changeTab = (idx) => {
-  tabType.value = idx
-}
+  tabType.value = idx;
+};
 
 const api = computed(() => {
-  return '/api/activity/AnnualCeremony2025/unionMemberRank'
-})
-const props = defineProps({ info: {} })
-const guildRankStage = inject('guildRankStage')
+  return "/api/activity/AnnualCeremony2025/unionMemberRank";
+});
+const props = defineProps({ info: {} });
+const guildRankStage = inject("guildRankStage");
 const apiParams = computed(() => {
-  return Object.assign({ stage: guildRankStage.value, agencyId: props.info?.unionId })
-})
+  return Object.assign({
+    stage: guildRankStage.value,
+    agencyId: props.info?.unionId,
+  });
+});
 
-const selDate = ref<string | number>('') // 默认当天传 空 999 为总榜
+const selDate = ref<string | number>(""); // 默认当天传 空 999 为总榜
 const pageInfo = reactive({
-  list: []
-})
+  list: [],
+});
 const getPageInfo = (info) => {
-  Object.assign(pageInfo, info)
-}
+  Object.assign(pageInfo, info);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -145,7 +148,7 @@ const getPageInfo = (info) => {
       text-align: center;
       -webkit-text-stroke-width: 2px;
       -webkit-text-stroke-color: #6d0701;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.3rem;
       font-style: normal;
       font-weight: 700;
@@ -159,7 +162,7 @@ const getPageInfo = (info) => {
       margin-left: 0.26rem;
       margin-right: 0.26rem;
       color: #ffeccf;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
@@ -175,7 +178,7 @@ const getPageInfo = (info) => {
 
     color: #d33f00;
     text-align: center;
-    font-family: 'SF UI Text';
+    font-family: "SF UI Text";
     font-size: 0.24rem;
     font-style: normal;
     font-weight: 400;
@@ -209,7 +212,7 @@ const getPageInfo = (info) => {
       span {
         margin-top: 1.8rem;
         color: #fff0cc;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 300;

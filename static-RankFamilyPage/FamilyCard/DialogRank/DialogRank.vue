@@ -1,7 +1,7 @@
 <template>
-  <OssImg src="family/d-save" class="dialog-rank">
+  <div v-bg="`family/d-save`" class="dialog-rank">
     <div class="title">
-      <OssImg class="title-img" :src="'family/d-info-title'"></OssImg>
+      <div class="title-img" v-bg="'family/d-info-title'"></div>
       <Space :val="0.43" />
       <div class="left" v-jump.family="rankTempInfo.curInfo">
         <OptA
@@ -57,21 +57,21 @@
     />
 
     <div class="user-info2 fc" v-else-if="pageInfo.userInfo?.other == 1" @click="join">
-      <OssImg class="user-info2-img" :src="'family/d-f-info'"></OssImg>
+      <div class="user-info2-img" v-bg="'family/d-f-info'"></div>
       <div class="btn fc">
-        <OssImg class="btn-img" :src="'family/d-f-info-btn'"></OssImg>
+        <div class="btn-img" v-bg="'family/d-f-info-btn'"></div>
         <span>{{ TOOL_TEXT[102] }}</span>
       </div>
     </div>
 
     <div class="user-info2 fc" v-else-if="pageInfo.userInfo?.other == 2">
-      <OssImg class="user-info2-img" :src="'family/d-f-info'"></OssImg>
+      <div class="user-info2-img" v-bg="'family/d-f-info'"></div>
       <div class="btn fc">
-        <OssImg class="btn-img" :src="'family/d-f-info-btn'"></OssImg>
+        <div class="btn-img" v-bg="'family/d-f-info-btn'"></div>
         <span>{{ TOOL_TEXT[103] }}</span>
       </div>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="DialogRank">

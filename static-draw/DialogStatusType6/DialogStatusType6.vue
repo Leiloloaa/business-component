@@ -2,7 +2,7 @@
   <Space :val="0.19" :h="1" />
 
   <div class="content">
-    <OssImg src="reward-table" class="reward-table">
+    <div v-bg="`reward-table`" class="reward-table">
       <div class="th fc">
         <div
           class="item fc"
@@ -62,7 +62,7 @@
           </div>
         </div>
       </div>
-    </OssImg>
+    </div>
   </div>
 </template>
 

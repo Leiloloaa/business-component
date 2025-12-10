@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    :src="isUser ? '' : info.idx <= 3 ? `m-card1` : 'm-card'"
+  <div
+    v-bg="isUser ? '' : info.idx <= 3 ? `m-card1` : 'm-card'"
     :class="['card', { top: isTop3, isUser: isUser }]"
   >
     <!-- , `top${info.idx}` -->
@@ -38,9 +38,9 @@
           :text="info?.unionName || '--'"
           noColor
         />
-        <OssImg src="m-guild-score" class="score">{{
+        <div v-bg="`m-guild-score`" class="score">{{
           TOOL_NUM(info?.score) || "--"
-        }}</OssImg>
+        }}</div>
       </div>
 
       <Space :val="0.09" :h="0" />
@@ -87,7 +87,7 @@
     <Dialog v-model="showSubRankDialog" :frame="false">
       <DialogRank :info="subInfo" />
     </Dialog>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

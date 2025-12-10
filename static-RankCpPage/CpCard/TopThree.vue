@@ -1,11 +1,11 @@
 <template>
   <!-- 前三名 -->
-  <OssImg src="top3-bg" class="top-three" :class="TOOL_countryCode">
+  <div v-bg="`top3-bg`" class="top-three" :class="TOOL_countryCode">
     <template v-for="item in [0]" :key="'top' + info.idx">
       <div :class="['top-item', `top0`]">
         <div class="fc" style="direction: ltr">
-          <OssImg
-            src="stamp"
+          <div
+            v-bg="`stamp`"
             v-if="info.list[item] && info.status == 0 && info.list[item].stamp"
             class="stamp"
             tag="png"
@@ -57,15 +57,15 @@
           </div>
         </div>
 
-        <OssImg
+        <div
           class="cp-type"
-          :src="getCpType(info.list?.[item]?.gender, info.list?.[item]?.cp?.gender)"
+          v-bg="getCpType(info.list?.[item]?.gender, info.list?.[item]?.cp?.gender)"
           tag="png"
         />
 
-        <OssImg src="score" class="score">
+        <div v-bg="`score`" class="score">
           {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
-        </OssImg>
+        </div>
       </div>
 
       <Space :val="-2.9" v-if="item !== 2" />
@@ -74,8 +74,8 @@
       <template v-for="item in [1, 2]" :key="'top' + item">
         <div :class="['top-item', `top${item}`]">
           <div class="fc" style="direction: ltr">
-            <OssImg
-              src="stamp"
+            <div
+              v-bg="`stamp`"
               v-if="info.list[item] && info.status == 0 && info.list[item].stamp"
               class="stamp"
               tag="png"
@@ -124,19 +124,19 @@
             </div>
           </div>
 
-          <OssImg
+          <div
             class="cp-type"
-            :src="getCpType(info.list?.[item]?.gender, info.list?.[item]?.cp?.gender)"
+            v-bg="getCpType(info.list?.[item]?.gender, info.list?.[item]?.cp?.gender)"
             tag="png"
           />
 
-          <OssImg src="score" class="score">
+          <div v-bg="`score`" class="score">
             {{ (info.list[item] && TOOL_NUM(info.list[item].score)) || '---' }}
-          </OssImg>
+          </div>
         </div>
       </template>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup>

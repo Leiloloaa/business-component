@@ -55,13 +55,13 @@
     />
   </div>
   <Space :val="0.85" h />
-  <OssImg src="g-d2-btn-act" class="big-btn fc" @click="handleConfirm">
+  <div v-bg="`g-d2-btn-act`" class="big-btn fc" @click="handleConfirm">
     <Outline
       :color="1 ? '0.05rem #952a11' : '0.05rem #581604'"
       :text="TOOL_TEXT[618]"
       noColor
     />
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup>

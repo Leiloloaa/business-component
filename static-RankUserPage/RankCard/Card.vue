@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    :src="isUser ? '' : info.idx <= 3 ? `card${info.idx}` : 'card'"
+  <div
+    v-bg="isUser ? '' : info.idx <= 3 ? `card${info.idx}` : 'card'"
     :class="[
       'card',
       { top: isTop3, isUser: isUser, bInfo: config.showBottomInfo },
@@ -86,9 +86,9 @@
           </div>
         </div>
         <Space :val="0.2" />
-        <OssImg src="score" class="score">{{
+        <div v-bg="`score`" class="score">{{
           TOOL_NUM(info?.score) || "--"
-        }}</OssImg>
+        }}</div>
       </template>
 
       <!-- 有荣誉勋章 -->
@@ -97,9 +97,9 @@
           <div class="fc">
             <div class="name ov">{{ info?.name || "---" }}</div>
             <Space :val="0.06" />
-            <OssImg src="score" class="score">{{
+            <div v-bg="`score`" class="score">{{
               TOOL_NUM(info?.score) || "---"
-            }}</OssImg>
+            }}</div>
           </div>
 
           <div class="honor-bg fc" v-if="info?.name">
@@ -110,8 +110,8 @@
     </div>
 
     <!-- 奖励信息 -->
-    <OssImg
-      :src="`b-info` + info.idx"
+    <div
+      v-bg="`b-info` + info.idx"
       class="bottom-info fc"
       v-if="isDailyRank && !isUser && Number(info?.idx) <= config.bInfoNum"
     >
@@ -125,9 +125,9 @@
           >
             <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
               <Space :val="0.05" />
-              <OssImg :src="`n-b-rew${info.idx}`" class="rew fc">
+              <div v-bg="`n-b-rew${info.idx}`" class="rew fc">
                 <cdnImg :info="gift" />
-              </OssImg>
+              </div>
               <Space :val="0.12" />
               <div class="text-wrap">
                 <div class="text text-name">{{ getRew(gift)?.name }}</div>
@@ -137,8 +137,8 @@
           </template>
         </template>
       </NoticeBar>
-    </OssImg>
-  </OssImg>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

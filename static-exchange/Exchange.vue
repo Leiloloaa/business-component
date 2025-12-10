@@ -14,25 +14,25 @@
 
         <div class="info-name ov">{{ pageInfo?.userInfo?.name }}</div>
         <Space :val="TOOL_countryCode == 'EG' ? 0.4 : 0.24" />
-        <OssImg src="ex-count" class="info-count fc">
+        <div v-bg="`ex-count`" class="info-count fc">
           <span>{{ TOOL_NUM(pageInfo?.resourceCount) }}</span>
           <Space :val="0.18" :h="0" />
           <img :src="`${ossUrl}/ex-icon.png`" class="ex-icon" alt="" />
-        </OssImg>
+        </div>
         <Space :val="1.71" :h="0" />
-        <OssImg src="ex-record" class="info-record fc" @click="showRecordD">
-        </OssImg>
+        <div v-bg="`ex-record`" class="info-record fc" @click="showRecordD">
+        </div>
       </div>
 
       <div class="item-wrap">
-        <OssImg
-          src="ex-item"
+        <div
+          v-bg="`ex-item`"
           class="item"
           v-for="(item, index) in pageInfo.exchangeRewards"
         >
           <Space :val="0.42" h />
 
-          <OssImg src="ex-rew" class="item-rew fc">
+          <div v-bg="`ex-rew`" class="item-rew fc">
             <Outline
               :color="'0.05rem #4D0000'"
               :text="getRew(item?.reward).num"
@@ -50,7 +50,7 @@
                 }}{{ `/${item?.privateStock}` }}
               </span>
             </div>
-          </OssImg>
+          </div>
 
           <!-- 名称 -->
           <!-- <Outline
@@ -68,8 +68,8 @@
           </div>
 
           <!-- 未开始,已结束,无库存 -->
-          <OssImg
-            :src="'ex-btn'"
+          <div
+            v-bg="'ex-btn'"
             class="btn"
             v-if="pageInfo?.status != 1 || item?.remainStock == 0"
           >
@@ -86,17 +86,17 @@
               "
               noColor
             />
-          </OssImg>
+          </div>
 
-          <OssImg
-            :src="'ex-btn-act'"
+          <div
+            v-bg="'ex-btn-act'"
             class="btn act"
             v-else
             @click="exchange(item, index)"
             v-animate
           >
             <Outline color="0.05rem #FFFAAE" :text="TOOL_TEXT[619]" noColor />
-          </OssImg>
+          </div>
 
           <div class="limit fc">
             <Outline
@@ -106,7 +106,7 @@
             />
             <span class="act">{{ TOOL_NUM(item?.remainStock) }}</span>
           </div>
-        </OssImg>
+        </div>
       </div>
 
       <Dialog v-model="pageInfo.showRecord" :frame="false">

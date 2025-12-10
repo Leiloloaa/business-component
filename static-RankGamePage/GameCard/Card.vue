@@ -1,6 +1,6 @@
 <template>
-  <OssImg
-    :src="isUser ? '' : info.idx <= isTopIndex ? `g-v-card1` : 'g-v-card'"
+  <div
+    v-bg="isUser ? '' : info.idx <= isTopIndex ? `g-v-card1` : 'g-v-card'"
     :class="[
       'card',
       { top: isTop, isUser: isUser, bInfo: config.showBottomInfo },
@@ -38,7 +38,7 @@
       <template v-if="info.other">
         <div>
           <Outline class="name ov" :color="'0.05rem #7D2759'" :text="info?.name || '--'" noColor />
-          <OssImg src="g-v-score" class="score">{{ TOOL_NUM(info?.score) || '--' }}</OssImg>
+          <div v-bg="`g-v-score`" class="score">{{ TOOL_NUM(info?.score) || '--' }}</div>
         </div>
         <Space :val="0.2" />
         <GameTop3 class="honor-game-top3" :gameList="info.other" />
@@ -48,13 +48,13 @@
       <template v-else>
         <div class="name ov">{{ info?.name || '---' }}</div>
         <Space :val="0.3" />
-        <OssImg :src="`g-v-score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</OssImg>
+        <div v-bg="`g-v-score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</div>
       </template>
     </div>
 
     <!-- 奖励信息 -->
-    <OssImg
-      :src="`g-v-b-info`"
+    <div
+      v-bg="`g-v-b-info`"
       class="bottom-info fc"
       v-if="isDaily && !isUser && Number(info?.idx) <= config.bInfoNum"
     >
@@ -66,9 +66,9 @@
           <template v-if="info?.idx >= rewardObj?.start && info?.idx <= rewardObj?.end">
             <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
               <Space :val="0.05" />
-              <OssImg :src="`g-v-b-rew`" class="rew fc">
+              <div v-bg="`g-v-b-rew`" class="rew fc">
                 <cdnImg :info="gift" />
-              </OssImg>
+              </div>
               <Space :val="0.12" />
               <div class="text-wrap">
                 <div class="text text-name">{{ getRew(gift)?.name }}</div>
@@ -78,8 +78,8 @@
           </template>
         </template>
       </NoticeBar>
-    </OssImg>
-  </OssImg>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

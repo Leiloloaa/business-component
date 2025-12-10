@@ -1,19 +1,19 @@
 <template>
   <!-- idx 从 1 开始 -->
-  <OssImg
-    :src="isUser ? 'info' : info.idx <= 3 ? `card1` : 'card'"
+  <div
+    v-bg="isUser ? 'info' : info.idx <= 3 ? `card1` : 'card'"
     class="card"
     :class="{
       top: Number(info.idx) <= 3 && !isUser,
       isUser: isUser,
     }"
   >
-    <OssImg
+    <div
       v-if="info?.status == 0 && info?.stamp"
-      src="stamp"
+      v-bg="`stamp`"
       class="stamp"
       tag="img"
-    ></OssImg>
+    ></div>
     <div class="content">
       <!-- 新人 -->
       <div
@@ -50,8 +50,8 @@
         </div>
 
         <!-- 奖励信息 -->
-        <OssImg
-          src="cp-bottom-info"
+        <div
+          v-bg="`cp-bottom-info`"
           class="bottom-info fc"
           v-if="!isUser && Number(info.idx) <= 3 && userReward?.length > 0"
         >
@@ -63,9 +63,9 @@
                 "
               >
                 <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <OssImg src="b-rew" class="rew fc">
+                  <div v-bg="`b-rew`" class="rew fc">
                     <cdnImg :info="gift" />
-                  </OssImg>
+                  </div>
                   <div class="text-wrap">
                     <Outline
                       :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
@@ -78,7 +78,7 @@
               </template>
             </template>
           </NoticeBar>
-        </OssImg>
+        </div>
       </div>
 
       <div class="middle">
@@ -89,14 +89,14 @@
           class="top-rank"
         />
 
-        <OssImg
+        <div
           class="cp-type"
-          :src="getCpType(info.gender, info.cp?.gender)"
+          v-bg="getCpType(info.gender, info.cp?.gender)"
           tag="png"
         />
-        <OssImg src="score" class="score fc">{{
+        <div v-bg="`score`" class="score fc">{{
           TOOL_NUM(info.score) || "--"
-        }}</OssImg>
+        }}</div>
       </div>
 
       <div class="right part" :class="{ isUser }">
@@ -106,8 +106,8 @@
         </div>
 
         <!-- 奖励信息 -->
-        <OssImg
-          src="cp-bottom-info"
+        <div
+          v-bg="`cp-bottom-info`"
           class="bottom-info fc"
           v-if="!isUser && Number(info.idx) <= 3 && cpReward?.length > 0"
         >
@@ -119,9 +119,9 @@
                 "
               >
                 <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <OssImg src="b-rew" class="rew fc">
+                  <div v-bg="`b-rew`" class="rew fc">
                     <cdnImg :info="gift" />
-                  </OssImg>
+                  </div>
                   <div class="text-wrap">
                     <Outline
                       :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
@@ -134,10 +134,10 @@
               </template>
             </template>
           </NoticeBar>
-        </OssImg>
+        </div>
       </div>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">

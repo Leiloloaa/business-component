@@ -1,7 +1,7 @@
 <template>
   <!-- info.idx 从 1 开始 -->
   <div class="card" :class="{ top: isTop3 && isDaily && computedIsDaily }">
-    <OssImg class="card-img" :src="'family-card1'"></OssImg>
+    <div class="card-img" v-bg="'family-card1'"></div>
     <div class="up">
       <Space :val="0.24" />
       <!-- 排名 -->
@@ -17,7 +17,7 @@
 
       <Space :val="0.29" />
       <div class="score ov fc">
-        <OssImg class="score-img" :src="'score'"></OssImg>
+        <div class="score-img" v-bg="'score'"></div>
         {{ TOOL_NUM(info.score) || "---" }}
       </div>
     </div>
@@ -26,10 +26,10 @@
       class="bottom-info"
       v-if="isDaily && !isUser && Number(info.idx) <= 3 && computedIsDaily"
     >
-      <OssImg class="bottom-info-img" :src="'family/d-f-b-info'"></OssImg>
+      <div class="bottom-info-img" v-bg="'family/d-f-b-info'"></div>
       <Space :val="0.38" />
       <div class="gift-icon shake">
-        <OssImg class="gift-icon-img" :src="'b-icon'"></OssImg>
+        <div class="gift-icon-img" v-bg="'b-icon'"></div>
       </div>
       <Space :val="0.16" />
       <!-- <div class="reward-tip">{{ TOOL_TEXT[100] }}</div> -->
@@ -41,9 +41,9 @@
             >
               <div class="gift-wrap" v-for="gift in rewardObj.rewards">
                 <Space :val="0.05" />
-                <OssImg src="b-rew" class="gift-box">
+                <div v-bg="`b-rew`" class="gift-box">
                   <cdnImg class="gift" :info="gift"></cdnImg>
-                </OssImg>
+                </div>
                 <Space :val="0.12" />
                 <div class="msg-wrap">
                   <div class="text">{{ getRew(gift).name }}</div>

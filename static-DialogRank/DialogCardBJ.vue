@@ -1,6 +1,6 @@
 <template>
   <!-- info.idx 从 1 开始 -->
-  <OssImg src="d-card" class="d-card">
+  <div v-bg="`d-card`" class="d-card">
     <!-- <Space :val="0.32" />
     <div class="left">
       <div class="timer">
@@ -17,65 +17,65 @@
     <Space :val="0.62" /> -->
 
     <div class="up">
-      {{ dayjs(info.createTime).format('YYYY-MM-DD HH:mm:ss') }}
+      {{ dayjs(info.createTime).format("YYYY-MM-DD HH:mm:ss") }}
     </div>
     <div class="down">
       <cdnImg :fid="info.packageSpecificRewards?.[0]?.fid"></cdnImg>
       <Space :val="0.08" />
       <span>{{ getRew(info.packageSpecificRewards?.[0])?.num }}</span>
     </div>
-  </OssImg>
+  </div>
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
-import dayjs from 'dayjs'
+import injectTool from "@publicComponents/injectTool";
+import dayjs from "dayjs";
 
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    type?: number // card 类型，不同背景
+    info: any;
+    isUser?: boolean;
+    type?: number; // card 类型，不同背景
   }>(),
   { isUser: false }
-)
+);
 
-const { TOOL_countryCode } = injectTool()
-const ossUrl = inject('ossUrl')
-const getRew = inject('getRew')
+const { TOOL_countryCode } = injectTool();
+const ossUrl = inject("ossUrl");
+const getRew = inject("getRew");
 
 const isTop3 = computed(() => {
-  return Number(props.info.idx) <= 3
-})
+  return Number(props.info.idx) <= 3;
+});
 
 const isDailyRank = computed(() => {
-  return props.info.selDate != 999
-})
+  return props.info.selDate != 999;
+});
 
 const option = {
   w: 0.88,
   h: 0.88,
   adorns: [
     {
-      img: 'avatar',
-      w: '100%',
-      h: '100%',
-      'z-index': '-1'
-    }
+      img: "avatar",
+      w: "100%",
+      h: "100%",
+      "z-index": "-1",
+    },
   ],
   avatar: {
     w: 0.84,
-    h: 0.84
+    h: 0.84,
   },
   live: {
     bottom: 0,
     w: 0.8,
-    h: 0.28
+    h: 0.28,
   },
   liveIcon: {
-    w: 0.29
-  }
-}
+    w: 0.29,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -95,7 +95,7 @@ const option = {
     width: 3.96rem;
 
     color: #fff0cc;
-    font-family: 'SF UI Text';
+    font-family: "SF UI Text";
     font-size: 0.24rem;
     font-style: normal;
     font-weight: 600;
@@ -115,7 +115,7 @@ const option = {
 
     span {
       color: #fff0cc;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 300;
