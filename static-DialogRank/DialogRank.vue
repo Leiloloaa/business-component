@@ -159,16 +159,17 @@ const getPageInfo = (info) => {
   }
 
   .content {
-    width: 5.86rem;
+    width: 6rem;
     height: 6.5rem;
     flex-shrink: 0;
     margin-top: 0.12rem;
   }
 
   .scroll {
-    width: 5.86rem;
+    width: 6rem;
     height: 6.5rem;
     flex-shrink: 0;
+    overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
     transition-duration: 1s;

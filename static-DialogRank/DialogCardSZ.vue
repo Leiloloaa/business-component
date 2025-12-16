@@ -10,9 +10,9 @@
     <Space :val="0.16" :h="0" />
     <div class="name ov">{{ info.name || "---" }}</div>
     <Space :val="0.7" />
-    <div v-bg="`score`" class="score fc">{{
-      TOOL_NUM(info.score) || "---"
-    }}</div>
+    <div v-bg="`score`" class="score">
+      {{ TOOL_NUM(info.score) || "---" }}
+    </div>
   </div>
 </template>
 
