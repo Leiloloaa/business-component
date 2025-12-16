@@ -204,8 +204,8 @@ onUnmounted(() => {
   z-index: 2;
 
   .text-danmu-list {
-    width: 100%;
-    height: 100%;
+    width: 95%;
+    height: 95%;
 
     .text-danmu-item {
       width: 100%;
