@@ -24,7 +24,6 @@
  * - gameBox: 游戏盒子页面
  * - gameCenter: 游戏中心页面
  */
-import { isTest } from "@publicComponents/shared";
 import { inject } from "vue";
 
 /**
@@ -36,7 +35,7 @@ export type PlatformH5Type = "gameBox" | "gameCenter";
  * 路径配置接口
  */
 interface PathConfig {
-  // project != 2 (yoho) 时的路径
+  // project == 1 (yoho) 时的路径
   yoho: string;
   // project == 2 (chatchill) 时的路径
   chatchill: string;
@@ -69,8 +68,6 @@ export function usePlatformH5Url() {
    * @returns 返回完整的 URL
    */
   const getPlatformH5Url = (type: PlatformH5Type) => {
-    const project = (window as any).PROJECT;
-    const env = (window as any).ENV;
     const domain = inject("domain") as string;
     const pathConfig = PATH_CONFIG_MAP[type];
 
@@ -79,17 +76,18 @@ export function usePlatformH5Url() {
       return "";
     }
 
-    const envPrefix = isTest(env) ? "-test" : "";
     // yoho、chatchill 路径相同
-    const baseUrl = `https://m${envPrefix}`;
+    const baseUrl = `https://m${ENV == "build" ? "" : "-test"}`;
 
-    switch (project) {
+    switch (Number(PROJECT)) {
+      case 1:
+        // yoho 项目
+        return `${baseUrl}.${domain}.media/${pathConfig.yoho}`;
       case 2:
         // chatchill 项目
         return `${baseUrl}.chatchill.media/${pathConfig.chatchill}`;
       default:
-        // yoho 项目（默认）
-        return `${baseUrl}.${domain}.media/${pathConfig.yoho}`;
+        return "";
     }
   };
 
