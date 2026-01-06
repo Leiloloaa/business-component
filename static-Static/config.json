@@ -1,7 +1,7 @@
 {
   "name": "static",
   "path": "static",
-  "displayName": "榜单基础组件",
-  "category": "rank",
-  "description": "榜单基础组件，支持榜单页面、榜单卡片、榜单用户信息等功能"
+  "displayName": "基础组件",
+  "category": "static",
+  "description": "榜单和项目基础组件"
 }
