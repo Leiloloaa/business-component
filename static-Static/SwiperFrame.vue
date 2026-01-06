@@ -9,6 +9,7 @@
       :navigation="swiperOptions.navigation"
       :initialSlide="swiperOptions.initialSlide"
       :slidesPerView="swiperOptions.slidesPerView"
+      :spaceBetween="swiperOptions.spaceBetween"
       @slideChange="handleSlideChange"
       :allowTouchMove="allowTouchMove"
     >
@@ -76,6 +77,7 @@ const props = defineProps({
       speed: 1000,
       initialSlide: 0,
       slidesPerView: 1,
+      spaceBetween: 0,
       autoplay: false,
       navigation: {
         nextEl: ".next",

@@ -125,7 +125,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{
@@ -182,149 +182,149 @@ const option = computed(() => {
 
 const optionList = {
   option1: {
-    styles: cssFormat`
+    styles: css`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a1',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option2: {
-    styles: cssFormat`
+    styles: css`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a2',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option3: {
-    styles: cssFormat`
+    styles: css`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'f-a3',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option: {
-    styles: cssFormat`
+    styles: css`
       width: 1.48rem;
       height: 1.48rem;
     `,
     adorns: [
       {
         img: 'f-a',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       border-radius: 0.35rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: cssFormat`
+    styles: css`
       width: 0.98rem;
       height: 0.98rem;
     `,
     adorns: [
       {
         img: 'f-small-a',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.72rem;
       height: 0.72rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   }

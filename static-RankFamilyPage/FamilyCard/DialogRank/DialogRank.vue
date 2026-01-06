@@ -78,7 +78,7 @@
 import injectTool from '@publicComponents/injectTool'
 import dayjs from 'dayjs'
 import RankLoad from '../../Static/RankLoad.vue'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 import DialogCard from './DialogCard.vue'
 import UserInfo from './UserInfo.vue'
@@ -99,143 +99,143 @@ const pageInfo = reactive({
 
 const optionList = {
   option1: {
-    styles: cssFormat`
+    styles: css`
       width: 1.2rem;
       height: 1.045rem;
     `,
     adorns: [
       {
         img: 'a1',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.54rem;
       height: 0.54rem;
       border-radius: 0.15rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option2: {
-    styles: cssFormat`
+    styles: css`
       width: 0.87rem;
       height: 0.96rem;
     `,
     adorns: [
       {
         img: 'family/f-a',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.6rem;
       height: 0.6rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option3: {
-    styles: cssFormat`
+    styles: css`
       width: 1.74rem;
       height: 1.74rem;
     `,
     adorns: [
       {
         img: 'fa-avatar3',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   option: {
-    styles: cssFormat`
+    styles: css`
       width: 0.79rem;
       height: 0.88rem;
     `,
     adorns: [
       {
         img: 'family/f-a',
-        styles: cssFormat`
+        styles: css`
           width: 0.79rem;
           height: 0.88rem;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.55rem;
       height: 0.55rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
       display: none;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: cssFormat`
+    styles: css`
       width: 0.98rem;
       height: 0.98rem;
     `,
     adorns: [
       {
         img: 'fa-card-avatar',
-        styles: cssFormat`
+        styles: css`
           width: 0.98rem;
           height: 0.98rem;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.72rem;
       height: 0.72rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.05rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.29rem;
     `
   }

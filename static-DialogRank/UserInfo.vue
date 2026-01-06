@@ -50,7 +50,7 @@
 import { inject } from "vue";
 import injectTool from "@publicComponents/injectTool";
 import Card from "./DialogCardSZ.vue";
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool();
 const imgUrl = inject("imgUrl");
@@ -67,7 +67,7 @@ defineProps({
 });
 
 const option = {
-  styles: cssFormat`
+  styles: css`
     width: 1.55375rem;
     height: 1.5675rem;
     flex-shrink: 0;
@@ -75,23 +75,23 @@ const option = {
   adorns: [
     {
       img: "a",
-      styles: cssFormat`
+      styles: css`
         width: 1.55375rem;
         height: 1.5675rem;
         flex-shrink: 0;
       `,
     },
   ],
-  avatar: cssFormat`
+  avatar: css`
     width: 1.1rem;
     height: 1.1rem;
   `,
-  live: cssFormat`
+  live: css`
     width: 0.41rem;
     height: 0.24rem;
     bottom: 0.2rem;
   `,
-  liveIcon: cssFormat`
+  liveIcon: css`
     width: 0.18rem;
   `,
 };

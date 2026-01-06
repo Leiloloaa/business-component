@@ -84,7 +84,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 import GameTop3 from '../GameTop3.vue'
 
 const router = useRouter()
@@ -117,10 +117,10 @@ const config = {
 }
 
 // 2. 使用对象形式存储样式配置
-// 可以直接粘贴 CSS 代码，使用 cssFormat`...` 模板字符串自动转换
+// 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
 const optionList = {
   1: {
-    styles: cssFormat`
+    styles: css`
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
@@ -128,28 +128,28 @@ const optionList = {
     adorns: [
       {
         img: 'g-v-a1',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   2: {
-    styles: cssFormat`
+    styles: css`
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
@@ -157,28 +157,28 @@ const optionList = {
     adorns: [
       {
         img: 'g-v-a2',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   3: {
-    styles: cssFormat`
+    styles: css`
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
@@ -186,28 +186,28 @@ const optionList = {
     adorns: [
       {
         img: 'g-v-a3',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   0: {
-    styles: cssFormat`
+    styles: css`
       width: 1.37rem;
       height: 1.35rem;
       flex-shrink: 0;
@@ -216,7 +216,7 @@ const optionList = {
     adorns: [
       {
         img: 'm-a',
-        styles: cssFormat`
+        styles: css`
           width: 1.37rem;
           height: 1.35rem;
           flex-shrink: 0;
@@ -224,17 +224,17 @@ const optionList = {
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.12rem;
       height: 1.12rem;
       flex-shrink: 0;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.1rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   }

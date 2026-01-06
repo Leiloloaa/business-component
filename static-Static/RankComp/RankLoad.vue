@@ -134,7 +134,6 @@ const getList = async () => {
     // 数据处理
     const { list, ...other } = data
     Object.assign(pageInfo, other)
-    console.log(pageInfo.list, 'pageInfo.list')
     pageInfo.list = pageInfo.list.concat(data[`${props.listName}`])
 
     // 返回 pageInfo

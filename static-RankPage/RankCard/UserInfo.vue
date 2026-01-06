@@ -15,9 +15,9 @@
       <Space :val="0.24" />
 
       <!-- 没有荣誉勋章的情况 -->
-      <div class="name ov">{{ info.name || "---" }}</div>
+      <div class="name ov">{{ info.name || '---' }}</div>
       <div class="score">
-        {{ TOOL_NUM(info.score) || "---" }}
+        {{ TOOL_NUM(info.score) || '---' }}
       </div>
 
       <!-- 有荣誉勋章的情况 -->
@@ -47,53 +47,52 @@
 </template>
 
 <script lang="ts" setup name="userInfo">
-import injectTool from "@publicComponents/injectTool";
-import Card from "./Card.vue";
-import { cssFormat } from "@publicComponents/shared";
+import injectTool from '@publicComponents/injectTool'
+import Card from './Card.vue'
+import { css } from '@publicComponents/shared'
 
-const { TOOL_countryCode, TOOL_NUM } = injectTool();
-const imgUrl = inject("imgUrl");
+const { TOOL_countryCode, TOOL_NUM } = injectTool()
 
 defineProps({
   info: {
     type: Object,
-    default: () => {},
+    default: () => {}
   },
   isCardStyle: {
     type: Boolean,
-    default: false,
-  },
-});
+    default: false
+  }
+})
 
 const option = {
-  styles: cssFormat`
+  styles: css`
     width: 1.55375rem;
     height: 1.5675rem;
     flex-shrink: 0;
   `,
   adorns: [
     {
-      img: "a",
-      styles: cssFormat`
+      img: 'a',
+      styles: css`
         width: 1.55375rem;
         height: 1.5675rem;
         flex-shrink: 0;
-      `,
-    },
+      `
+    }
   ],
-  avatar: cssFormat`
+  avatar: css`
     width: 1.1rem;
     height: 1.1rem;
   `,
-  live: cssFormat`
+  live: css`
     width: 0.41rem;
     height: 0.24rem;
     bottom: 0.2rem;
   `,
-  liveIcon: cssFormat`
+  liveIcon: css`
     width: 0.18rem;
-  `,
-};
+  `
+}
 </script>
 
 <style lang="scss" scoped>
@@ -122,7 +121,7 @@ const option = {
     &::after {
       z-index: -1;
       position: absolute;
-      content: "";
+      content: '';
       width: 100%;
       height: 100%;
     }

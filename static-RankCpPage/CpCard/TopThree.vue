@@ -141,7 +141,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const imgUrl = inject('imgUrl')
 const ossUrl = inject('ossUrl')
@@ -162,7 +162,7 @@ const getCpType = (gender1, gender2) => {
 
 const option = {
   0: {
-    styles: cssFormat`
+    styles: css`
       width: 2.11875rem;
       height: 2.1375rem;
       flex-shrink: 0;
@@ -170,28 +170,28 @@ const option = {
     adorns: [
       {
         img: 'a1',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.5rem;
       height: 1.5rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   1: {
-    styles: cssFormat`
+    styles: css`
       width: 1.80094rem;
       height: 1.81688rem;
       flex-shrink: 0;
@@ -199,28 +199,28 @@ const option = {
     adorns: [
       {
         img: 'a2',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.275rem;
       height: 1.275rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   2: {
-    styles: cssFormat`
+    styles: css`
       width: 1.80094rem;
       height: 1.81688rem;
       flex-shrink: 0;
@@ -228,23 +228,23 @@ const option = {
     adorns: [
       {
         img: 'a3',
-        styles: cssFormat`
+        styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.275rem;
       height: 1.275rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   }

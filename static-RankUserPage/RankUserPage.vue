@@ -1,8 +1,8 @@
 <template>
   <div class="rank-view-wrap">
     <FixedTop>
-      <TabsDate v-model="dayTotal" />
-      <SlotDateAvatar
+      <DateTab v-model="dayTotal" />
+      <DateAvatar
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
         :apiParams="{ activityId }"
@@ -24,8 +24,10 @@
 </template>
 
 <script lang="ts" setup name="RankNew">
-import { useRankPage } from "../Static/Tool/useRankPage";
-import RankTemp from "../Static/RankTemp.vue";
+import { useRankPage } from "../Static/RankComp/useRankPage";
+import RankTemp from "../Static/RankComp/RankTemp.vue";
+import DateTab from "../Static/RankComp/DateTab.vue";
+import DateAvatar from "../Static/RankComp/DateAvatar.vue";
 
 // 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({

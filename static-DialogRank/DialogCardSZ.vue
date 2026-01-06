@@ -19,7 +19,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
 import dayjs from "dayjs";
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{
@@ -44,77 +44,77 @@ const isDailyRank = computed(() => {
 
 const optionList = {
   1: {
-    styles: cssFormat`
+    styles: css`
       width: 1.27125rem;
       height: 1.27125rem;
     `,
     adorns: [
       {
         img: "a1",
-        styles: cssFormat`
+        styles: css`
           width: 1.27125rem;
           height: 1.27125rem;
         `,
       },
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.9rem;
       height: 0.9rem;
     `,
   },
   2: {
-    styles: cssFormat`
+    styles: css`
       width: 1.27125rem;
       height: 1.27125rem;
     `,
     adorns: [
       {
         img: "a2",
-        styles: cssFormat`
+        styles: css`
           width: 1.27125rem;
           height: 1.27125rem;
         `,
       },
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.9rem;
       height: 0.9rem;
     `,
   },
   3: {
-    styles: cssFormat`
+    styles: css`
       width: 1.27125rem;
       height: 1.27125rem;
     `,
     adorns: [
       {
         img: "a3",
-        styles: cssFormat`
+        styles: css`
           width: 1.27125rem;
           height: 1.27125rem;
         `,
       },
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.9rem;
       height: 0.9rem;
     `,
   },
   0: {
-    styles: cssFormat`
+    styles: css`
       width: 1.04rem;
       height: 1.04rem;
     `,
     adorns: [
       {
         img: "a",
-        styles: cssFormat`
+        styles: css`
           width: 1.04rem;
           height: 1.04rem;
         `,
       },
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 0.9rem;
       height: 0.9rem;
     `,

@@ -22,8 +22,7 @@
 
 <template>
   <div class="progress-wrap">
-    <div class="progress" ref="progressRef">
-      <img :src="`${ossUrl}/g-progress-bg.png`" alt="" class="bg" />
+    <div class="progress" ref="progressRef" v-bg="`g-progress-bg`">
       <div class="progress-inner" ref="progressInnerRef">
         <div
           class="act"
@@ -127,16 +126,6 @@ onUnmounted(() => {
     position: relative;
     display: flex;
     align-items: center;
-
-    .bg {
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: -1;
-    }
 
     .progress-inner {
       width: 1.9rem;

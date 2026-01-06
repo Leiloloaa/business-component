@@ -4,46 +4,44 @@
 -->
 <template>
   <div class="game-list" v-if="list.length > 0">
-    <CommonSwiper
+    <SwiperFrame
       class="swiper-container-wrap"
       :list="list || []"
-      :swiper-options="swiperOptions"
-      :current-index="currentIndex"
-      :arrow-config="{
+      :swiperOptions="swiperOptions"
+      :currentIndex="currentIndex"
+      :arrowConfig="{
         'name-start': 'g-arr-',
         'arr-width': 0.64,
         'arr-height': 0.64,
         'arr-top': 0.48,
         'arr-margin': 0.08,
       }"
-      swiper-id="game-list-swiper"
-      :allow-touch-move="true"
-      @slide-change="handleSlideChange"
+      swiperId="game-list-swiper"
+      :allowTouchMove="true"
+      @slideChange="handleSlideChange"
     >
       <template #default="{ item, index }">
         <div class="item fc" @click="jumpGame(item)">
           <div v-bg="`game-rew`" class="obg" tag="img"></div>
           <img
-            :src="`//image.${secondDomain}.media/activity/202406_midYearGame/icon${item}.png`"
+            :src="`${oss}/activity/202406_midYearGame/icon${item}.png`"
             alt=""
             class="icon"
           />
         </div>
       </template>
-    </CommonSwiper>
+    </SwiperFrame>
   </div>
 </template>
 
 <script lang="ts" setup name="gift">
 import injectTool from "@publicComponents/injectTool";
 import { openAppWebviewByUrl } from "@publicComponents/shared";
-import CommonSwiper from "./CommonSwiper.vue";
+import SwiperFrame from "../static-Static/SwiperFrame.vue";
+import { oss } from "../../../store";
 
 const { TOOL_httpClient, TOOL_countryCode, TOOL_BPFunc } = injectTool();
 const activityId = inject("activityId");
-const domain = inject("domain");
-const isHiyoo = PROJECT == 2;
-const secondDomain = isHiyoo ? "chatchill" : domain;
 
 const urlEnum = computed(() => {
   // 路径前缀（hiyoo/chatchill 时使用）

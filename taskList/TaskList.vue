@@ -1,99 +1,58 @@
 <template>
   <div
-    v-bg="`task-card`"
+    v-for="(item, idx) in groupInfo.tasks"
+    v-bg="`${item.finished ? 'p2-task-finished' : 'p2-task-unfinished'}`"
     class="task-card"
-    :class="`task-card${idx + 1}`"
-    v-for="(item, idx) in list"
+    :class="`task-card${idx + 1} ${item.finished ? 'finished' : ''}`"
     :key="'task' + idx"
   >
-    <Space :val="0.18" :h="0" />
+    <Space :val="0.42" :h="0" />
     <div class="left fc ov">
-      <Rew
-        :reward="item?.reward?.packageSpecificRewards?.[0] || {}"
-        :options="{
-          size: 'task-rew1', // 尺寸
-          bgObj: {
-            rew: 'g-rew2',
-            corner: 'corner',
-          },
-          corner: true, // 角标
-          name: false, // 奖励名称 麦圈
-          coin: false, // 金币
-          num: false, // 天数、数量
-          effectFid: false, // 动图
-          playIcon: false, // 展示播放按钮
-          nameW: 1.6,
-          nameH: 0.28,
-        }"
-      />
-
-      <!-- <div class="fcc" v-else>
-        <Rew
-          :reward="item.rewardPackageRewards[0]"
-          :options="{
-            size: 'task-small', // 尺寸
-            bgObj: {
-              rew: 'rew',
-              corner: 'corner'
-            },
-            corner: true, // 角标
-            name: false, // 奖励名称 麦圈
-            coin: false, // 金币
-            num: false, // 天数、数量
-            effectFid: false, // 动图
-            playIcon: false, // 展示播放按钮
-            nameW: 1.6,
-            nameH: 0.28
-          }"
-        />
-        <Rew
-          :reward="item.rewardPackageRewards[1]"
-          :options="{
-            size: 'task-small', // 尺寸
-            bgObj: {
-              rew: 'rew',
-              corner: 'corner'
-            },
-            corner: true, // 角标
-            name: false, // 奖励名称 麦圈
-            coin: false, // 金币
-            num: false, // 天数、数量
-            effectFid: false, // 动图
-            playIcon: false, // 展示播放按钮
-            nameW: 1.6,
-            nameH: 0.28
-          }"
-        />
-      </div> -->
+      <SwiperFrame
+        class="task-swiper"
+        :list="item?.reward?.packageSpecificRewards"
+        :swiper-options="taskSwiperOptions"
+        :swiper-id="`task-swiper-${idx}`"
+        :allow-touch-move="false"
+      >
+        <template v-slot="{ item: rewItem }">
+          <div class="rew-item fc" v-bg="`rew`">
+            <cdnImg :fid="rewItem?.src || rewItem?.fid" :info="rewItem" />
+            <div class="desc fc" v-bg="`rew-desc`">
+              <span>{{ getRew(rewItem)?.num }}</span>
+            </div>
+          </div>
+        </template>
+      </SwiperFrame>
     </div>
-    <Space :val="0.2" />
+    <Space :val="0.48" />
     <div class="mid">
       <Rep
         class="info"
-        :content="TOOL_TEXT[type == 2 ? 79 : 78]"
+        :content="TOOL_TEXT[idx == 0 ? 61 : 62]"
         :rule="[
           {
             reg: '%s',
             eg: true,
-            val: TOOL_NUM(item?.required, true),
+            val: item?.required / 60,
             type: 'text',
           },
         ]"
       />
 
-      <div class="progress ov">
+      <div class="progress ov" v-if="idx != 0">
         <div
           class="act"
           :style="{ width: (item?.progress / item?.required) * 100 + '%' }"
         ></div>
-        <div class="score">
+        <div class="score fc">
           <span style="color: #ffdf0d">{{ TOOL_NUM(item?.progress) }}</span>
           <span>/{{ TOOL_NUM(item?.required) }}</span>
         </div>
       </div>
     </div>
     <Space :val="0.16" />
-    <div class="right fcc">
+    <div class="right fcc" v-if="0">
       <!-- status 任务按钮的状态 -1未开始、0已结束 、1未领取（完成了但没有手动领取） 、 2已领取 、3未完成（去完成）、4已完成 -->
       <div
         v-bg="`task-btn${getBtnStatus(idx, item.status)}`"
@@ -112,7 +71,7 @@
       v-bg="`task-btn4-ok`"
       class="task-btn4-ok"
       v-EG
-      v-if="item.status == 4"
+      v-if="idx == 0 && item.finished"
     ></div>
   </div>
 </template>
@@ -120,7 +79,6 @@
 <script lang="ts" setup name="TaskList">
 import injectTool from "@publicComponents/injectTool";
 import { toAppUrl, isLiveBanner, getRoomList } from "@publicComponents/shared";
-import Progress from "./Progress.vue";
 
 const props = defineProps({
   list: { type: Array, default: () => [] },
@@ -129,7 +87,21 @@ const props = defineProps({
   type: { type: Number },
 });
 
+const groupInfo = inject("groupInfo");
 const ossUrl = inject("ossUrl");
+const getRew = inject("getRew");
+// 任务奖励轮播配置
+const taskSwiperOptions = {
+  loop: false,
+  speed: 800,
+  initialSlide: 0,
+  slidesPerView: 2,
+  autoplay: {
+    delay: 1500,
+    disableOnInteraction: false,
+  },
+  navigation: false,
+};
 
 const {
   TOOL_TEXT,
@@ -221,11 +193,11 @@ const getReward = (idx) => {
     try {
       const res = await TOOL_httpClient({
         url: "/api/activity/missionImpossible/receiveReward",
-        method: 'get',
+        method: "get",
         params: {
           type: props?.type,
           index: idx,
-        }
+        },
       });
       const { data, errorCode } = res.data;
       if (errorCode != 0) throw res;
@@ -246,10 +218,10 @@ const getJumpLivingUid = async () => {
   try {
     const res = await TOOL_httpClient({
       url: "/api/activity/commonBusiness/jumpLiveRoom",
-      method: 'get',
+      method: "get",
       params: {
         activityId,
-      }
+      },
     });
     const { data, errorCode } = res.data;
     if (errorCode != 0) throw res;
@@ -264,49 +236,95 @@ const getJumpLivingUid = async () => {
 
 <style lang="scss" scoped>
 .task-card {
-  width: 6.35rem;
-  height: 1.76rem;
-  flex-shrink: 0;
+  width: 6.88742rem;
+  height: 2.14rem;
 
   margin: 0 auto;
-  margin-bottom: 0.08rem;
+  margin-bottom: -0.1rem;
 
   display: flex;
   align-items: center;
 
   position: relative;
 
+  &.finished {
+    .mid {
+      .info {
+        margin-top: -0.5rem;
+        color: #fff;
+        font-family: "SF UI Text";
+        font-size: 0.26rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 0.32rem; /* 123.077% */
+      }
+    }
+  }
+
   .left {
-    width: 1.2rem;
+    width: 2.52rem;
     height: 1.2rem;
-    height: 100%;
     position: relative;
+
+    .task-swiper {
+      width: 100%;
+      height: 100%;
+
+      .rew-item {
+        width: 1.2rem;
+        height: 1.2rem;
+        position: relative;
+
+        img {
+          width: 0.85714rem;
+          height: 0.85714rem;
+          object-fit: contain;
+        }
+
+        .desc {
+          width: 1.04rem;
+          height: 0.32rem;
+          position: absolute;
+          top: 0;
+          right: 0;
+
+          span {
+            color: #af1400;
+            text-align: center;
+            font-family: "SF UI Text";
+            font-size: 0.2rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 0.2rem; /* 100% */
+          }
+        }
+      }
+    }
   }
 
   .mid {
-    width: 2.74rem;
+    width: 3.14rem;
 
     display: flex;
     flex-direction: column;
 
     .info {
-      color: #e5ffef;
+      color: #fff;
       font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 400;
-      line-height: 0.32rem; /* 133.333% */
+      line-height: 0.28rem; /* 116.667% */
     }
 
     .progress {
       width: 2.8rem;
       height: 0.24rem;
-      flex-shrink: 0;
 
-      margin-top: 0.15rem;
+      margin-top: 0.16rem;
 
       border-radius: 0.4rem;
-      background: rgba(53, 85, 228, 0.4);
+      background: #0e2cc1;
 
       position: relative;
 
@@ -315,17 +333,19 @@ const getJumpLivingUid = async () => {
         flex-shrink: 0;
 
         border-radius: 0.4rem;
+        border-radius: 0.4rem;
         background: linear-gradient(
           180deg,
-          #48d4ff 0%,
-          #0642e7 54%,
-          #0fb3ff 100%
+          #6aff00 0%,
+          #0095b6 54%,
+          #00a9cf 100%
         );
         box-shadow: 0 4px 4px 0 #aef inset;
       }
 
       .score {
-        flex-shrink: 0;
+        width: 2.8rem;
+        height: 0.24rem;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -427,8 +447,8 @@ const getJumpLivingUid = async () => {
     height: 0.66rem;
     flex-shrink: 0;
     position: absolute;
-    left: 4rem;
-    bottom: 0.24rem;
+    right: 0.42rem;
+    bottom: 0.36rem;
   }
 }
 </style>

@@ -10,12 +10,12 @@
       :paddingBottom="paddingBottom"
     >
       <template #outFrame="{ info }">
-        <img
+        <!-- <img
           v-if="!isDaily"
           class="reward-icon shake"
           :src="`${ossUrl}/reward-icon.png`"
           @click="toRewardPage"
-        />
+        /> -->
       </template>
 
       <template #info="{ info }">
@@ -50,7 +50,7 @@
           class="safetyLine"
           :key="route?.path"
         >
-          {{ TOOL_TEXT[616] || "The above can be rewarded" }}
+          {{ TOOL_TEXT[616] || 'The above can be rewarded' }}
         </div>
       </template>
 
@@ -71,58 +71,58 @@
 </template>
 
 <script lang="ts" setup name="Rank">
-import injectTool from "@publicComponents/injectTool";
-import useUserInfo from "@hooks/useUserInfo";
-import RankLoad from "./RankLoad.vue";
+import injectTool from '@publicComponents/injectTool'
+import useUserInfo from '@hooks/useUserInfo'
+import RankLoad from './RankLoad.vue'
 // 榜单
-import TopThree from "../Rank/RankCard/TopThree.vue";
-import Card from "../Rank/RankCard/Card.vue";
-import UserInfo from "../Rank/RankCard/UserInfo.vue";
+import TopThree from '../RankAnchorPage/RankCard/TopThree.vue'
+import Card from '../RankAnchorPage/RankCard/Card.vue'
+import UserInfo from '../RankAnchorPage/RankCard/UserInfo.vue'
 
-const route = useRoute();
-const router = useRouter();
-const activityId = inject("activityId");
-const ossUrl = inject("ossUrl");
-const { TOOL_TEXT, TOOL_BPFunc } = injectTool();
+const route = useRoute()
+const router = useRouter()
+const activityId = inject('activityId')
+const ossUrl = inject('ossUrl')
+const { TOOL_TEXT, TOOL_BPFunc } = injectTool()
 
-const { showUserInfo } = useUserInfo(700);
+const { showUserInfo } = useUserInfo(700)
 
 const props = defineProps({
-  rankType: { type: String, default: "" }, // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
-  frameType: { type: String, default: "rank" }, // 榜单类型: rank/xxx
+  rankType: { type: String, default: '' }, // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  frameType: { type: String, default: 'rank' }, // 榜单类型: rank/xxx
   frame: { type: Boolean, default: true }, // 是否显示榜单外框
-  url: { type: String, default: "" },
+  url: { type: String, default: '' },
   params: { type: Object, default: () => ({}) },
   dayTotal: { type: Number, default: 0 },
-  selDate: { type: String, default: "" },
+  selDate: { type: String, default: '' },
   infoText: { type: Number, default: 1 },
-  paddingBottom: { type: String, default: "" },
-});
+  paddingBottom: { type: String, default: '' }
+})
 
-const rankIndex = ref(0); // 手动触发榜单更新
+const rankIndex = ref(0) // 手动触发榜单更新
 const isDaily = computed(() => {
-  return props.url.includes("Day") || props.url.includes("Daily");
-});
+  return props.url.includes('Day') || props.url.includes('Daily')
+})
 
-const isShowRewardNum = false; // 是否显示前 x 可获得奖励，The above can be rewarded
-const isOnShowCard = ["cp"].includes(props.rankType); // 是否只显示card，不显示top3的榜单类型
+const isShowRewardNum = false // 是否显示前 x 可获得奖励，The above can be rewarded
+const isOnShowCard = ['cp'].includes(props.rankType) // 是否只显示card，不显示top3的榜单类型
 const isShowComp = (info, comp) => {
   if (isOnShowCard) {
-    return comp != "top3"; // 只显示card，不显示top3
+    return comp != 'top3' // 只显示card，不显示top3
   } else {
-    if (comp === "top3") {
-      return !isDaily.value; // 日榜，不显示top3
-    } else if (comp === "card") {
-      return !isDaily.value && Number(info?.idx) > 3; // 总榜且不是前三，显示card
+    if (comp === 'top3') {
+      return !isDaily.value // 日榜，不显示top3
+    } else if (comp === 'card') {
+      return isDaily.value ? true : Number(info?.idx) > 3 // 总榜不显示前三
     }
   }
-};
+}
 
 const apiParams = computed(() => {
   // 通用榜单接口，传 version = 1，表示走必传 date 逻辑
-  const dateObj = isDaily.value ? { date: props.selDate, version: 1 } : {};
-  return { activityId, ...dateObj, ...props.params };
-});
+  const dateObj = isDaily.value ? { date: props.selDate, version: 1 } : {}
+  return { activityId, ...dateObj, ...props.params }
+})
 
 const componentMap = computed(() => {
   const map = {
@@ -135,17 +135,17 @@ const componentMap = computed(() => {
     default: {
       card: Card,
       userInfo: UserInfo,
-      topThree: TopThree,
-    },
-  };
-  return map[props.rankType] || map.default;
-});
+      topThree: TopThree
+    }
+  }
+  return map[props.rankType] || map.default
+})
 
 const toRewardPage = () => {
-  TOOL_BPFunc({ desc: "rewards_icon_click", action: "click" });
-  const map = { user: 2, anchor: 3, ranknew: 4 };
-  router.replace(`/home/rule?type=${map[props.rankType]}`);
-};
+  TOOL_BPFunc({ desc: 'rewards_icon_click', action: 'click' })
+  const map = { user: 2, anchor: 3, ranknew: 4 }
+  router.replace(`/home/rule?type=${map[props.rankType]}`)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -165,7 +165,7 @@ const toRewardPage = () => {
   }
 
   .timer-wrap {
-    margin-top: 1.25rem;
+    margin-top: 0.76rem;
   }
 
   .rank-info {
@@ -173,14 +173,13 @@ const toRewardPage = () => {
 
     margin: 0 auto;
     margin-top: 0.24rem;
-    margin-bottom: 0.44rem;
+    margin-bottom: 0.24rem;
 
     span {
       width: 5.9rem;
-      color: #e7ceff;
+      color: #fff;
       text-align: center;
-      text-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-      font-family: "SF UI Text";
+      font-family: 'SF UI Text';
       font-size: 0.26rem;
       font-style: normal;
       font-weight: 400;

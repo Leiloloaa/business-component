@@ -68,7 +68,7 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 import GameTop3 from '../GameTop3.vue'
 
 const ossUrl = inject('ossUrl')
@@ -80,83 +80,83 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: cssFormat`
+    styles: css`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a1',
-        styles: cssFormat`
+        styles: css`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   1: {
-    styles: cssFormat`
+    styles: css`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a2',
-        styles: cssFormat`
+        styles: css`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   2: {
-    styles: cssFormat`
+    styles: css`
       width: 2.56rem;
       height: 2.12rem;
     `,
     adorns: [
       {
         img: 'm-a3',
-        styles: cssFormat`
+        styles: css`
           width: 2.56rem;
           height: 2.12rem;
         `
       }
     ],
-    avatar: cssFormat`
+    avatar: css`
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   }

@@ -1,19 +1,19 @@
 <template>
-  <div class="lv-swiper-wrap">
+  <div class="lv-swiper-wrap" v-bg="`g-lv-bg`">
     <!-- 等级背景 -->
     <!-- <div v-bg="`g-lv${groupInfo.curIdx}-bg`" class="g-lv-bg" tag="img" /> -->
 
-    <CommonSwiper
+    <SwiperFrame
       class="swiper-container-wrap"
-      :list="groupInfo?.list || ['', '', '', '']"
+      :list="groupInfo?.partyTop1List"
       :swiper-options="swiperOptions"
       :current-index="groupInfo.curIdx"
       :arrow-config="{
-        'name-start': 'lv-',
-        'arr-width': 0.64,
-        'arr-height': 0.64,
-        'arr-top': 2.48,
-        'arr-margin': 0,
+        'name-start': 'g-lv-arrow-',
+        'arr-width': 1,
+        'arr-height': 1.01,
+        'arr-top': 1.66,
+        'arr-margin': 0.02,
       }"
       swiper-id="level-swiper"
       :allow-touch-move="true"
@@ -21,8 +21,75 @@
     >
       <template #default="{ item, index }">
         <!-- 等级说明 -->
-        <div class="g-inner-tip">
-          <!-- <span>{{ TOOL_TEXT[54] }}</span> -->
+        <div class="g-inner-desc fc" v-bg="`g-lv-count`">
+          <Space :val="-0.28" :h="0" />
+          <OptA
+            :data="item.info || {}"
+            :option="{
+              styles: css`
+                width: 0.8rem;
+                height: 0.8rem;
+                aspect-ratio: 1/1;
+              `,
+              adorns: [
+                {
+                  img: 'a',
+                  styles: `width: 100%; height:100%;`,
+                },
+              ],
+              avatar: css`
+                width: 0.59733rem;
+                height: 0.59733rem;
+              `,
+              live: css`
+                width: 0.41rem;
+                height: 0.24rem;
+                bottom: 0.2rem;
+              `,
+              liveIcon: `width: 0.18rem;`,
+            }"
+          />
+          <Space :val="-0.08" :h="0" />
+          <span>{{ TOOL_NUM(item.info?.score, true) }}</span>
+        </div>
+
+        <div class="g-lv-item fcc">
+          <OptA
+            :data="item.info?.other || {}"
+            :option="{
+              styles: css`
+                width: 3.26rem;
+                height: 3.00531rem;
+              `,
+              adorns: [
+                {
+                  img: 'a1',
+                  styles: `width: 100%; height:100%;`,
+                },
+              ],
+              avatar: css`
+                width: 1.55359rem;
+                height: 1.55359rem;
+                top: 0.25rem;
+              `,
+              live: css`
+                width: 0.41rem;
+                height: 0.24rem;
+                bottom: 0.2rem;
+              `,
+              liveIcon: `width: 0.18rem;`,
+            }"
+          />
+
+          <Outline
+            class="g-lv-name fc ov"
+            :color="1 ? '0.05rem #F00CE4' : '0.05rem #581604'"
+            :text="item.info?.other?.name || '--'"
+            :noColor="false"
+          />
+          <div class="g-lv-score" v-bg="`score`">
+            <span>{{ TOOL_NUM(item.info?.other?.score) || "--" }}</span>
+          </div>
         </div>
 
         <!-- 等级图 -->
@@ -65,17 +132,17 @@
           </div>
         </div> -->
 
-        <Progress />
+        <!-- <Progress /> -->
       </template>
-    </CommonSwiper>
+    </SwiperFrame>
 
-    <div
+    <!-- <div
       v-bg="`to-send`"
       class="to-send fc breath"
       @click="toGiftPanel({ giftId: page1.jumpGift })"
     >
       <span>{{ TOOL_TEXT[56] }}</span>
-    </div>
+    </div> -->
 
     <!-- <Dialog v-model="showRecord" :frame="false">
       <DialogRank />
@@ -85,13 +152,13 @@
 
 <script lang="ts" setup name="GiftSwiperFrame">
 import injectTool from "@publicComponents/injectTool";
-import CommonSwiper from "./Public/CommonSwiper.vue";
-import Progress from "./Progress.vue";
-import DialogRank from "./Draw/DialogRank.vue";
-import PoolSwiper from "./PoolSwiper.vue";
-import useGiftPanel from "./hooks/useGiftPanel";
+import { css } from "@publicComponents/shared";
+import { inject } from "vue";
+// import DialogRank from "./Draw/DialogRank.vue";
+// import PoolSwiper from "./PoolSwiper.vue";
+// import useGiftPanel from "./hooks/useGiftPanel";
 
-const { toGiftPanel } = useGiftPanel();
+// const { toGiftPanel } = useGiftPanel();
 
 const {
   TOOL_countryCode,
@@ -101,7 +168,7 @@ const {
   TOOL_NUM,
   TOOL_loading,
 } = injectTool();
-
+const ossUrl = inject("ossUrl");
 const groupInfo: any = inject("groupInfo");
 
 const showRecord = ref(false);
@@ -140,14 +207,16 @@ watch(
 
 const handleSlideChange = (data: any) => {
   groupInfo.curIdx = data.realIndex;
-  console.log("data.realIndex", data.realIndex);
 };
 </script>
 
 <style lang="scss" scoped>
 .lv-swiper-wrap {
-  width: 7.5rem;
-  height: 9.35rem;
+  width: 6.75rem;
+  height: 5.76rem;
+
+  margin: 0 auto;
+  margin-top: -0.2rem;
 
   position: relative;
 
@@ -172,23 +241,61 @@ const handleSlideChange = (data: any) => {
     }
   }
 
-  .g-inner-tip {
-    width: 6.2rem;
+  .g-inner-desc {
+    width: 1.73rem;
+    height: 0.48rem;
 
     position: absolute;
-    top: 0.54rem;
-    left: 50%;
-    transform: translateX(-50%);
+    top: 0.57rem;
+    left: 0.14rem;
     z-index: 10;
 
+    direction: ltr;
+
     span {
-      color: #3a0400;
+      min-width: 1.1rem;
+      height: 0.34rem;
+      color: #fff;
       text-align: center;
       font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
-      font-weight: 600;
-      line-height: 0.3rem; /* 125% */
+      font-weight: 500;
+      line-height: 0.34rem; /* 141.667% */
+    }
+  }
+
+  .g-lv-item {
+    width: 100%;
+
+    margin-top: 0.52rem;
+
+    .g-lv-name {
+      width: 1.94rem;
+      color: #fff;
+      text-align: center;
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: #f00ce4;
+      font-family: "SF UI Text";
+      font-size: 0.26rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 0.32rem; /* 123.077% */
+    }
+
+    .g-lv-score {
+      width: 1.84rem;
+      height: 0.48rem;
+
+      margin-top: 0.2rem;
+
+      color: #eaf6ff;
+      text-align: center;
+      font-family: "SF UI Text";
+      font-size: 0.24rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 0.48rem; /* 133.333% */
     }
   }
 

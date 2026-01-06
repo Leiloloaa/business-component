@@ -33,7 +33,7 @@
 
 <script lang="ts" setup>
 import injectTool from "@publicComponents/injectTool";
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const activityId = inject("activityId");
 const ossUrl = inject("ossUrl");
@@ -50,25 +50,25 @@ const props = defineProps({
 const danmuRef = ref(null);
 
 const option0 = {
-  styles: cssFormat`
+  styles: css`
     width: 1.22rem;
     height: 1.22rem;
   `,
   adorns: [
     {
       img: "a",
-      styles: cssFormat`
+      styles: css`
         width: 100%;
         height: 100%;
       `,
     },
   ],
-  avatar: cssFormat`
+  avatar: css`
     top: 0.12rem;
     width: 0.9rem;
     height: 0.9rem;
   `,
-  live: cssFormat`
+  live: css`
     display: none;
   `,
 };

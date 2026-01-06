@@ -13,7 +13,7 @@
 
         <Outline
           class="name ov"
-          :color="'0.05rem #ff2ced'"
+          :color="'0.05rem #f00ce4'"
           :text="(info.list[item] && info.list[item].name) || '--'"
         />
 
@@ -30,10 +30,9 @@
         <div
           class="new-or-back fc"
           v-if="
-            (info.list[item] &&
-              (info.list[item].isNewUser || info.list[item].isReturnUser) &&
-              showNewOrBack) ||
-            ENV == 'develop'
+            info.list[item] &&
+            (info.list[item].isNewUser || info.list[item].isReturnUser) &&
+            showNewOrBack
           "
         >
           <img :src="`${ossUrl}/${info.list?.[item]?.isNewUser ? 'n1' : 'n1'}.png`" />
@@ -55,14 +54,14 @@
       </div>
 
       <!-- 第一名和二三名的间距 -->
-      <Space :val="0.24" v-if="item !== 2" />
+      <Space :val="-0.3" v-if="item !== 2" />
     </template>
   </div>
 </template>
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { cssFormat } from "@publicComponents/shared";
+import { css } from '@publicComponents/shared'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
@@ -73,89 +72,92 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: cssFormat`
-      width: 2.26rem;
-      height: 2.28rem;
-      flex-shrink: 0;
+    styles: css`
+      width: 2.58125rem;
+      height: 2.58125rem;
+      aspect-ratio: 258.13/258.13;
     `,
     adorns: [
       {
         img: 'a1',
-        styles: cssFormat`
-          width: 2.26rem;
-          height: 2.28rem;
+        styles: css`
+          width: 100%;
+          height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
-      width: 1.6rem;
-      height: 1.6rem;
+    avatar: css`
+      width: 1.33438rem;
+      height: 1.33438rem;
+      top: 0.15rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   1: {
-    styles: cssFormat`
-      width: 1.9775rem;
-      height: 1.995rem;
-      flex-shrink: 0;
+    styles: css`
+      width: 2.13875rem;
+      height: 2.13875rem;
+      aspect-ratio: 213.88/213.88;
     `,
     adorns: [
       {
         img: 'a2',
-        styles: cssFormat`
-          width: 1.9775rem;
-          height: 1.995rem;
+        styles: css`
+          width: 100%;
+          height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
-      width: 1.4rem;
-      height: 1.4rem;
+    avatar: css`
+      width: 1.10563rem;
+      height: 1.10563rem;
+      top: 0.15rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   },
   2: {
-    styles: cssFormat`
-      width: 1.9775rem;
-      height: 1.995rem;
-      flex-shrink: 0;
+    styles: css`
+      width: 2.13875rem;
+      height: 2.13875rem;
+      aspect-ratio: 213.88/213.88;
     `,
     adorns: [
       {
         img: 'a3',
-        styles: cssFormat`
-          width: 1.9775rem;
-          height: 1.995rem;
+        styles: css`
+          width: 100%;
+          height: 100%;
           flex-shrink: 0;
         `
       }
     ],
-    avatar: cssFormat`
-      width: 1.4rem;
-      height: 1.4rem;
+    avatar: css`
+      width: 1.10563rem;
+      height: 1.10563rem;
+      top: 0.15rem;
     `,
-    live: cssFormat`
+    live: css`
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: cssFormat`
+    liveIcon: css`
       width: 0.18rem;
     `
   }
@@ -163,24 +165,22 @@ const optionList = {
 </script>
 
 <style lang="scss" scoped>
-// top3 的起始位置由 top1 头像的位置决定
 .top-three {
   width: 7.5rem;
-  margin: 0 auto;
-  margin-top: 1.96rem;
-  margin-bottom: 0.38rem;
+  height: 5.5rem;
 
   display: flex;
   justify-content: center;
+
   position: relative;
 
   .top3-bg {
-    width: 7.5rem;
-    height: 8.77rem;
+    width: 6.8rem;
+    height: 7.1rem;
     flex-shrink: 0;
 
     position: absolute;
-    top: -2.6rem;
+    top: -1.2rem;
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
@@ -229,11 +229,14 @@ const optionList = {
       flex-shrink: 0;
 
       color: #fff;
-      font-family: Arial;
-      font-size: 0.24rem;
+      text-align: center;
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: #f00ce4;
+      font-family: 'SF UI Text';
+      font-size: 0.26rem;
       font-style: normal;
       font-weight: 700;
-      line-height: 0.26rem; /* 108.333% */
+      line-height: 0.32rem; /* 123.077% */
 
       text-align: center;
 
@@ -248,15 +251,13 @@ const optionList = {
 
       margin-top: 0.1rem;
 
-      color: #fff0cc;
+      color: #eaf6ff;
       text-align: center;
-
-      /* 内文 */
-      font-family: Arial;
+      font-family: 'SF UI Text';
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
-      line-height: 0.26rem; /* 108.333% */
+      line-height: 0.32rem; /* 133.333% */
 
       text-align: center;
       line-height: 0.48rem !important;

@@ -60,7 +60,7 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
-import { cssFormat } from "@publicComponents/shared";
+import { css } from "@publicComponents/shared";
 
 const props = withDefaults(
   defineProps<{
@@ -90,31 +90,31 @@ const isDaily = computed(() => {
 });
 
 const option = {
-  styles: cssFormat`
+  styles: css`
     width: 0.79rem;
     height: 0.88rem;
   `,
   adorns: [
     {
       img: "f-a",
-      styles: cssFormat`
+      styles: css`
         width: 100%;
         height: 100%;
       `,
     },
   ],
-  avatar: cssFormat`
+  avatar: css`
     width: 0.55rem;
     height: 0.55rem;
     border-radius: 0.15rem;
   `,
-  live: cssFormat`
+  live: css`
     width: 0.36rem;
     height: 0.24rem;
     bottom: 0.05rem;
     display: none;
   `,
-  liveIcon: cssFormat`
+  liveIcon: css`
     width: 0.29rem;
   `,
 };
