@@ -71,7 +71,7 @@
       v-bg="`task-btn4-ok`"
       class="task-btn4-ok"
       v-EG
-      v-if="idx == 0 && item.finished"
+      v-if="item.finished"
     ></div>
   </div>
 </template>
@@ -90,18 +90,6 @@ const props = defineProps({
 const groupInfo = inject("groupInfo");
 const ossUrl = inject("ossUrl");
 const getRew = inject("getRew");
-// 任务奖励轮播配置
-const taskSwiperOptions = {
-  loop: false,
-  speed: 800,
-  initialSlide: 0,
-  slidesPerView: 2,
-  autoplay: {
-    delay: 1500,
-    disableOnInteraction: false,
-  },
-  navigation: false,
-};
 
 const {
   TOOL_TEXT,
@@ -113,7 +101,19 @@ const {
   TOOL_httpClient,
 } = injectTool();
 const activityId = inject("activityId");
-
+// 任务奖励轮播配置
+const taskSwiperOptions = {
+  loop: false,
+  speed: 1200,
+  initialSlide: 0,
+  slidesPerView: 2,
+  rtl: TOOL_countryCode == "EG", // 中东地区从左边滑出
+  autoplay: {
+    delay: 1500,
+    disableOnInteraction: false,
+  },
+  navigation: false,
+};
 const getShowStatus = (idx) => {
   // 任务 1,2 除了阶段 1
   // 任务 3,4 3 阶段或 4 阶段
