@@ -5,7 +5,7 @@
       <DateAvatar
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
-        :apiParams="{ activityId }"
+        :apiParams="{ activityId, type: 6 }"
         v-model="selDate"
       />
     </FixedTop>
@@ -23,21 +23,22 @@
   </div>
 </template>
 
-<script lang="ts" setup name="RankNew">
-import { useRankPage } from "../Static/RankComp/useRankPage";
-import RankTemp from "../Static/RankComp/RankTemp.vue";
-import DateTab from "../Static/RankComp/DateTab.vue";
-import DateAvatar from "../Static/RankComp/DateAvatar.vue";
+<script lang="ts" setup name="RankCpPage">
+import { useRankPage } from '../Static/RankComp/useRankPage'
+import RankTemp from '../Static/RankComp/RankTemp.vue'
+import DateTab from '../Static/RankComp/DateTab.vue'
+import DateAvatar from '../Static/RankComp/DateAvatarCp.vue'
 
 // 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: "cp", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  rankType: 'cp', // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
   dayTotal: 0, // 0-日榜，1-总榜
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
+  infoTextList: [73, 74],
   params: () => ({
-    other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
-  }),
-});
+    // other: 1 // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+  })
+})
 </script>
 
 <style lang="scss" scoped>

@@ -5,7 +5,7 @@
       <DateAvatar
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
-        :apiParams="{ activityId }"
+        :apiParams="{ activityId, type: 1 }"
         v-model="selDate"
       />
     </FixedTop>

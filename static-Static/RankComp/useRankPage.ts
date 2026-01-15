@@ -1,6 +1,6 @@
 import { ref, computed, watch, inject, reactive, isReactive, isRef, type ComputedRef } from 'vue'
 import injectTool from '@publicComponents/injectTool'
-import { useAppStore } from '../../../store'
+import { useAppStore } from '../../../../store'
 
 // ========== 榜单配置 ==========
 
@@ -30,7 +30,7 @@ export const userRankConfig: RankPageConfig = {
   description: '用户日榜/总榜',
   dailyUrl: `${API_BASE}/userDailyRank/includeHonor`,
   totalUrl: `${API_BASE}/userTotalRank/includeHonor`,
-  top1Url: `${API_BASE}/historyTop1?type=1`,
+  top1Url: `${API_BASE}/historyTop1`,
   dailyDesc: 'user_daily_rank_show',
   totalDesc: 'user_total_rank_show'
 }
@@ -40,7 +40,7 @@ export const anchorRankConfig: RankPageConfig = {
   description: '主播日榜/总榜',
   dailyUrl: `${API_BASE}/anchorDailyRank/includeHonor`,
   totalUrl: `${API_BASE}/anchorTotalRank/includeHonor`,
-  top1Url: `${API_BASE}/historyTop1?type=2`,
+  top1Url: `${API_BASE}/historyTop1`,
   dailyDesc: 'anchor_daily_rank_show',
   totalDesc: 'anchor_total_rank_show'
 }
@@ -50,7 +50,7 @@ export const newUserRankConfig: RankPageConfig = {
   description: '新人送礼日榜/总榜',
   dailyUrl: `${API_BASE}/newUserDailyRank`,
   totalUrl: `${API_BASE}/newUserTotalRank`,
-  top1Url: `${API_BASE}/historyTop1?type=7`,
+  top1Url: `${API_BASE}/historyTop1`,
   dailyDesc: 'new_daily_rank_show',
   totalDesc: 'new_total_rank_show'
 }
@@ -69,7 +69,7 @@ export const cpRankConfig: RankPageConfig = {
   description: 'CP日榜/总榜',
   dailyUrl: `${API_BASE}/cpDailyRank`,
   totalUrl: `${API_BASE}/cpTotalRank`,
-  top1Url: `${API_BASE}/historyTop1?type=6`,
+  top1Url: `${API_BASE}/historyTop1`,
   dailyDesc: 'cp_daily_rank_show',
   totalDesc: 'cp_total_rank_show'
 }

@@ -5,7 +5,7 @@
       <DateAvatar
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
-        :apiParams="{ activityId, type: 'party' }"
+        :apiParams="{ activityId, type: 7 }"
         v-model="selDate"
       />
     </FixedTop>
@@ -23,7 +23,7 @@
   </div>
 </template>
 
-<script lang="ts" setup name="RankNew">
+<script lang="ts" setup name="RankNewUserPage">
 import { useRankPage } from "../Static/RankComp/useRankPage";
 import RankTemp from "../Static/RankComp/RankTemp.vue";
 import DateTab from "../Static/RankComp/DateTab.vue";
@@ -34,9 +34,9 @@ const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
   rankType: "newUser", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
   dayTotal: 0, // 0-日榜，1-总榜
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
-  infoTextList: [98, 101],
+  infoTextList: [76, 77],
   params: () => ({
-    // other: "", // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+    // other: '7' // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
   }),
 });
 </script>

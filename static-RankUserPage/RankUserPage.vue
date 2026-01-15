@@ -5,7 +5,7 @@
       <DateAvatar
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
-        :apiParams="{ activityId }"
+        :apiParams="{ activityId, type: 1 }"
         v-model="selDate"
       />
     </FixedTop>
@@ -35,7 +35,7 @@ const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
   dayTotal: 0, // 0-日榜，1-总榜
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
   params: () => ({
-    other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+    // other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
   }),
 });
 </script>

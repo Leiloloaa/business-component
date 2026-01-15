@@ -1,5 +1,19 @@
 # AI -- to do list
 
+## 任务执行配置
+
+| 任务  | 是否执行 | 优先级 | 描述                                 |
+| ----- | -------- | ------ | ------------------------------------ |
+| 任务1 | 0        | 高     | 修改文件中的引用路径                 |
+| 任务2 | 1        | 高     | 增加并修改 RankTemp.vue 中的引用路径 |
+| 任务3 | 0        | 高     | 引入全局文件 customRegister.ts       |
+| 任务4 | 0        | 高     | 创建榜单路由                         |
+| 任务5 | 0        | 中     | 创建功能模块                         |
+
+> 说明：`1` 表示执行，`0` 表示不执行
+
+---
+
 ## 组件列表
 
 - RouterTab 路由 tab
@@ -8,31 +22,69 @@
 - TextDanmu 文字弹幕
 - PoolSwiper 奖池预览
 
-## 任务列表
+---
 
-每个任务中都有 `是否执行此任务`，`[1]` 是执行，`[0]` 不执行；新增的文件都是在当前的路径下；
+## 任务详情
 
-### 任务1: [修改下列文件中的引用路径，使其符合当前文件目录的结构]
-**是否执行此任务**: [1]
-**优先级**: [高]
+### 任务1: 修改文件中的引用路径
+
 **相关文件**: 
-1. useRankPage.ts 文件中的，useAppStore 的引用路径
+1. `useRankPage.ts` 文件中的 `useAppStore` 引用路径
    ```ts
    import { useAppStore } from '../../../store'
    ```
-2. 新增的 RankXXXPage 目录下的 RankXXXPage.vue 中的，这四个路径
-   1. import { useRankPage } from '../Static/RankComp/useRankPage'
-   2. import RankTemp from '../Static/RankComp/RankTemp.vue'
-   3. import DateTab from '../Static/RankComp/DateTab.vue'
-   4. import DateAvatar from '../Static/RankComp/DateAvatar.vue'
+2. 新增的 `RankXXXPage` 目录下的 `RankXXXPage.vue` 中的四个路径
+   ```ts
+   import { useRankPage } from '../Static/RankComp/useRankPage'
+   import RankTemp from '../Static/RankComp/RankTemp.vue'
+   import DateTab from '../Static/RankComp/DateTab.vue'
+   import DateAvatar from '../Static/RankComp/DateAvatar.vue'
+   ```
 
-### 任务2: [引入全局文件]
-**是否执行此任务**: [1]
-**优先级**: [高]
+---
+
+### 任务2: 增加并修改 RankTemp.vue 中的引用路径
+
 **相关文件**: 
-customRegister.ts，将 customRegister.ts 文件，在 main.ts 文件中全局引入
+1. 找到 `RankTemp.vue` 文件，修正以下引用：
+   ```ts
+   // 榜单
+   import TopThree from '../RankAnchorPage/RankCard/TopThree.vue'
+   import Card from '../RankAnchorPage/RankCard/Card.vue'
+   import UserInfo from '../RankAnchorPage/RankCard/UserInfo.vue'
+   ```
+2. 同时引入新增的 `RankXXXPage` 目录下带 `Card` 目录中的 `TopThree`、`Card`、`UserInfo`
+3. 修改 `componentMap` 计算属性，根据榜单类型引入对应组件：
+   ```ts
+   const componentMap = computed(() => {
+     const map = {
+       // 根据榜单类型引入对应的 card、userInfo、topThree
+       // xx: {
+       //   card: XXCard,
+       //   userInfo: XXUserInfo,
+       //   topThree: XXTopThree
+       // },
+       default: {
+         card: Card,
+         userInfo: UserInfo,
+         topThree: TopThree
+       }
+     }
+     return map[props.rankType] || map.default
+   })
+   ```
 
-例如
+> 榜单类型在 `RankXXXPage.vue` 的 `useRankPage` 方法中由 `rankType` 字段定义
+
+---
+
+### 任务3: 引入全局文件
+
+**相关文件**: `customRegister.ts`
+
+**任务描述**: 将 `customRegister.ts` 在 `main.ts` 中全局引入
+
+**示例**:
 ```ts
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -43,7 +95,7 @@ import { iosAddViewportFit } from '@publicComponents/shared'
 import router from './router/index'
 import { List, Sticky, BackTop, CountDown, Lazyload, Toast, NoticeBar } from 'vant'
 import 'vant/lib/index.css'
-import '@publicComponents/index.scss' // 全局静态样式
+import '@publicComponents/index.scss'
 import './scss/index.scss'
 import { config } from './config'
 import { createPinia } from 'pinia'
@@ -52,26 +104,13 @@ import pluginToWebp from 'plugin-to-webp'
 import components from './common/all.components'
 import customRegister from './xxx/customRegister'
 
-// ios终端 添加 viewport-fit
 iosAddViewportFit()
 
-// createApp
 const app = createApp(App)
 const rootDom = document.createElement('div')
 document.body.appendChild(rootDom)
 const pretreatment = new Pretreatment(app, [
-  'EG',
-  'TR',
-  'IN',
-  'PK',
-  'BD',
-  'MY',
-  'FR',
-  'ID',
-  'VN',
-  'TW',
-  'IT',
-  'TH'
+  'EG', 'TR', 'IN', 'PK', 'BD', 'MY', 'FR', 'ID', 'VN', 'TW', 'IT', 'TH'
 ])
 pretreatment.init(false, router).then(({ LANG }) => {
   app
@@ -84,36 +123,32 @@ pretreatment.init(false, router).then(({ LANG }) => {
     .use(BackTop)
     .use(CountDown)
     .use(NoticeBar)
-    .use(Lazyload, {
-      lazyComponent: true
-    })
-    .use(components) // 固定组件与常用组件
+    .use(Lazyload, { lazyComponent: true })
+    .use(components)
     .use(customRegister)
-    .use(pluginToWebp, {
-      excludesName: ['live'] // 不转换的图片名称
-    })
+    .use(pluginToWebp, { excludesName: ['live'] })
     .use(developTool, { activityId: config.activityId, countryCode: LANG })
     .mount(rootDom)
 })
-
 ```
 
-### 任务3: [创建榜单路由]
-**是否执行此任务**: [0]
-**优先级**: [高]
-**相关文件**: 
-获取当前项目内新增的文件，目录名带 `xxxPage`
+---
 
-**任务描述**:
-找到对应的 `xxxPage.vue` 文件，再根据所有目录的层级结构，在 `router/index.ts` 生成对应的路由
+### 任务4: 创建榜单路由
 
-**具体要求**:
-- 无
+**相关文件**: 获取目录名带 `xxxPage` 的新增文件
 
-### 任务4: [创建功能模块]
-**是否执行此任务**: [0]
-**相关文件**: 
-一个功能模块，创建一个 `.vue`，模板如下，下方的模板创建时，需要将模板的 `xxx` 改为功能的名称；创建功能过程中引用的组件看此文档开头的组件列表，每一个 `.vue` 组件的开头都有使用方法注释，有多种使用方法，默认使用第一种；另外，引用到功能模块后，这些组件 html 片段需要注释，但是相关的变量需要生成。
+**任务描述**: 找到对应的 `xxxPage.vue` 文件，根据目录层级结构在 `router/index.ts` 生成对应路由
+
+**具体要求**: 路由名称和路径保持一致
+
+---
+
+### 任务5: 创建功能模块
+
+**任务描述**: 创建一个功能模块 `.vue` 文件
+
+**模板**:
 ```vue
 <template>
   <div class="xxx-wrap">
@@ -133,6 +168,11 @@ TOOL_BPFunc({ desc: 'xxx', action: 'click' })
 </style>
 ```
 
-**任务描述**:
-功能一：
-xxx
+**注意事项**:
+- 创建时将模板中的 `xxx` 改为功能名称
+- 引用组件参考文档开头的组件列表
+- 每个 `.vue` 组件开头都有使用方法注释，有多种使用方法时默认使用第一种
+- 引用到功能模块后，组件 HTML 片段需要注释，但相关变量需要生成
+
+**功能描述**:
+功能一：xxx

@@ -1,217 +1,264 @@
 <template>
-  <!-- idx 从 1 开始 -->
-  <div
-    v-bg="isUser ? 'info' : info.idx <= 3 ? `card1` : 'card'"
-    class="card"
-    :class="{
-      top: Number(info.idx) <= 3 && !isUser,
-      isUser: isUser,
-    }"
-  >
+  <Lazy>
     <div
-      v-if="info?.status == 0 && info?.stamp"
-      v-bg="`stamp`"
-      class="stamp"
-      tag="img"
-    ></div>
-    <div class="content">
-      <!-- 新人 -->
-      <div
-        class="new-or-back fc"
-        v-if="info.name && !isUser && info?.isNewUser"
-      >
-        <img class="obg" :src="`${ossUrl}/n1.png`" alt="" />
-        <NoticeBar :w="1.32" :h="0.28">
-          <span style="min-width: 1.32rem">{{ TOOL_TEXT[733] }}</span>
-        </NoticeBar>
-      </div>
-
-      <!-- 新人 -->
-      <div
-        class="new-or-back fc"
-        :class="`new-or-back-right`"
-        v-if="info?.cp?.name && !isUser && info?.cp?.isNewUser"
-      >
-        <img class="obg" :src="`${ossUrl}/n1.png`" alt="" />
-        <NoticeBar :w="1.32" :h="0.28">
-          <span style="min-width: 1.32rem">{{ TOOL_TEXT[733] }}</span>
-        </NoticeBar>
-      </div>
-
-      <div class="num" v-if="!isTop3">{{ info.idx }}</div>
-
-      <div class="left">
-        <div class="user-info">
-          <OptA :data="info || {}" :option="option" />
-
-          <span class="name ov">
-            {{ info.name || "---" }}
-          </span>
-        </div>
-
-        <!-- 奖励信息 -->
-        <div
-          v-bg="`cp-bottom-info`"
-          class="bottom-info fc"
-          v-if="!isUser && Number(info.idx) <= 3 && userReward?.length > 0"
-        >
-          <NoticeBar :w="2" :h="0.8">
-            <template v-for="rewardObj in userReward">
-              <template
-                v-if="
-                  info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
-                "
-              >
-                <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <div v-bg="`b-rew`" class="rew fc">
-                    <cdnImg :info="gift" />
-                  </div>
-                  <div class="text-wrap">
-                    <Outline
-                      :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
-                      :text="getRew(gift)?.num"
-                      :noColor="false"
-                      class="text text-name"
-                    />
-                  </div>
-                </div>
-              </template>
-            </template>
-          </NoticeBar>
-        </div>
-      </div>
-
-      <div class="middle">
+      v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
+      :class="['card', { top: Number(info.idx) <= 3 && !isUser, isUser: isUser }, `top${info.idx}`]"
+    >
+      <div class="top-info" :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }">
         <img
-          v-if="isTop3"
-          :src="`${ossUrl}/num${info.idx}.png`"
-          alt=""
-          class="top-rank"
+          v-if="info?.status == 0 && info?.stamp"
+          class="stamp"
+          :src="`${ossUrl}/stamp.png`"
+          v-EG
         />
 
-        <div
-          class="cp-type"
-          v-bg="getCpType(info.gender, info.cp?.gender)"
-          tag="png"
-        />
-        <div v-bg="`score`" class="score fc">{{
-          TOOL_NUM(info.score) || "--"
-        }}</div>
-      </div>
+        <Space :val="0.47" :h="0" v-if="!isTop3 && !isUser" />
 
-      <div class="right part" :class="{ isUser }">
-        <div class="user-info">
-          <OptA :data="info?.cp || {}" :option="option" />
-          <span class="name ov"> {{ info?.cp?.name || "---" }} </span>
+        <div class="num fc">
+          <Outline
+            v-if="isTop3"
+            :color="`0.05rem #830000`"
+            :text="info?.idx || info?.rank || '99+'"
+            class="top3"
+          />
+          <Outline
+            v-else
+            :color="`0.05rem #DA00B9`"
+            :text="info?.idx || info?.rank || '99+'"
+            noColor
+          />
         </div>
 
-        <!-- 奖励信息 -->
-        <div
-          v-bg="`cp-bottom-info`"
-          class="bottom-info fc"
-          v-if="!isUser && Number(info.idx) <= 3 && cpReward?.length > 0"
-        >
-          <NoticeBar :w="2" :h="0.8">
-            <template v-for="rewardObj in cpReward">
-              <template
-                v-if="
-                  info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
-                "
-              >
-                <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-                  <div v-bg="`b-rew`" class="rew fc">
-                    <cdnImg :info="gift" />
+        <Space :val="0.16" :h="0" v-if="!isTop3" />
+
+        <div class="left">
+          <div class="user-info">
+            <OptA :data="info || {}" :option="option" />
+
+            <span class="name ov">
+              {{ info.name || '---' }}
+            </span>
+          </div>
+
+          <!-- 奖励信息 -->
+          <div v-bg="`b-cp-info`" class="bottom-info fc" v-if="!isUser && Number(info.idx) <= 3">
+            <NoticeBar :w="2" :h="0.8">
+              <template v-for="rewardObj in userReward">
+                <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+                  <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
+                    <div v-bg="`b-rew`" class="rew fc">
+                      <cdnImg :info="gift" />
+                    </div>
+                    <div class="text-wrap">
+                      <Outline
+                        :color="1 ? '0.05rem #9A1307' : '0.05rem #581604'"
+                        :text="getRew(gift)?.num"
+                        :noColor="false"
+                        class="text text-name"
+                      />
+                    </div>
                   </div>
-                  <div class="text-wrap">
-                    <Outline
-                      :color="1 ? '0.05rem #E0007F' : '0.05rem #581604'"
-                      :text="getRew(gift)?.num"
-                      :noColor="false"
-                      class="text text-name"
-                    />
-                  </div>
-                </div>
+                </template>
               </template>
-            </template>
-          </NoticeBar>
+            </NoticeBar>
+          </div>
+        </div>
+
+        <div class="middle">
+          <div class="cp-type" v-bg="getCpType(info.gender, info.cp?.gender)" tag="png" />
+          <div v-bg="`score`" class="score fc">{{ TOOL_NUM(info.score) || '--' }}</div>
+        </div>
+
+        <div class="right part" :class="{ isUser }">
+          <div class="user-info">
+            <OptA :data="info?.cp || {}" :option="option" />
+            <span class="name ov"> {{ info?.cp?.name || '---' }} </span>
+          </div>
+
+          <!-- 奖励信息 -->
+          <div v-bg="`b-cp-info`" class="bottom-info fc" v-if="!isUser && Number(info.idx) <= 3">
+            <NoticeBar :w="2" :h="0.8">
+              <template v-for="rewardObj in cpReward">
+                <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+                  <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
+                    <div v-bg="`b-rew`" class="rew fc">
+                      <cdnImg :info="gift" />
+                    </div>
+                    <div class="text-wrap">
+                      <Outline
+                        :color="1 ? '0.05rem #9A1307' : '0.05rem #581604'"
+                        :text="getRew(gift)?.num"
+                        :noColor="false"
+                        class="text text-name"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </template>
+            </NoticeBar>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </Lazy>
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from "@publicComponents/injectTool";
-import { css } from "@publicComponents/shared";
+import injectTool from '@publicComponents/injectTool'
+import { css } from '@publicComponents/shared'
 
-const getRew = inject("getRew");
-const imgUrl = inject("imgUrl");
-const isDaily = inject("isDaily", false);
-const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool();
-const rankLoadInfo = inject("rankLoadInfo");
-const ossUrl = inject("ossUrl");
+const getRew = inject('getRew')
+
+const isDaily = inject('isDaily', false)
+const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool()
+const rankLoadInfo = inject('rankLoadInfo')
+const ossUrl = inject('ossUrl')
 
 const props = withDefaults(
   defineProps<{
-    info: any;
-    isUser?: boolean;
-    type?: string; // card 类型，不同背景
-    idx?: number | string;
-    isLink?: boolean;
+    info: any
+    isUser?: boolean
+    isDaily?: boolean // 日榜/总榜
   }>(),
-  { isUser: false, isLink: false, idx: 0 }
-);
+  { isUser: false }
+)
 
 // 获取cp类型 男-男 'mm' 女-女 'ff' 男-女 'mf'
 const getCpType = (gender1, gender2) => {
   if (gender1 == gender2 && gender1 == 2) {
-    return "cp-mm";
+    return 'cp-mm'
   } else if (gender1 == gender2 && gender1 == 1) {
-    return "cp-ff";
+    return 'cp-ff'
   } else {
-    return "cp-mf";
+    return 'cp-mf'
   }
-};
+}
 
 const userReward = computed(() => {
-  let gender = props.info?.gender;
+  let gender = props.info?.gender
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? [];
+    return rankLoadInfo.reward.femaleReward ?? []
   } else {
-    return rankLoadInfo.reward.maleReward ?? [];
+    return rankLoadInfo.reward.maleReward ?? []
   }
-});
+})
 
 const cpReward = computed(() => {
-  let gender = props.info?.cp?.gender;
+  let gender = props.info?.cp?.gender
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? [];
+    return rankLoadInfo.reward.femaleReward ?? []
   } else {
-    return rankLoadInfo.reward.maleReward ?? [];
+    return rankLoadInfo.reward.maleReward ?? []
   }
-});
+})
 
 const optionList = {
-  0: {
+  1: {
     styles: css`
-      width: 1.425rem;
-      height: 1.425rem;
-      flex-shrink: 0;
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
     `,
     adorns: [
       {
-        img: "a",
+        img: 'a1',
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `,
-      },
+        `
+      }
     ],
     avatar: css`
-      width: 1rem;
-      height: 1rem;
-      flex-shrink: 0;
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.1rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
+  },
+  2: {
+    styles: css`
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
+    `,
+    adorns: [
+      {
+        img: 'a2',
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `
+      }
+    ],
+    avatar: css`
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.1rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
+  },
+  3: {
+    styles: css`
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
+    `,
+    adorns: [
+      {
+        img: 'a3',
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `
+      }
+    ],
+    avatar: css`
+      width: 0.98rem;
+      height: 0.98rem;
+    `,
+    live: css`
+      width: 0.41rem;
+      height: 0.24rem;
+      bottom: 0.1rem;
+    `,
+    liveIcon: css`
+      width: 0.18rem;
+    `
+  },
+  0: {
+    styles: css`
+      width: 1.52rem;
+      height: 1.52rem;
+      aspect-ratio: 1/1;
+    `,
+    adorns: [
+      {
+        img: 'a',
+        styles: css`
+          width: 100%;
+          height: 100%;
+          flex-shrink: 0;
+        `
+      }
+    ],
+    avatar: css`
+      width: 1.13493rem;
+      height: 1.13493rem;
     `,
     live: css`
       width: 0.41rem;
@@ -220,106 +267,19 @@ const optionList = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `,
-  },
-  1: {
-    styles: css`
-      width: 1.39484rem;
-      height: 1.40719rem;
-      flex-shrink: 0;
-    `,
-    adorns: [
-      {
-        img: "a1",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9875rem;
-      height: 0.9875rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `,
-  },
-  2: {
-    styles: css`
-      width: 1.39484rem;
-      height: 1.40719rem;
-      flex-shrink: 0;
-    `,
-    adorns: [
-      {
-        img: "a2",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9875rem;
-      height: 0.9875rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `,
-  },
-  3: {
-    styles: css`
-      width: 1.39484rem;
-      height: 1.40719rem;
-      flex-shrink: 0;
-    `,
-    adorns: [
-      {
-        img: "a3",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9875rem;
-      height: 0.9875rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `,
-  },
-};
+    `
+  }
+}
 
-const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser); // info.idx从1开始
+const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
 
 const option = computed(() => {
   if (isTop3.value && !props.isUser) {
-    return optionList[props?.info?.idx];
+    return optionList[props?.info?.idx]
   } else {
-    return optionList["0"];
+    return optionList['0']
   }
-});
+})
 </script>
 
 <style lang="scss" scoped>
@@ -328,85 +288,171 @@ const option = computed(() => {
 }
 
 .card {
-  width: 7.18rem;
-  height: 1.82rem;
-
+  width: 7rem;
+  height: 1.96rem;
   flex-shrink: 0;
 
-  margin: 0 auto 0.16rem;
+  margin: 0 auto;
+  margin-bottom: 0.08rem;
 
   display: flex;
-  justify-content: center;
 
   position: relative;
 
-  .stamp {
-    width: 1.42rem;
-    // height: 0.84rem;
-
-    position: absolute;
-    top: -0.2rem;
-    right: 1.8rem;
-    z-index: 98;
-  }
-
-  .content {
-    width: 7.18rem;
-    height: 1.82rem;
+  &.top {
+    width: 7rem;
+    height: 3.27rem;
+    margin-bottom: 0.16rem;
 
     display: flex;
     justify-content: center;
 
-    direction: ltr;
-
-    .new-or-back {
-      width: 1.32rem;
-      height: 0.32rem;
-      flex-shrink: 0;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
+    .num {
+      width: 0.44rem;
+      height: 0.37rem;
 
       position: absolute;
-      top: 0rem;
-      left: 0.2rem;
-      z-index: 5;
-
-      &.new-or-back-right {
-        left: auto;
-        right: 0.2rem;
-
-        img {
-          transform: scaleX(-1);
-        }
-      }
+      top: 0.1rem;
+      left: 50%;
+      transform: translateX(-60%);
 
       span {
-        position: relative;
-        z-index: 2;
-
-        color: #f7e1ff;
-        font-family: "SF UI Text";
-        font-size: 0.22rem;
+        color: #f2ff3f;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #830000;
+        font-family: 'SF UI Text';
+        font-size: 0.36rem;
         font-style: normal;
-        font-weight: 400;
-        line-height: 0.28rem; /* 127.273% */
-
-        text-align: center;
+        font-weight: 700;
+        line-height: 0.16rem; /* 44.444% */
       }
     }
 
-    .num {
-      height: 1.82rem;
+    .top-info {
+      margin-top: -0.1rem;
+      .left,
+      .right {
+        margin-top: 0.33rem;
 
-      color: #faf0ff;
-      text-align: center;
-      font-family: "SF UI Text";
-      font-size: 0.28rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 1.82rem; /* 114.286% */
+        .name {
+          margin-top: -0.08rem;
+          margin-bottom: 0.04rem;
+          width: 1.80688rem;
+
+          color: #ffedbe;
+          font-family: 'SF UI Text';
+          font-size: 0.24rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 0.32rem; /* 133.333% */
+          text-align: center;
+        }
+
+        .reward-wrap {
+          width: 2.84rem;
+          height: 0.8rem;
+        }
+      }
+
+      .middle {
+        width: 1.7rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -0.5rem;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+
+        .top-rank {
+          width: 0.64rem;
+          height: 0.55rem;
+          flex-shrink: 0;
+        }
+
+        .cp-level {
+          color: #ff471d;
+          font-size: 0.28rem;
+          font-weight: 700;
+          line-height: 0.28rem; /* 100% */
+        }
+
+        .cp-type {
+          width: 0.7rem;
+          height: 0.73rem;
+          flex-shrink: 0;
+        }
+
+        .score {
+          width: 1.74rem;
+          height: 0.4rem;
+
+          margin-top: -0.18rem;
+
+          position: relative;
+          z-index: 2;
+
+          color: #ffeccf;
+          text-align: center;
+          font-family: 'SF UI Text';
+          font-size: 0.24rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 0.4rem; /* 133.333% */
+        }
+      }
+    }
+
+    .bottom-bg {
+      width: 6.64rem;
+      height: 0.8rem;
+      position: absolute;
+      left: 50%;
+      bottom: 0.16rem;
+      transform: translateX(-50%);
+      z-index: -1;
+    }
+  }
+
+  &.isUser {
+    display: flex;
+    justify-content: center;
+
+    .top-info {
+    }
+
+    .middle {
+    }
+  }
+
+  .stamp {
+    width: 2rem;
+    height: 1.2rem;
+    position: absolute;
+    top: -0.5rem;
+    left: 0rem;
+    z-index: 98;
+  }
+
+  .top-info {
+    display: flex;
+    align-items: center;
+    margin-top: -0.05rem;
+
+    .num {
+      width: 0.6rem;
+      height: 0.6rem;
+
+      span {
+        color: #ffeb7a;
+        text-align: center;
+
+        /* 一级标题 */
+        font-family: Arial;
+        font-size: 0.32rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
     }
 
     .left,
@@ -414,7 +460,6 @@ const option = computed(() => {
       display: flex;
       flex-direction: column;
       align-items: center;
-      width: 2rem;
 
       .user-info {
         display: flex;
@@ -424,21 +469,22 @@ const option = computed(() => {
       }
 
       .name {
-        width: 1.64rem;
-        min-height: 0.34rem;
+        width: 1.52rem;
+        height: 0.32rem;
 
-        margin-top: -0.2rem;
+        margin-top: -0.1rem;
 
-        color: #fdffe7;
-        text-align: center;
-        font-size: 0.26rem;
+        color: #ffcc6c;
+        font-family: 'SF UI Text';
+        font-size: 0.24rem;
         font-style: normal;
-        font-weight: 600;
-        line-height: 0.34rem; /* 130.769% */
+        font-weight: 700;
+        line-height: 0.32rem; /* 133.333% */
+        text-align: center;
       }
 
       .bottom-info {
-        width: 3.04rem;
+        width: 2.84rem;
         height: 0.8rem;
 
         display: flex;
@@ -446,17 +492,16 @@ const option = computed(() => {
         align-items: center;
 
         .b-icon {
-          width: 0.69818rem;
-          height: 0.71255rem;
-          flex-shrink: 0;
+          width: 0.64rem;
+          height: 0.64rem;
         }
 
         .rew-wrap {
           width: 0.64rem;
           height: 0.64rem;
           position: relative;
-          margin-left: 0.14rem;
-          margin-right: 0.14rem;
+          margin-left: 0.12rem;
+          margin-right: 0.12rem;
 
           .rew {
             width: 0.64rem;
@@ -489,8 +534,8 @@ const option = computed(() => {
             .text {
               color: #fff7e1;
               -webkit-text-stroke-width: 2px;
-              -webkit-text-stroke-color: #e0007f;
-              font-family: "SF UI Text";
+              -webkit-text-stroke-color: #9a1307;
+              font-family: 'SF UI Text';
               font-size: 0.16rem;
               font-style: normal;
               font-weight: 700;
@@ -502,11 +547,13 @@ const option = computed(() => {
     }
 
     .middle {
-      width: 2.3rem;
+      width: 1.7rem;
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: 0.1rem;
+      margin-top: -0.2rem;
+      // margin-left: -0.5rem;
+      // margin-right: -0.5rem;
 
       .top-rank {
         width: 0.64rem;
@@ -522,13 +569,13 @@ const option = computed(() => {
       }
 
       .cp-type {
-        width: 0.8rem;
-        height: 0.8rem;
-        margin-top: 0.13rem;
+        width: 0.7rem;
+        height: 0.73rem;
+        flex-shrink: 0;
       }
 
       .score {
-        width: 1.76rem;
+        width: 1.74rem;
         height: 0.4rem;
 
         margin-top: -0.18rem;
@@ -536,81 +583,15 @@ const option = computed(() => {
         position: relative;
         z-index: 2;
 
-        flex-shrink: 0;
-        color: #faf0ff;
+        color: #ffeccf;
         text-align: center;
-        font-family: "SF UI Text";
-        font-size: 0.22rem;
+        font-family: 'SF UI Text';
+        font-size: 0.24rem;
         font-style: normal;
-        font-weight: 400;
-        line-height: 0.4rem; /* 145.455% */
+        font-weight: 700;
+        line-height: 0.4rem; /* 133.333% */
       }
     }
-  }
-}
-
-.top {
-  width: 7.18rem;
-  height: 3rem !important;
-
-  > img {
-    z-index: -10;
-  }
-
-  .content {
-    height: 3rem !important;
-
-    .new-or-back {
-      top: 0.28rem;
-    }
-
-    .left,
-    .right {
-      margin-top: 0.33rem;
-
-      .name {
-        margin-top: 0 !important;
-      }
-    }
-  }
-
-  .bottom-bg {
-    width: 6.64rem;
-    height: 0.8rem;
-    position: absolute;
-    left: 50%;
-    bottom: 0.16rem;
-    transform: translateX(-50%);
-    z-index: -1;
-  }
-}
-.isUser {
-  width: 7.5rem;
-  height: 1.68rem;
-  margin-bottom: 0;
-  .content {
-    .user-idx {
-      flex-shrink: 0;
-      color: #fdffe6;
-      font-size: 0.28rem;
-      font-weight: 700;
-      line-height: normal;
-      margin-top: 0.1rem;
-    }
-    .user-link {
-      flex-shrink: 0;
-      color: #ff3700;
-      font-size: 0.24rem;
-      font-weight: 700;
-      line-height: 0.26rem; /* 108.333% */
-      margin-top: 0.1rem;
-    }
-  }
-
-  .middle {
-    margin-top: -0.1rem !important;
-    top: 0;
-    width: 1.6rem;
   }
 }
 </style>

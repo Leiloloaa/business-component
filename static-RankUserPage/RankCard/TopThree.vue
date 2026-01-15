@@ -13,7 +13,7 @@
 
         <Outline
           class="name ov"
-          :color="'0.05rem #f00ce4'"
+          :color="'0.05rem #af2300'"
           :text="(info.list[item] && info.list[item].name) || '--'"
         />
 
@@ -54,7 +54,7 @@
       </div>
 
       <!-- 第一名和二三名的间距 -->
-      <Space :val="-0.3" v-if="item !== 2" />
+      <Space :val="-0.1" v-if="item !== 2" />
     </template>
   </div>
 </template>
@@ -88,9 +88,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 1.33438rem;
-      height: 1.33438rem;
-      top: 0.15rem;
+      width: 1.42188rem;
+      height: 1.53125rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -118,9 +118,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 1.10563rem;
-      height: 1.10563rem;
-      top: 0.15rem;
+      width: 1.16rem;
+      height: 1.16rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -148,9 +148,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 1.10563rem;
-      height: 1.10563rem;
-      top: 0.15rem;
+      width: 1.16rem;
+      height: 1.16rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -167,17 +167,16 @@ const optionList = {
 <style lang="scss" scoped>
 .top-three {
   width: 7.5rem;
-  height: 5.5rem;
-
+  height: 9.02rem;
+  margin-bottom: -3.5rem;
   display: flex;
   justify-content: center;
 
   position: relative;
 
   .top3-bg {
-    width: 6.8rem;
-    height: 7.1rem;
-    flex-shrink: 0;
+    width: 6.54rem;
+    height: 9.02rem;
 
     position: absolute;
     top: -1.2rem;
@@ -228,15 +227,15 @@ const optionList = {
       height: 0.34rem;
       flex-shrink: 0;
 
-      color: #fff;
+      color: #ffedbd;
       text-align: center;
       -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: #f00ce4;
+      -webkit-text-stroke-color: #af2300;
       font-family: 'SF UI Text';
       font-size: 0.26rem;
       font-style: normal;
       font-weight: 700;
-      line-height: 0.32rem; /* 123.077% */
+      line-height: normal;
 
       text-align: center;
 
@@ -251,7 +250,7 @@ const optionList = {
 
       margin-top: 0.1rem;
 
-      color: #eaf6ff;
+      color: #ffeccf;
       text-align: center;
       font-family: 'SF UI Text';
       font-size: 0.24rem;

@@ -17,9 +17,36 @@
             />
           </div>
 
-          <div class="avatar-wrap" style="pointer-events: none">
+          <div class="avatar-wrap fc" style="pointer-events: none">
             <OptA
               :data="historyTop1?.[item] || {}"
+              :option="{
+                styles: css`
+                  width: 0.92188rem;
+                  height: 0.92188rem;
+                  aspect-ratio: 92.19/92.19;
+                `,
+                adorns: [
+                  {
+                    img: 'a1',
+                    styles: css`
+                      width: 100%;
+                      height: 100%;
+                    `
+                  }
+                ],
+                avatar: css`
+                  width: 0.50781rem;
+                  height: 0.54688rem;
+                `,
+                live: css`
+                  display: none;
+                `
+              }"
+            />
+            <Space :val="-0.2" :h="0" />
+            <OptA
+              :data="historyTop1?.[item]?.cp || {}"
               :option="{
                 styles: css`
                   width: 0.92188rem;
@@ -312,7 +339,7 @@ onMounted(async () => {
       position: relative;
 
       .day-tab {
-        width: 1.38rem;
+        width: 1.7rem;
 
         display: flex;
         flex-direction: column;
@@ -346,6 +373,7 @@ onMounted(async () => {
         }
 
         .avatar-wrap {
+          width: 1.64rem;
           position: relative;
           z-index: 10;
 

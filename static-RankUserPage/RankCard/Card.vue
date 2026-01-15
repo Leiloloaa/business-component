@@ -1,38 +1,44 @@
 <template>
-  <div
-    v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
-    :class="[
-      'card',
-      { top: isTop3, isUser: isUser, bInfo: config.showBottomInfo },
-      `top${info.idx}`
-    ]"
-  >
-    <div class="top-info" :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }">
-      <img
-        v-if="info?.status == 0 && info?.stamp"
-        class="stamp"
-        :src="`${ossUrl}/n-stamp.png`"
-        v-EG
-      />
-
-      <Space :val="isTop3 ? 0.43 : 0.4" />
-
-      <div class="num fc">
-        <img v-if="isTop3" :src="`${ossUrl}/n${info?.idx}.png`" alt="" />
-        <Outline
-          v-else
-          :color="`0.05rem #DA00B9`"
-          :text="info?.idx || info?.rank || '99+'"
-          noColor
+  <Lazy>
+    <div
+      v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
+      :class="[
+        'card',
+        { top: isTop3, isUser: isUser, bInfo: config.showBottomInfo },
+        `top${info.idx}`
+      ]"
+    >
+      <div class="top-info" :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }">
+        <img
+          v-if="info?.status == 0 && info?.stamp"
+          class="stamp"
+          :src="`${ossUrl}/stamp.png`"
+          v-EG
         />
-      </div>
 
-      <Space :val="isTop3 ? 0.18 : 0.18" />
-      <OptA :data="info || {}" :option="option" />
-      <Space :val="0.12" />
+        <Space :val="isTop3 ? 0.54 : 0.27" />
 
-      <!-- 层叠头像组件 -->
-      <!-- <div class="superpose-avatar">
+        <div class="num fc">
+          <Outline
+            v-if="isTop3"
+            :color="`0.05rem #830000`"
+            :text="info?.idx || info?.rank || '99+'"
+            class="top3"
+          />
+          <Outline
+            v-else
+            :color="`0.05rem #DA00B9`"
+            :text="info?.idx || info?.rank || '99+'"
+            noColor
+          />
+        </div>
+
+        <Space :val="isTop3 ? 0 : 0.16" />
+        <OptA :data="info || {}" :option="option" />
+        <Space :val="0.26" />
+
+        <!-- 层叠头像组件 -->
+        <!-- <div class="superpose-avatar">
       <SuperposeAvatar :overlap="0.16">
         <div class="avatar-wrap" v-for="tp in 3">
           <cdnImg class="avatar" :fid="info?.top3?.[tp - 1] || ''"></cdnImg>
@@ -40,103 +46,109 @@
       </SuperposeAvatar>
     </div> -->
 
-      <!-- 没有荣誉勋章 -->
-      <template v-if="!config.showHonor || isUser">
-        <div>
-          <Space
-            :val="0.37"
-            h
-            v-if="(info.isNewUser || info.isReturnUser) && !isUser && config.showNewOrBack"
-          />
-          <Outline class="name ov" :color="'0.05rem #7D2759'" :text="info?.name || '--'" noColor />
-          <!-- 新人或回流标识 -->
-          <div
-            class="new-or-back fc"
-            :class="TOOL_countryCode"
-            v-if="
-              (info.isNewUser || info.isReturnUser) &&
-              !isUser &&
-              config.showNewOrBack &&
-              router.currentRoute.value.name != 'rankneworreturn'
-            "
-          >
-            <img :src="`${ossUrl}/${info.isNewUser ? 'n1' : 'n1'}.png`" />
-            <NoticeBar :w="1.3" :h="0.32">
-              <span style="min-width: 1.3rem">{{ TOOL_TEXT[info?.isNewUser ? 107 : 107] }}</span>
-            </NoticeBar>
-          </div>
-        </div>
-        <Space :val="0.29" />
-        <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '--' }}</div>
-      </template>
-
-      <!-- 有荣誉勋章 -->
-      <template v-else>
-        <div>
-          <div class="fc">
-            <div class="name ov">{{ info?.name || '---' }}</div>
-            <Space :val="0.06" />
-            <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</div>
-          </div>
-
-          <div class="honor-bg fc" v-if="info?.name">
-            <Honor :data="info" />
-          </div>
-        </div>
-      </template>
-    </div>
-
-    <!-- 奖励信息 -->
-    <div
-      v-bg="`b-info`"
-      class="bottom-info fc"
-      v-if="isDailyRank && !isUser && Number(info?.idx) <= config.bInfoNum"
-    >
-      <Space :val="0.3" />
-      <img :src="`${ossUrl}/b-icon.png`" class="b-icon shake" />
-      <Space :val="0.09" />
-      <NoticeBar :w="6" :h="0.8">
-        <template v-for="rewardObj in info?.reward">
-          <template v-if="info?.idx >= rewardObj?.start && info?.idx <= rewardObj?.end">
-            <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
-              <Space :val="0.05" />
-              <div v-bg="`b-rew`" class="rew fc">
-                <cdnImg :info="gift" />
-              </div>
-              <Space :val="0.12" />
-              <div class="text-wrap">
-                <div class="text text-name">{{ getRew(gift)?.name }}</div>
-                <div class="text text-days">{{ getRew(gift)?.num }}</div>
-              </div>
+        <!-- 没有荣誉勋章 -->
+        <template v-if="!config.showHonor || isUser">
+          <div>
+            <Space
+              :val="0.37"
+              h
+              v-if="(info.isNewUser || info.isReturnUser) && !isUser && config.showNewOrBack"
+            />
+            <Outline
+              class="name ov"
+              :color="'0.05rem #7D2759'"
+              :text="info?.name || '--'"
+              noColor
+            />
+            <!-- 新人或回流标识 -->
+            <div
+              class="new-or-back fc"
+              :class="TOOL_countryCode"
+              v-if="
+                (info.isNewUser || info.isReturnUser) &&
+                !isUser &&
+                config.showNewOrBack &&
+                router.currentRoute.value.name != 'rankneworreturn'
+              "
+            >
+              <img :src="`${ossUrl}/${info.isNewUser ? 'n1' : 'n1'}.png`" />
+              <NoticeBar :w="1.3" :h="0.32">
+                <span style="min-width: 1.3rem">{{ TOOL_TEXT[info?.isNewUser ? 107 : 107] }}</span>
+              </NoticeBar>
             </div>
-          </template>
+          </div>
+          <Space :val="0.26" />
+          <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '--' }}</div>
         </template>
-      </NoticeBar>
+
+        <!-- 有荣誉勋章 -->
+        <template v-else>
+          <div>
+            <div class="fc">
+              <div class="name ov">{{ info?.name || '---' }}</div>
+              <Space :val="0.06" />
+              <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</div>
+            </div>
+
+            <div class="honor-bg fc" v-if="info?.name">
+              <Honor :data="info" />
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- 奖励信息 -->
+      <div
+        v-bg="`b-info`"
+        class="bottom-info fc"
+        v-if="isDaily && !isUser && Number(info?.idx) <= config.bInfoNum"
+      >
+        <Space :val="0.3" />
+        <img :src="`${ossUrl}/b-icon.png`" class="b-icon shake" />
+        <Space :val="0.09" />
+        <NoticeBar :w="6" :h="0.8">
+          <template v-for="rewardObj in info?.reward">
+            <template v-if="info?.idx >= rewardObj?.start && info?.idx <= rewardObj?.end">
+              <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
+                <Space :val="0.05" />
+                <div v-bg="`b-rew`" class="rew fc">
+                  <cdnImg :info="gift" />
+                </div>
+                <Space :val="0.12" />
+                <div class="text-wrap">
+                  <div class="text text-name">{{ getRew(gift)?.name }}</div>
+                  <div class="text text-days">{{ getRew(gift)?.num }}</div>
+                </div>
+              </div>
+            </template>
+          </template>
+        </NoticeBar>
+      </div>
     </div>
-  </div>
+  </Lazy>
 </template>
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
 const router = useRouter()
+const OSS_DOMAIN = inject('OSS_DOMAIN')
 const props = withDefaults(
   defineProps<{
     info: any
     isUser?: boolean
-    type?: number | string // card 类型，不同背景
-    isDailyRank?: boolean // 日榜/总榜
+    isDaily?: boolean // 日榜/总榜
   }>(),
-  { isUser: false, isDailyRank: true }
+  { isUser: false }
 )
 
 // 1. 配置
 const config = {
   showBottomInfo: true, // 是否显示奖励信息？
-  showTop3NumIcon: 1, // 是否显示前三名次图标？
+  showNewOrBack: false, // 是否显示新人或回流标识？
   showHonor: false, // 是否显示荣誉勋章？
-  bInfoNum: 3, // 前几名奖励信息？
-  showNewOrBack: 1 // 是否显示新人或回流标识？
+  showTop3NumIcon: 1, // 是否显示前三名次图标？
+  bInfoNum: 3 // 前几名奖励信息？
 }
 
 // 2. 使用对象形式存储样式配置
@@ -144,9 +156,9 @@ const config = {
 const optionList = {
   1: {
     styles: css`
-      width: 1.60406rem;
-      height: 1.60406rem;
-      aspect-ratio: 160.41/160.41;
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
     `,
     adorns: [
       {
@@ -158,9 +170,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 0.82922rem;
-      height: 0.82922rem;
-      top: 0.15rem;
+      width: 0.99531rem;
+      height: 1.07188rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -173,8 +185,9 @@ const optionList = {
   },
   2: {
     styles: css`
-      width: 1.60406rem;
-      height: 1.60406rem;
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
     `,
     adorns: [
       {
@@ -186,9 +199,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 0.82922rem;
-      height: 0.82922rem;
-      top: 0.15rem;
+      width: 0.99531rem;
+      height: 1.07188rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -201,8 +214,9 @@ const optionList = {
   },
   3: {
     styles: css`
-      width: 1.60406rem;
-      height: 1.60406rem;
+      width: 1.80688rem;
+      height: 1.80688rem;
+      aspect-ratio: 180.69/180.69;
     `,
     adorns: [
       {
@@ -214,9 +228,9 @@ const optionList = {
       }
     ],
     avatar: css`
-      width: 0.82922rem;
-      height: 0.82922rem;
-      top: 0.15rem;
+      width: 0.99531rem;
+      height: 1.07188rem;
+      top: 0.05rem;
     `,
     live: css`
       width: 0.41rem;
@@ -276,10 +290,10 @@ const option = computed(() => {
 <style lang="scss" scoped>
 .card {
   width: 7rem;
-  height: 1.8rem;
+  height: 1.76rem;
 
   margin: 0 auto;
-  margin-bottom: 0.04rem;
+  margin-bottom: 0.08rem;
 
   display: flex;
   align-items: center;
@@ -288,14 +302,41 @@ const option = computed(() => {
 
   &.top {
     width: 7rem;
-    height: 2.8rem;
-    margin-bottom: 0.12rem;
+    height: 3.04rem;
+    margin-bottom: 0.08rem;
+    position: relative;
 
     .top-info {
       margin-top: 0.25rem;
       .name {
+        color: #ffedbe;
+        font-family: 'SF UI Text';
+        font-size: 0.24rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 0.32rem; /* 133.333% */
       }
 
+      .num {
+        width: 0.44rem;
+        height: 0.37rem;
+
+        position: absolute;
+        top: 0.2rem;
+        left: 50%;
+        transform: translateX(-60%);
+
+        span {
+          color: #f2ff3f;
+          -webkit-text-stroke-width: 2px;
+          -webkit-text-stroke-color: #830000;
+          font-family: 'SF UI Text';
+          font-size: 0.36rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 0.16rem; /* 44.444% */
+        }
+      }
       .score {
       }
     }
@@ -312,27 +353,23 @@ const option = computed(() => {
     align-items: center;
 
     .stamp {
-      width: 2.28rem;
-      height: 1.86rem;
+      width: 2rem;
+      height: 1.2rem;
 
       object-fit: contain;
 
       position: absolute;
-      top: -0.2rem;
+      top: -0.4rem;
       right: -0.2rem;
       z-index: 48;
     }
 
     .num {
-      width: 0.44rem;
-      height: 0.37rem;
-      img {
-        width: 100%;
-        height: 100%;
-      }
+      width: 0.6rem;
+      height: 0.6rem;
 
       span {
-        color: #fff;
+        color: #ffeb7a;
         text-align: center;
 
         /* 一级标题 */
@@ -348,7 +385,7 @@ const option = computed(() => {
       width: 1.85rem;
       height: 0.32rem;
 
-      color: #faf0ff;
+      color: #ffcc6c;
       font-family: 'SF UI Text';
       font-size: 0.24rem;
       font-style: normal;
@@ -360,7 +397,7 @@ const option = computed(() => {
       width: 1.74rem;
       height: 0.4rem;
 
-      color: #eaf6ff;
+      color: #ffeccf;
       text-align: center;
       font-family: 'SF UI Text';
       font-size: 0.24rem;
@@ -445,7 +482,7 @@ const option = computed(() => {
         justify-content: center;
         flex-direction: column;
         .text {
-          color: #e1f1ff;
+          color: #ffd599;
           font-family: 'SF UI Text';
           font-size: 0.22rem;
           font-style: normal;

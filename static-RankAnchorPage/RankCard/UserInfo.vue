@@ -1,47 +1,44 @@
 <template>
-  <div
-    v-bg="`info`"
-    class="info fc"
-    :class="{ 'card-user': isCardStyle, 'normal-user': !isCardStyle }"
-  >
-    <Card :info="{ ...info, idx: info.rank }" isUser v-if="isCardStyle" />
-    <div class="cards" v-else>
-      <Space :val="0.24" />
-      <div class="num fc">
-        <span>{{ info.rank }}</span>
+  <div v-bg="`info`" class="info fc">
+    <Card :info="{ ...info, idx: info.rank }" isUser v-if="info.isOnTheRank" />
+    <div class="custom-user fc" v-else>
+      <OptA
+        :data="info"
+        :option="{
+          styles: css`
+            width: 1.52rem;
+            height: 1.52rem;
+            aspect-ratio: 1/1;
+          `,
+          adorns: [
+            {
+              img: 'a',
+              styles: css`
+                width: 100%;
+                height: 100%;
+              `
+            }
+          ],
+          avatar: css`
+            width: 1.13493rem;
+            height: 1.13493rem;
+          `,
+          live: css`
+            width: 0.41rem;
+            height: 0.24rem;
+            bottom: 0.2rem;
+          `,
+          liveIcon: css`
+            width: 0.18rem;
+          `
+        }"
+      />
+      <Space :val="0.08" :h="0" />
+      <div class="tip">{{ TOOL_TEXT[70] }}</div>
+      <Space :val="0.2" :h="0" />
+      <div class="btn fc" v-bg="`user-btn`" @click="toGiftPanel()">
+        <span>{{ TOOL_TEXT[69] }}</span>
       </div>
-      <Space :val="0.24" />
-      <OptA :data="info || {}" :option="option" />
-      <Space :val="0.24" />
-
-      <!-- 没有荣誉勋章的情况 -->
-      <div class="name ov">{{ info.name || '---' }}</div>
-      <div class="score">
-        {{ TOOL_NUM(info.score) || '---' }}
-      </div>
-
-      <!-- 有荣誉勋章的情况 -->
-      <!-- <div :style="{ marginTop: info.selDate != 999 && Number(info.idx) <= 3 ? '0.42rem' : '0.24rem' }">
-      <div class="fc">
-        <div class="name ov">{{ info.name || '---' }}</div>
-        <div class="score">
-          {{ TOOL_NUM(info.score) || '---' }}
-        </div>
-      </div>
-
-      <div class="honor-bg fc">
-        <Honor :data="info" />
-      </div>
-      </div> -->
-
-      <!-- 层叠头像组件 -->
-      <!-- <div class="superpose-avatar">
-      <SuperposeAvatar :overlap="0.16">
-        <div class="avatar-wrap" v-for="tp in 3">
-          <cdnImg class="avatar" :fid="info?.top3[tp - 1] || ''"></cdnImg>
-        </div>
-      </SuperposeAvatar>
-      </div> -->
     </div>
   </div>
 </template>
@@ -50,8 +47,10 @@
 import injectTool from '@publicComponents/injectTool'
 import Card from './Card.vue'
 import { css } from '@publicComponents/shared'
+import useGiftPanel from '../../../../hooks/useGiftPanel'
 
-const { TOOL_countryCode, TOOL_NUM } = injectTool()
+const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
+const { toGiftPanel } = useGiftPanel()
 
 defineProps({
   info: {
@@ -179,6 +178,40 @@ const option = {
         line-height: 0.42rem;
 
         text-align: center;
+      }
+    }
+  }
+
+  // 用户不在榜单上的样式
+  .custom-user {
+    width: 100%;
+    height: 100%;
+
+    .tip {
+      width: 2.82rem;
+
+      color: #ffcc6c;
+      font-family: 'SF UI Text';
+      font-size: 0.24rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 0.32rem;
+    }
+
+    .btn {
+      width: 1.64333rem;
+      height: 0.504rem;
+
+      span {
+        width: 90%;
+        color: #fff9de;
+        text-align: center;
+        text-shadow: 0 0 10px #ff6200;
+        font-family: Arial;
+        font-size: 0.24rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 0.24rem;
       }
     }
   }

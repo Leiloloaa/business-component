@@ -17,26 +17,13 @@
 -->
 
 <template>
-  <div class="tabs-component-wrap" ref="scrollContainerRef">
-    <div
-      class="tabs-component"
-      :class="{ center: !needsScroll }"
-      ref="tabsComponentRef"
-      v-bg="`date-tab-bg`"
-    >
+  <div class="tabs-component-wrap fc" ref="scrollContainerRef">
+    <div class="tabs-component" :class="{ center: !needsScroll }" ref="tabsComponentRef">
+      <!-- v-bg="`date-tab-bg`" -->
       <div v-for="(item, index) in processedTabs" :key="index">
-        <div
-          class="tab fc"
-          :class="`${activeIndex === index ? 'act' : ''}`"
-          @click="switchTab(index)"
-          :ref="(el) => setTabRef(el, index)"
-          v-bg="`${activeIndex === index ? 'date-tab-act' : ''}`"
-        >
-          <Outline
-            :color="activeIndex === index ? `0.05rem #FF18A6` : `0.05rem #3B18FF`"
-            :text="item"
-            noColor
-          />
+        <div class="tab fc" :class="`${activeIndex === index ? 'act' : ''}`" @click="switchTab(index)"
+          :ref="(el) => setTabRef(el, index)" v-bg="`${activeIndex === index ? 'rank-tab-act' : 'rank-tab'}`">
+          <Outline :color="activeIndex === index ? `0.05rem #AF2300` : `0.05rem #AF2300`" :text="item" />
         </div>
       </div>
     </div>
@@ -189,7 +176,6 @@ defineExpose({
   width: 7.5rem;
   margin: 0 auto;
   margin-top: 0.24rem;
-  margin-bottom: 0.32rem;
 
   position: relative;
   z-index: 10;
@@ -207,12 +193,13 @@ defineExpose({
   }
 
   .tabs-component {
-    width: 4.8rem;
-    height: 0.72rem;
+    height: 0.88rem;
     position: relative;
     z-index: 1;
 
     display: flex;
+
+    gap: 0.24rem;
 
     // 当不需要滚动时，居中显示
     &.center {
@@ -225,8 +212,8 @@ defineExpose({
     }
 
     .tab {
-      width: 2.4rem;
-      height: 0.72rem; // 与父容器高度一致
+      width: 2.56rem;
+      height: 0.88rem;
       flex-shrink: 0; // 防止被压缩
       position: relative;
       cursor: pointer;
@@ -240,18 +227,28 @@ defineExpose({
         position: relative;
         z-index: 1;
 
-        color: #80a8ff;
+        color: #FFAF92;
         text-align: center;
-        font-family: 'SF UI Text';
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #AF2300;
+        font-family: "SF UI Text";
         font-size: 0.26rem;
         font-style: normal;
         font-weight: 700;
-        line-height: 0.28rem; /* 107.692% */
+        line-height: normal;
       }
 
       &.act {
         span {
-          color: #fcffff;
+          color: #FFEDBD;
+          text-align: center;
+          -webkit-text-stroke-width: 2px;
+          -webkit-text-stroke-color: #AF2300;
+          font-family: "SF UI Text";
+          font-size: 0.26rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
         }
       }
     }
