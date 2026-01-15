@@ -193,6 +193,10 @@ TOOL_BPFunc({ desc: 'xxx', action: 'click' })
 - 异步逻辑问题
 - 其他潜在的运行时错误
 
+**自动修复规则**:
+- 如果使用了 `ref`、`computed`、`watch`、`onMounted` 等但未引入，自动添加 `import { xxx } from 'vue'`
+- 如果使用了 `useRoute`、`useRouter` 等但未引入，自动添加 `import { xxx } from 'vue-router'`
+
 **输出格式**:
 | 文件    | 问题描述 | 解决方案 |
 | ------- | -------- | -------- |
