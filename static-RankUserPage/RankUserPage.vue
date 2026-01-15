@@ -3,14 +3,16 @@
     <FixedTop>
       <DateTab v-model="dayTotal" />
       <DateAvatar
-        v-if="dayTotal == 0"
+        v-show="dayTotal == 0"
         :api="tempConfig.top1Url"
         :apiParams="{ activityId, type: 1 }"
         v-model="selDate"
+        @ready="dateReady = true"
       />
     </FixedTop>
 
     <RankTemp
+      v-if="dateReady"
       frameType="rank"
       :rankType="rankType"
       :url="tempConfig.url"
@@ -24,10 +26,14 @@
 </template>
 
 <script lang="ts" setup name="RankNew">
+import { ref } from "vue";
 import { useRankPage } from "../Static/RankComp/useRankPage";
 import RankTemp from "../Static/RankComp/RankTemp.vue";
 import DateTab from "../Static/RankComp/DateTab.vue";
 import DateAvatar from "../Static/RankComp/DateAvatar.vue";
+
+// DateAvatar 初始化完成标记
+const dateReady = ref(false);
 
 // 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({

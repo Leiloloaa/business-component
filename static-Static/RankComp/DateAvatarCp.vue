@@ -10,10 +10,15 @@
           :class="`day-tab ${item == selDate ? 'act' : 'normal'}`"
           @click="switchDate(item)"
         >
-          <div class="day-tab-content fc" v-bg="item == selDate ? 'day-act' : 'day'">
+          <div
+            class="day-tab-content fc"
+            v-bg="item == selDate ? 'day-act' : 'day'"
+          >
             <Outline
               :color="`0.05rem ${item == selDate ? '#720000' : '#720000'}`"
-              :text="dayjs(item).format(TOOL_countryCode == 'EG' ? 'DD/MM' : 'MM/DD')"
+              :text="
+                dayjs(item).format(TOOL_countryCode == 'EG' ? 'DD/MM' : 'MM/DD')
+              "
             />
           </div>
 
@@ -32,8 +37,8 @@
                     styles: css`
                       width: 100%;
                       height: 100%;
-                    `
-                  }
+                    `,
+                  },
                 ],
                 avatar: css`
                   width: 0.50781rem;
@@ -41,7 +46,7 @@
                 `,
                 live: css`
                   display: none;
-                `
+                `,
               }"
             />
             <Space :val="-0.2" :h="0" />
@@ -59,8 +64,8 @@
                     styles: css`
                       width: 100%;
                       height: 100%;
-                    `
-                  }
+                    `,
+                  },
                 ],
                 avatar: css`
                   width: 0.50781rem;
@@ -68,7 +73,7 @@
                 `,
                 live: css`
                   display: none;
-                `
+                `,
               }"
             />
           </div>
@@ -79,17 +84,28 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, reactive, ref, watch, nextTick } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
-import dayjs from 'dayjs'
+import {
+  computed,
+  inject,
+  onMounted,
+  reactive,
+  ref,
+  watch,
+  nextTick,
+} from "vue";
+import { useRoute, useRouter } from "vue-router";
+import injectTool from "@publicComponents/injectTool";
+import { css } from "@publicComponents/shared";
+import dayjs from "dayjs";
+import { useAppStore } from "../../../../store";
 
-const ossUrl = inject('ossUrl')
-const activityId = inject('activityId')
-const route: any = useRoute()
-const router = useRouter()
-const { TOOL_httpClient, TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool()
+const appStore = useAppStore();
+const ossUrl = inject("ossUrl");
+const activityId = inject("activityId");
+const route: any = useRoute();
+const router = useRouter();
+const { TOOL_httpClient, TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } =
+  injectTool();
 
 // ========== getValidDate 逻辑 ==========
 /**
@@ -100,107 +116,119 @@ const { TOOL_httpClient, TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool
  * @param currentDate 当前日期值
  * @returns 处理后的有效日期（格式：YYYYMMDD）
  */
-const getValidDate = (dates: string[], currentDate: string | number | undefined): string => {
-  if (dates.length === 0) return ''
+const getValidDate = (
+  dates: string[],
+  currentDate: string | number | undefined
+): string => {
+  if (dates.length === 0) return "";
 
-  const firstDate = dates[0]
-  const lastDate = dates[dates.length - 1]
+  const firstDate = dates[0];
+  const lastDate = dates[dates.length - 1];
 
   // 确定要使用的日期值
-  let targetDate: string = !currentDate ? dayjs().format('YYYYMMDD') : String(currentDate)
+  let targetDate: string = !currentDate
+    ? dayjs().format("YYYYMMDD")
+    : String(currentDate);
 
   // 判断这个值，如果值早于第一天，则设置为第一天
-  if (dayjs(targetDate, 'YYYYMMDD').isBefore(dayjs(firstDate, 'YYYYMMDD'))) {
-    targetDate = firstDate
+  if (dayjs(targetDate, "YYYYMMDD").isBefore(dayjs(firstDate, "YYYYMMDD"))) {
+    targetDate = firstDate;
   }
 
   // 如果值晚于最后一天，则设置为最后一天
-  if (dayjs(targetDate, 'YYYYMMDD').isAfter(dayjs(lastDate, 'YYYYMMDD'))) {
-    targetDate = lastDate
+  if (dayjs(targetDate, "YYYYMMDD").isAfter(dayjs(lastDate, "YYYYMMDD"))) {
+    targetDate = lastDate;
   }
 
-  return targetDate
-}
+  return targetDate;
+};
 
 // ========== useTabScroll 逻辑 ==========
-const scrollRef = ref<HTMLElement | null>(null)
-const listItemRef = ref<HTMLElement | null>(null)
+const scrollRef = ref<HTMLElement | null>(null);
+const listItemRef = ref<HTMLElement | null>(null);
 
 /**
  * 滚动到指定索引
  * @param direction 滚动方向
  * @param targetItemIndex 目标索引
  */
-const scrollToIndex = (direction = 'x', targetItemIndex = 0) => {
-  const scrollElement = scrollRef.value
-  const listItemElements = listItemRef.value
+const scrollToIndex = (direction = "x", targetItemIndex = 0) => {
+  const scrollElement = scrollRef.value;
+  const listItemElements = listItemRef.value;
 
-  if (!scrollElement || !listItemElements) return null
+  if (!scrollElement || !listItemElements) return null;
 
   // 获取目标元素
-  let targetElement: HTMLElement | null = null
+  let targetElement: HTMLElement | null = null;
   if (Array.isArray(listItemElements)) {
-    targetElement = listItemElements[targetItemIndex]
-  } else if (listItemElements.children && listItemElements.children[targetItemIndex]) {
-    targetElement = listItemElements.children[targetItemIndex] as HTMLElement
+    targetElement = listItemElements[targetItemIndex];
+  } else if (
+    listItemElements.children &&
+    listItemElements.children[targetItemIndex]
+  ) {
+    targetElement = listItemElements.children[targetItemIndex] as HTMLElement;
   }
 
-  if (!targetElement) return null
+  if (!targetElement) return null;
 
   try {
     // 计算滚动距离
-    const scrollRect = scrollElement.getBoundingClientRect()
-    const targetRect = targetElement.getBoundingClientRect()
-    const isHorizontal = direction.includes('x')
+    const scrollRect = scrollElement.getBoundingClientRect();
+    const targetRect = targetElement.getBoundingClientRect();
+    const isHorizontal = direction.includes("x");
 
     const scrollCenter = isHorizontal
       ? scrollRect.left + scrollRect.width / 2
-      : scrollRect.top + scrollRect.height / 2
+      : scrollRect.top + scrollRect.height / 2;
     const targetCenter = isHorizontal
       ? targetRect.left + targetRect.width / 2
-      : targetRect.top + targetRect.height / 2
+      : targetRect.top + targetRect.height / 2;
 
-    const space = targetCenter - scrollCenter
+    const space = targetCenter - scrollCenter;
 
     // 执行滚动
     if (isHorizontal) {
-      scrollElement.scrollLeft += space
+      scrollElement.scrollLeft += space;
     } else {
-      scrollElement.scrollTop += space
+      scrollElement.scrollTop += space;
     }
 
-    return { scrollElement, direction, targetItemIndex, space }
+    return { scrollElement, direction, targetItemIndex, space };
   } catch (error) {
-    console.error('滚动过程中发生错误:', error)
-    return null
+    console.error("滚动过程中发生错误:", error);
+    return null;
   }
-}
+};
 
 // 使用 dayjs 获取当前日期，格式统一为 YYYYMMDD
-const formatDate = (date: string | null) => date?.replace(/-/g, '') || dayjs().format('YYYYMMDD')
+const formatDate = (date: string | null) =>
+  date?.replace(/-/g, "") || dayjs().format("YYYYMMDD");
 
 // 判断是否为 TR 大区
-const isTRArea = computed(() => TOOL_countryCode === 'TR' && (window as any).PROJECT !== 2)
+const isTRArea = computed(
+  () => TOOL_countryCode === "TR" && (window as any).PROJECT !== 2
+);
 
 const props = defineProps({
-  modelValue: { type: [Number, String], default: '' },
-  api: { type: String, default: '' },
-  apiParams: { type: Object, default: {} }
-})
-const emit = defineEmits(['update:modelValue', 'change'])
+  modelValue: { type: [Number, String], default: "" },
+  api: { type: String, default: "" },
+  apiParams: { type: Object, default: {} },
+  use0TimeZone: { type: Boolean, default: false },
+});
+const emit = defineEmits(["update:modelValue", "change", "ready"]);
 
 // 滚动到索引
 const scrollToDateIndex = async (index) => {
-  if (index < 0 || index >= timeRangeDates.value.length) return
-  await nextTick()
-  scrollToIndex('x', index)
-}
+  if (index < 0 || index >= timeRangeDates.value.length) return;
+  await nextTick();
+  scrollToIndex("x", index);
+};
 
 // 使用计算属性
 const selDate = computed({
   get: () => props.modelValue,
-  set: (val) => emit('update:modelValue', val)
-})
+  set: (val) => emit("update:modelValue", val),
+});
 
 // 只需要监听 props.modelValue 的变化来处理副作用（滚动）
 watch(
@@ -208,101 +236,105 @@ watch(
   (newVal) => {
     // 确保数据存在才滚动
     if (timeRangeDates.value.length > 0) {
-      scrollToDateIndex(timeRangeDates.value.indexOf(newVal))
+      scrollToDateIndex(timeRangeDates.value.indexOf(newVal));
     }
   },
-  { flush: 'post' }
-)
+  { flush: "post" }
+);
 
 // 历史TOP1
-const historyTop1: any = ref({})
+const historyTop1: any = ref({});
 const getHistoryTop1 = async () => {
   try {
-    const type = props.apiParams?.type
+    const type = props.apiParams?.type;
     const res = await TOOL_httpClient({
-      method: 'get',
-      url: '/api/activity/commonBusiness/historyTop1',
+      method: "get",
+      url: "/api/activity/commonBusiness/historyTop1",
       params: {
         activityId: props.apiParams?.activityId,
-        type
-      }
-    })
-    let { data, errorCode } = res.data
-    if (errorCode != 0) throw res
-    historyTop1.value = data || {}
+        type,
+      },
+    });
+    let { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
+    historyTop1.value = data || {};
   } catch (error) {
   } finally {
   }
-}
+};
 
 // 接口变化
 watch(
   () => [props.api, props.apiParams],
   (newVal, oldVal) => {
-    const isEqual = JSON.stringify(newVal) === JSON.stringify(oldVal)
-    if (!isEqual) getHistoryTop1()
+    const isEqual = JSON.stringify(newVal) === JSON.stringify(oldVal);
+    if (!isEqual) getHistoryTop1();
   }
-)
+);
 
 // 活动时间范围日期
-const timeRangeDates: any = ref([])
+const timeRangeDates: any = ref([]);
 const getActivityTimeRangeDates = async () => {
-  let url, params
-  url = '/api/activity/commonBusiness/getActivityTimeRangeDates'
-  params = { activityId, type: props.apiParams?.type }
+  let url, params;
+  url = "/api/activity/commonBusiness/getActivityTimeRangeDates";
+  params = { activityId, type: props.apiParams?.type };
   try {
-    const res = await TOOL_httpClient({ method: 'get', url, params })
-    let { data, errorCode } = res.data
-    if (errorCode != 0) throw res
-    timeRangeDates.value = data || []
+    const res = await TOOL_httpClient({ method: "get", url, params });
+    let { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
+    timeRangeDates.value = data || [];
   } catch (error) {
   } finally {
   }
-}
+};
 
 // 切换日期
 const switchDate = (date) => {
-  if (!date) return
-  if (timeRangeDates.value.length === 0) return
-  let validDate = getValidDate(timeRangeDates.value, date)
-  if (selDate.value == validDate) return
-  selDate.value = validDate
-  scrollToDateIndex(timeRangeDates.value.indexOf(validDate))
-}
+  if (!date) return;
+  if (timeRangeDates.value.length === 0) return;
+  let validDate = getValidDate(timeRangeDates.value, date);
+  if (selDate.value == validDate) return;
+  selDate.value = validDate;
+  scrollToDateIndex(timeRangeDates.value.indexOf(validDate));
+};
 
 onMounted(async () => {
-  await getActivityTimeRangeDates()
-  await getHistoryTop1()
+  await getActivityTimeRangeDates();
+  await getHistoryTop1();
 
-  // 获取当前日期（使用 dayjs 获取当前日期，格式统一为 YYYYMMDD）
-  const today = dayjs().format('YYYYMMDD')
+  // 获取当前日期（根据 use0TimeZone 选择时区）
+  const today = props.use0TimeZone ? appStore.curTime0 : appStore.curTime;
 
   // 判断当前日期是否在范围内
   if (timeRangeDates.value.length > 0) {
-    const startDate = String(timeRangeDates.value[0])
-    const endDate = String(timeRangeDates.value[timeRangeDates.value.length - 1])
+    const startDate = String(timeRangeDates.value[0]);
+    const endDate = String(
+      timeRangeDates.value[timeRangeDates.value.length - 1]
+    );
 
-    let targetDate = today
+    let targetDate = today;
     if (today < startDate) {
       // 当前日期在范围前，取第一天
-      targetDate = startDate
+      targetDate = startDate;
     } else if (today > endDate) {
       // 当前日期在范围后，取最后一天
-      targetDate = endDate
+      targetDate = endDate;
     }
 
     // 设置日期
-    const validDate = getValidDate(timeRangeDates.value, targetDate)
-    selDate.value = validDate
+    const validDate = getValidDate(timeRangeDates.value, targetDate);
+    selDate.value = validDate;
 
     // 等待 DOM 更新后滚动到选中日期
-    await nextTick()
-    scrollToDateIndex(timeRangeDates.value.indexOf(validDate))
+    await nextTick();
+    scrollToDateIndex(timeRangeDates.value.indexOf(validDate));
   }
 
   // 确保初始化完成后 emit 一次，让父组件拿到正确的日期
-  emit('update:modelValue', selDate.value)
-})
+  emit("update:modelValue", selDate.value);
+  // 通知父组件初始化完成
+  emit("ready");
+});
 </script>
 
 <style lang="scss" scoped name="Fight">
@@ -361,7 +393,7 @@ onMounted(async () => {
             text-align: center;
             -webkit-text-stroke-width: 2px;
             -webkit-text-stroke-color: #720000;
-            font-family: 'SF UI Text';
+            font-family: "SF UI Text";
             font-size: 0.24rem;
             font-style: normal;
             font-weight: 700;
@@ -389,7 +421,7 @@ onMounted(async () => {
               text-align: center;
               -webkit-text-stroke-width: 2px;
               -webkit-text-stroke-color: #720000;
-              font-family: 'SF UI Text';
+              font-family: "SF UI Text";
               font-size: 0.24rem;
               font-style: normal;
               font-weight: 700;

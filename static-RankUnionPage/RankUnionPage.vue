@@ -28,13 +28,14 @@ import StageRankButtons from "./StageRankButtons.vue";
 import { useRankPage } from "../Static/RankComp/useRankPage";
 import RankTemp from "../Static/RankComp/RankTemp.vue";
 
+const selStage = ref(1);
+
 // 使用通用榜单页面逻辑
 const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
   rankType: "union",
   dayTotal: 1,
   params: computed(() => ({ other: `7,${selStage.value}` })),
 });
-const selStage = ref(1);
 
 provide("guildRankStage", selStage);
 const ossUrl = inject("ossUrl");

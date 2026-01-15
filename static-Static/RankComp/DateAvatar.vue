@@ -57,7 +57,9 @@ import { useRoute, useRouter } from 'vue-router'
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
 import dayjs from 'dayjs'
+import { useAppStore } from '../../../../store'
 
+const appStore = useAppStore()
 const ossUrl = inject('ossUrl')
 const activityId = inject('activityId')
 const route: any = useRoute()
@@ -158,9 +160,10 @@ const isTRArea = computed(() => TOOL_countryCode === 'TR' && (window as any).PRO
 const props = defineProps({
   modelValue: { type: [Number, String], default: '' },
   api: { type: String, default: '' },
-  apiParams: { type: Object, default: {} }
+  apiParams: { type: Object, default: {} },
+  use0TimeZone: { type: Boolean, default: false }
 })
-const emit = defineEmits(['update:modelValue', 'change'])
+const emit = defineEmits(['update:modelValue', 'change', 'ready'])
 
 // 滚动到索引
 const scrollToDateIndex = async (index) => {
@@ -247,8 +250,8 @@ onMounted(async () => {
   await getActivityTimeRangeDates()
   await getHistoryTop1()
 
-  // 获取当前日期（使用 dayjs 获取当前日期，格式统一为 YYYYMMDD）
-  const today = dayjs().format('YYYYMMDD')
+  // 获取当前日期（根据 use0TimeZone 选择时区）
+  const today = props.use0TimeZone ? appStore.curTime0 : appStore.curTime
 
   // 判断当前日期是否在范围内
   if (timeRangeDates.value.length > 0) {
@@ -275,6 +278,8 @@ onMounted(async () => {
 
   // 确保初始化完成后 emit 一次，让父组件拿到正确的日期
   emit('update:modelValue', selDate.value)
+  // 通知父组件初始化完成
+  emit('ready')
 })
 </script>
 
