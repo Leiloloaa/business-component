@@ -27,11 +27,7 @@
           </div>
 
           <!-- CP类型图标 -->
-          <div
-            class="cp-type"
-            v-bg="getCpType(info.list?.[item]?.gender, info.list?.[item]?.cp?.gender)"
-            tag="png"
-          />
+          <CpType class="cp-type" :info="info.list?.[item]" />
 
           <!-- 右侧CP -->
           <div class="fcc avatar-box">
@@ -49,7 +45,11 @@
               :text="info.list[item]?.cp?.name || '--'"
             />
             <!-- 分数 -->
-            <div v-bg="`score`" class="score">
+            <div
+              v-bg="item == 0 ? 'score1' : 'score23'"
+              class="score"
+              :class="item == 0 ? 'score1' : 'score23'"
+            >
               {{ TOOL_NUM(info.list[item]?.cp?.score) || '---' }}
             </div>
           </div>
@@ -65,22 +65,12 @@
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
+import CpType from '../CpType.vue'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
 
 const props = withDefaults(defineProps<{ info: any }>(), {})
-
-// 获取cp类型 男-男 'mm' 女-女 'ff' 男-女 'mf'
-const getCpType = (gender1, gender2) => {
-  if (gender1 == gender2 && gender1 == 2) {
-    return 'cp-mm'
-  } else if (gender1 == gender2 && gender1 == 1) {
-    return 'cp-ff'
-  } else {
-    return 'cp-mf'
-  }
-}
 
 const option = {
   0: {
@@ -268,6 +258,12 @@ const option = {
         font-style: normal;
         font-weight: 700;
         line-height: 0.48rem; /* 133.333% */
+
+        &.score23 {
+          width: 1.68rem;
+          height: 0.42rem;
+          line-height: 0.42rem !important;
+        }
       }
     }
   }
