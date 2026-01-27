@@ -151,27 +151,24 @@ export function getRankConfig(rankType: RankType): RankPageConfig {
 /**
  * 榜单页面通用逻辑
  * @param options 配置选项
- * @param options.rankType 页面名称，必须是 RankType 中的类型
- * @param options.dayTotal 日榜/总榜标识：0-日榜，1-总榜
- * @param options.selDate 选择的日期
+ * @param options.rankType 榜单类型，必须是 RankType 中的类型
+ * @param options.dayTotal 日榜/总榜标识：0-日榜，1-总榜，如果不传则从 URL 参数 isTotal 获取
+ * @param options.selDate 初始化日期
+ * @param options.pageBpDesc 页面挂载时的埋点描述，如果传入则自动调用 TOOL_BPFunc
+ * @param options.onlyTotal 是否只显示总榜（不显示日榜切换），如果为 true，则强制 dayTotal 为 1 且隐藏 DateTab（默认为 false）
+ * @param options.use0TimeZone 是否使用 0 时区时间，默认是 false
+ * @param options.infoTextList 自定义 infoText 数组，不传则使用 config.infoNum 计算
  * @param options.params 额外的请求参数，可以是普通对象、响应式对象、计算属性或函数
- * @returns 榜单页面相关的响应式数据和方法
  */
 export const useRankPage = (options: {
   rankType: RankType;
-  // 日榜/总榜标识：0-日榜，1-总榜，如果不传则从 URL 参数 isTotal 获取
   dayTotal?: 0 | 1;
-  // 初始化日期
   selDate?: string;
-  // 是否使用 0 时区时间 默认是 false
+  pageBpDesc?: string;
+  onlyTotal?: boolean;
   use0TimeZone?: boolean;
-  // 自定义 infoText，不传则使用 config.infoNum 计算
   infoTextList?: Array<number>;
   params?: object | ComputedRef<object> | (() => object);
-  // 页面挂载时的埋点描述，如果传入则自动调用 TOOL_BPFunc
-  pageBpDesc?: string;
-  // 是否只显示总榜（不显示日榜切换），如果为 true，则强制 dayTotal 为 1 且隐藏 DateTab
-  onlyTotal?: boolean;
 }) => {
   const { use0TimeZone = false, onlyTotal = false } = options;
   const activityId = inject("activityId");
@@ -233,14 +230,11 @@ export const useRankPage = (options: {
       onlyTotal,
       dateReady: dateReady.value,
       showRank,
-      url:
-        config[
-          dayTotal.value == 1 || selDate.value == "999"
-            ? "totalUrl"
-            : "dailyUrl"
-        ] ?? "",
+      url: config[
+        dayTotal.value == 1 || selDate.value == "999" ? "totalUrl" : "dailyUrl"
+      ],
       params: params.value,
-      top1Url: dayTotal.value == 0 ? config.top1Url ?? "" : "",
+      top1Url: dayTotal.value == 0 ? config.top1Url : "",
       infoText: options?.infoTextList
         ? dayTotal.value == 0
           ? options?.infoTextList[0]
@@ -261,12 +255,11 @@ export const useRankPage = (options: {
       // 如果是总榜，dateReady 直接为 true；如果是日榜，重置为 false，等待 DateAvatar ready
       dateReady.value = dayTotal.value == 1;
       TOOL_BPFunc({
-        desc:
-          config[
-            dayTotal.value == 1 || selDate.value == "999"
-              ? "totalDesc"
-              : "dailyDesc"
-          ] ?? "",
+        desc: config[
+          dayTotal.value == 1 || selDate.value == "999"
+            ? "totalDesc"
+            : "dailyDesc"
+        ],
         action: "show",
       });
     },
