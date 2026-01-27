@@ -1,9 +1,9 @@
 <template>
   <div class="rank-view-wrap">
     <FixedTop>
-      <DateTab v-model="dayTotal" />
+      <DateTab v-if="!tempConfig.onlyTotal" v-model="dayTotal" />
       <DateAvatar
-        v-show="dayTotal == 0"
+        v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
         :apiParams="{ activityId, type: 7 }"
         v-model="selDate"
@@ -12,9 +12,9 @@
     </FixedTop>
 
     <RankTemp
-      v-if="dateReady"
+      v-if="tempConfig.showRank"
       frameType="rank"
-      :rankType="rankType"
+      :rankType="tempConfig.rankType"
       :url="tempConfig.url"
       :params="tempConfig.params"
       :infoText="tempConfig.infoText"
@@ -26,25 +26,22 @@
 </template>
 
 <script lang="ts" setup name="RankNewUserPage">
-import { ref } from 'vue'
-import { useRankPage } from '../Static/RankComp/useRankPage'
-import RankTemp from '../Static/RankComp/RankTemp.vue'
-import DateTab from '../Static/RankComp/DateTab.vue'
-import DateAvatar from '../Static/RankComp/DateAvatar.vue'
-
-// DateAvatar 初始化完成标记
-const dateReady = ref(false)
+import { useRankPage } from "../Static/useRankPage";
+import RankTemp from "../Static/RankTemp.vue";
+import DateTab from "../Static/DateTab.vue";
+import DateAvatar from "../Static/DateAvatar.vue";
 
 // 使用通用榜单页面逻辑
-const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: 'newUser', // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
-  dayTotal: 0, // 0-日榜，1-总榜
+const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({
+  rankType: "newUser", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  pageBpDesc: "", // 页面挂载时的埋点描述
+  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true，会隐藏 DateTab 并强制显示总榜（默认为 false）
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
-  infoTextList: [76, 77],
+  infoTextList: [73, 74],
   params: () => ({
     // other: '7' // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
-  })
-})
+  }),
+});
 </script>
 
 <style lang="scss" scoped>

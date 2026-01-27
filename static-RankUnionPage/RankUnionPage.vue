@@ -11,7 +11,7 @@
 
     <RankTemp
       frameType="rank"
-      :rankType="rankType"
+      :rankType="tempConfig.rankType"
       :url="tempConfig.url"
       :params="tempConfig.params"
       :infoText="tempConfig.infoText"
@@ -25,15 +25,17 @@
 <script lang="ts" setup name="GuildRank">
 import injectTool from "@publicComponents/injectTool";
 import StageRankButtons from "./StageRankButtons.vue";
-import { useRankPage } from "../Static/RankComp/useRankPage";
-import RankTemp from "../Static/RankComp/RankTemp.vue";
+import { useRankPage } from "../Static/useRankPage";
+import RankTemp from "../Static/RankTemp.vue";
 
 const selStage = ref(1);
 
 // 使用通用榜单页面逻辑
-const { rankType, dayTotal, selDate, tempConfig, activityId } = useRankPage({
+const { dayTotal, selDate, tempConfig, activityId } = useRankPage({
   rankType: "union",
-  dayTotal: 1,
+  pageBpDesc: "", // 页面挂载时的埋点描述
+  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true，会隐藏 DateTab 并强制显示总榜（默认为 false）
+  infoTextList: [73, 74],
   params: computed(() => ({ other: `7,${selStage.value}` })),
 });
 

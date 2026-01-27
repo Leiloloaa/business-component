@@ -2,9 +2,16 @@
   <Lazy>
     <div
       v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
-      :class="['card', { top: Number(info.idx) <= 3 && !isUser, isUser: isUser }, `top${info.idx}`]"
+      :class="[
+        'card',
+        { top: Number(info.idx) <= 3 && !isUser, isUser: isUser },
+        `top${info.idx}`,
+      ]"
     >
-      <div class="top-info" :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }">
+      <div
+        class="top-info"
+        :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }"
+      >
         <img
           v-if="info?.status == 0 && info?.stamp"
           class="stamp"
@@ -36,15 +43,23 @@
             <OptA :data="info || {}" :option="option" />
 
             <span class="name ov">
-              {{ info.name || '---' }}
+              {{ info.name || "---" }}
             </span>
           </div>
 
           <!-- 奖励信息 -->
-          <div v-bg="`b-cp-info`" class="bottom-info fc" v-if="!isUser && Number(info.idx) <= 3">
+          <div
+            v-bg="`b-cp-info`"
+            class="bottom-info fc"
+            v-if="!isUser && Number(info.idx) <= 3"
+          >
             <NoticeBar :w="2" :h="0.8">
               <template v-for="rewardObj in userReward">
-                <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+                <template
+                  v-if="
+                    info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
+                  "
+                >
                   <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
                     <div v-bg="`b-rew`" class="rew fc">
                       <cdnImg :info="gift" />
@@ -66,20 +81,30 @@
 
         <div class="middle">
           <CpType class="cp-type" :info="info" />
-          <div v-bg="`score`" class="score fc">{{ TOOL_NUM(info.score) || '--' }}</div>
+          <div v-bg="`score`" class="score fc">
+            {{ TOOL_NUM(info.score) || "--" }}
+          </div>
         </div>
 
         <div class="right part" :class="{ isUser }">
           <div class="user-info">
             <OptA :data="info?.cp || {}" :option="option" />
-            <span class="name ov"> {{ info?.cp?.name || '---' }} </span>
+            <span class="name ov"> {{ info?.cp?.name || "---" }} </span>
           </div>
 
           <!-- 奖励信息 -->
-          <div v-bg="`b-cp-info`" class="bottom-info fc" v-if="!isUser && Number(info.idx) <= 3">
+          <div
+            v-bg="`b-cp-info`"
+            class="bottom-info fc"
+            v-if="!isUser && Number(info.idx) <= 3"
+          >
             <NoticeBar :w="2" :h="0.8">
               <template v-for="rewardObj in cpReward">
-                <template v-if="info.idx >= rewardObj?.start && info.idx <= rewardObj?.end">
+                <template
+                  v-if="
+                    info.idx >= rewardObj?.start && info.idx <= rewardObj?.end
+                  "
+                >
                   <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
                     <div v-bg="`b-rew`" class="rew fc">
                       <cdnImg :info="gift" />
@@ -104,43 +129,43 @@
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
-import CpType from '../CpType.vue'
+import injectTool from "@publicComponents/injectTool";
+import { css } from "@publicComponents/shared";
+import CpType from "../CpType.vue";
 
-const getRew = inject('getRew')
+const getRew = inject("getRew");
 
-const isDaily = inject('isDaily', false)
-const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool()
-const rankLoadInfo = inject('rankLoadInfo')
-const ossUrl = inject('ossUrl')
+const isDaily = inject("isDaily", false);
+const { TOOL_countryCode, TOOL_TEXT, TOOL_NUM } = injectTool();
+const rankLoadInfo = inject("rankLoadInfo");
+const ossUrl = inject("ossUrl");
 
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    isDaily?: boolean // 日榜/总榜
+    info: any;
+    isUser?: boolean;
+    isDaily?: boolean; // 日榜/总榜
   }>(),
   { isUser: false }
-)
+);
 
 const userReward = computed(() => {
-  let gender = props.info?.gender
+  let gender = props.info?.gender;
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? []
+    return rankLoadInfo.reward ?? [];
   } else {
-    return rankLoadInfo.reward.maleReward ?? []
+    return rankLoadInfo.reward ?? [];
   }
-})
+});
 
 const cpReward = computed(() => {
-  let gender = props.info?.cp?.gender
+  let gender = props.info?.cp?.gender;
   if (gender === 1) {
-    return rankLoadInfo.reward.femaleReward ?? []
+    return rankLoadInfo.reward1 ?? [];
   } else {
-    return rankLoadInfo.reward.maleReward ?? []
+    return rankLoadInfo.reward1 ?? [];
   }
-})
+});
 
 const optionList = {
   1: {
@@ -151,13 +176,13 @@ const optionList = {
     `,
     adorns: [
       {
-        img: 'a1',
+        img: "a1",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 0.98rem;
@@ -170,7 +195,7 @@ const optionList = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
+    `,
   },
   2: {
     styles: css`
@@ -180,13 +205,13 @@ const optionList = {
     `,
     adorns: [
       {
-        img: 'a2',
+        img: "a2",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 0.98rem;
@@ -199,7 +224,7 @@ const optionList = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
+    `,
   },
   3: {
     styles: css`
@@ -209,13 +234,13 @@ const optionList = {
     `,
     adorns: [
       {
-        img: 'a3',
+        img: "a3",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 0.98rem;
@@ -228,7 +253,7 @@ const optionList = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
+    `,
   },
   0: {
     styles: css`
@@ -238,13 +263,13 @@ const optionList = {
     `,
     adorns: [
       {
-        img: 'a',
+        img: "a",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 1.13493rem;
@@ -257,19 +282,19 @@ const optionList = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
-  }
-}
+    `,
+  },
+};
 
-const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
+const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser); // info.idx从1开始
 
 const option = computed(() => {
   if (isTop3.value && !props.isUser) {
-    return optionList[props?.info?.idx]
+    return optionList[props?.info?.idx];
   } else {
-    return optionList['0']
+    return optionList["0"];
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -310,7 +335,7 @@ const option = computed(() => {
         color: #f2ff3f;
         -webkit-text-stroke-width: 2px;
         -webkit-text-stroke-color: #830000;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.36rem;
         font-style: normal;
         font-weight: 700;
@@ -330,7 +355,7 @@ const option = computed(() => {
           width: 1.80688rem;
 
           color: #ffedbe;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.24rem;
           font-style: normal;
           font-weight: 700;
@@ -383,7 +408,7 @@ const option = computed(() => {
 
           color: #ffeccf;
           text-align: center;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.24rem;
           font-style: normal;
           font-weight: 700;
@@ -465,7 +490,7 @@ const option = computed(() => {
         margin-top: -0.1rem;
 
         color: #ffcc6c;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 700;
@@ -525,7 +550,7 @@ const option = computed(() => {
               color: #fff7e1;
               -webkit-text-stroke-width: 2px;
               -webkit-text-stroke-color: #9a1307;
-              font-family: 'SF UI Text';
+              font-family: "SF UI Text";
               font-size: 0.16rem;
               font-style: normal;
               font-weight: 700;
@@ -575,7 +600,7 @@ const option = computed(() => {
 
         color: #ffeccf;
         text-align: center;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 700;

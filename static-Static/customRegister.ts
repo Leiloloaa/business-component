@@ -4,8 +4,8 @@ import { defineAsyncComponent } from "vue";
 // === 异步组件配置
 const asyncComponents = {
   // Basic 基础组件
-  OptA: () => import("./RankComp/OptA.vue"),
-  RankLoad: () => import("./RankComp/RankLoad.vue"),
+  OptA: () => import("./OptA.vue"),
+  RankLoad: () => import("./RankLoad.vue"),
   SwiperFrame: () => import("./SwiperFrame.vue"),
 };
 

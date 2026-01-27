@@ -1,27 +1,39 @@
 <template>
-  <RankFrame hasTop hasBottom>
+  <RankFrame :title="TOOL_TEXT[97]" type="v1p1_2">
     <div class="exchange-wrap">
-      <div class="title">{{ TOOL_TEXT[56] }}</div>
-      <div class="info">
-        <Space :val="0.23" :h="0" />
-        <JumpAvatar
+      <div class="title fc">
+        <Outline
+          :color="1 ? '0.05rem #003D3D' : '0.05rem #581604'"
+          :text="TOOL_TEXT[98]"
+        />
+      </div>
+      <div class="info" v-bg="`ex-info`">
+        <!-- <Space :val="0.23" :h="0" />
+        <Avatar
           :data="pageInfo?.userInfo || {}"
           :pic="{ sofa: 'sofa', frame: 'a', live: 'live' }"
           :option="{ radius: 1, live: 1, alwaysLive: 0, jump: 1 }"
           :type="'a80'"
         />
-        <Space :val="0.2" :h="0" />
+        <Space :val="0.2" :h="0" /> -->
 
-        <div class="info-name ov">{{ pageInfo?.userInfo?.name }}</div>
-        <Space :val="TOOL_countryCode == 'EG' ? 0.4 : 0.24" />
+        <!-- <div class="info-name ov">{{ pageInfo?.userInfo?.name }}</div>
+        <Space :val="TOOL_countryCode == 'EG' ? 0.4 : 0.24" /> -->
         <div v-bg="`ex-count`" class="info-count fc">
-          <span>{{ TOOL_NUM(pageInfo?.resourceCount) }}</span>
-          <Space :val="0.18" :h="0" />
+          <Outline
+            :color="1 ? '0.05rem #FFF27B' : '0.05rem #581604'"
+            :text="TOOL_NUM(pageInfo?.resourceCount)"
+          />
+          <Space :val="0.08" :h="0" />
           <img :src="`${ossUrl}/ex-icon.png`" class="ex-icon" alt="" />
         </div>
-        <Space :val="1.71" :h="0" />
-        <div v-bg="`ex-record`" class="info-record fc" @click="showRecordD">
-        </div>
+        <div
+          v-bg="`ex-record`"
+          class="info-record fc"
+          @click="showRecordD"
+        ></div>
+        <!-- <Space :val="1.71" :h="0" />
+        -->
       </div>
 
       <div class="item-wrap">
@@ -31,24 +43,21 @@
           v-for="(item, index) in pageInfo.exchangeRewards"
         >
           <Space :val="0.42" h />
-
-          <div v-bg="`ex-rew`" class="item-rew fc">
+          <!-- v-bg="`ex-rew`" -->
+          <div class="item-rew fc">
             <Outline
               :color="'0.05rem #4D0000'"
               :text="getRew(item?.reward).num"
               class="count"
             />
-
             <cdnImg :info="item?.reward"></cdnImg>
+            <!-- <img :src="`${ossUrl}/item-grad.png`" class="item-grad" alt="" /> -->
 
-            <img :src="`${ossUrl}/item-grad.png`" class="item-grad" alt="" />
-
-            <div class="remain">
-              <span>
-                {{ TOOL_TEXT[58] }}:{{
-                  item?.privateStock - item?.remainPrivateStock
-                }}{{ `/${item?.privateStock}` }}
-              </span>
+            <div class="remain fc">
+              <Outline
+                :color="'0.05rem #F9FFC8'"
+                :text="TOOL_TEXT[621] + TOOL_NUM(item?.remainStock)"
+              />
             </div>
           </div>
 
@@ -64,7 +73,7 @@
           <div class="num fc">
             <img :src="`${ossUrl}/ex-icon.png`" class="ex-icon" alt="" />
             <Space :val="0.08" :h="0" />
-            <Outline color="0.05rem #060116" :text="item?.required" noColor />
+            <Outline color="0.05rem #FFF27B" :text="item?.required" />
           </div>
 
           <!-- 未开始,已结束,无库存 -->
@@ -98,13 +107,12 @@
             <Outline color="0.05rem #FFFAAE" :text="TOOL_TEXT[619]" noColor />
           </div>
 
-          <div class="limit fc">
-            <Outline
-              :color="'0.05rem #06023f'"
-              :text="TOOL_TEXT[621]"
-              noColor
-            />
-            <span class="act">{{ TOOL_NUM(item?.remainStock) }}</span>
+          <div class="limit">
+            <span>{{ TOOL_TEXT[101] }}</span>
+            <span class="limit-num">{{
+              item?.privateStock - item?.remainPrivateStock
+            }}</span>
+            <span>{{ `/${item?.privateStock}` }}</span>
           </div>
         </div>
       </div>
@@ -113,9 +121,9 @@
         <ExchangeRank />
       </Dialog>
 
-      <Dialog v-model="pageInfo.showDialogStatus" :frame="false">
+      <!-- <Dialog v-model="pageInfo.showDialogStatus" :frame="false">
         <ExchangeDialogStatus :type="pageInfo.type" />
-      </Dialog>
+      </Dialog> -->
     </div>
   </RankFrame>
 </template>
@@ -123,7 +131,7 @@
 <script lang="ts" setup>
 import injectTool from "@publicComponents/injectTool";
 import ExchangeRank from "./ExchangeRank.vue";
-import ExchangeDialogStatus from "./ExchangeDialogStatus.vue";
+// import ExchangeDialogStatus from './ExchangeDialogStatus.vue'
 
 const getRew = inject("getRew");
 const {
@@ -160,7 +168,7 @@ const showStatusD = (type) => {
 
 TOOL_BPFunc({ desc: "Redeem store page_click", action: "show" });
 const exchange = (item, idx) => {
-  TOOL_BPFunc({ desc: `Redeem Button_click ${idx + 1}`, action: "click" });
+  TOOL_BPFunc({ desc: `Exchange ${idx + 1}`, action: "click" });
   pageInfo.actItem = item;
   console.log("idx", idx);
   pageInfo.actIdx = idx + 1;
@@ -250,68 +258,37 @@ defineExpose({ getInfo });
   align-items: center;
   flex-direction: column;
   position: relative;
-
-  .info-before {
-    width: 7.06rem;
-    height: 11.62rem;
-    flex-shrink: 0;
-    position: absolute;
-    top: 0.2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1;
-  }
+  padding-top: 1.76rem;
 
   .title {
-    flex-shrink: 0;
-    margin-top: 0.18rem;
-
-    display: flex;
-    justify-content: center;
-    color: #800;
-    text-align: center;
-    font-family: "SF UI Text";
-    font-size: 0.3rem;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 0.3rem; /* 100% */
-
-    .text {
-      width: 6.4rem;
-      margin-top: 0.56rem;
-
-      color: #da00b9;
-
+    width: 6rem;
+    span {
+      color: #f9ffc8;
       text-align: center;
+      text-shadow: 0 1px 10px rgba(21, 61, 44, 0.6);
+      -webkit-text-stroke-width: 2px;
+      -webkit-text-stroke-color: #003d3d;
       font-family: "SF UI Text";
-      font-size: 0.28rem;
+      font-size: 0.26rem;
       font-style: normal;
-      font-weight: 700;
-      line-height: 0.32rem; /* 114.286% */
-    }
-
-    .exchange-que {
-      width: 0.64rem;
-      height: 0.64rem;
-      flex-shrink: 0;
-
-      position: absolute;
-      top: 0.32rem;
-      right: 0rem;
-      z-index: 1;
+      font-weight: 400;
+      line-height: 0.34rem; /* 130.769% */
     }
   }
 
   .info {
-    width: 6.9rem;
-    height: 0.72rem;
+    width: 6.06rem;
+    height: 0.48rem;
     flex-shrink: 0;
 
-    margin-top: 0.32rem;
-    margin-bottom: 0.32rem;
+    margin-top: 0.16rem;
+    margin-bottom: 0.24rem;
 
     display: flex;
     align-items: center;
+    justify-content: center;
+
+    position: relative;
 
     .info-name {
       width: 1.94rem;
@@ -325,24 +302,22 @@ defineExpose({ getInfo });
     }
 
     .info-count {
-      width: 1.44rem;
-      height: 0.4rem;
-      flex-shrink: 0;
-      direction: ltr;
       .ex-icon {
-        margin-right: -0.8rem;
-        width: 0.946rem;
-        height: 0.48rem;
+        width: 0.34rem;
+        height: 0.34rem;
         flex-shrink: 0;
       }
 
       span {
-        color: #ff9537;
+        color: #f50;
+        text-align: center;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #fff27b;
         font-family: "SF UI Text";
-        font-size: 0.26rem;
+        font-size: 0.3rem;
         font-style: normal;
-        font-weight: 700;
-        line-height: 0.26rem; /* 100% */
+        font-weight: 800;
+        line-height: 0.3rem; /* 100% */
       }
     }
 
@@ -350,6 +325,10 @@ defineExpose({ getInfo });
       width: 0.72rem;
       height: 0.72rem;
       flex-shrink: 0;
+
+      position: absolute;
+      top: -0.25rem;
+      right: 0;
 
       span {
         color: #fdffe7;
@@ -364,16 +343,17 @@ defineExpose({ getInfo });
   }
 
   .item-wrap {
-    margin-bottom: 0.78rem;
-    padding: 0 0.24rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0 0.15rem;
+    justify-content: center;
+    gap: 0 0.1rem;
+    margin-bottom: 1.21rem;
     .item {
-      width: 2.24rem;
+      width: 2rem;
       height: 3.92rem;
+      flex-shrink: 0;
 
-      margin-bottom: 0.24rem;
+      margin-bottom: 0.16rem;
 
       display: flex;
       align-items: center;
@@ -382,8 +362,8 @@ defineExpose({ getInfo });
       position: relative;
       // 奖励图片
       .item-rew {
-        width: 1.68rem;
-        height: 1.68rem;
+        width: 1.44rem;
+        height: 1.44rem;
         position: relative;
         .item-grad {
           width: 1.68rem;
@@ -397,17 +377,19 @@ defineExpose({ getInfo });
         }
 
         img {
-          width: 1.4rem;
-          height: 1.4rem;
+          width: 1.44rem;
+          height: 1.44rem;
           object-fit: contain;
         }
 
         .count {
           position: absolute;
-          top: 0.16rem;
-          right: 0.2rem;
+          top: 0.12rem;
+          right: -0.06rem;
 
-          color: #fffc2a;
+          color: #fffc4a;
+          -webkit-text-stroke-width: 2px;
+          -webkit-text-stroke-color: #6d1800;
           font-family: "SF UI Text";
           font-size: 0.26rem;
           font-style: normal;
@@ -416,23 +398,29 @@ defineExpose({ getInfo });
         }
 
         .remain {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: 1.677rem;
+          width: 1.68rem;
           flex-shrink: 0;
           position: absolute;
-          bottom: 0.11rem;
+          bottom: 0.1rem;
           z-index: 4;
 
+          white-space: pre-line;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
           span {
-            color: #faffd3;
+            color: #d94100;
             text-align: center;
+            -webkit-text-stroke-width: 2px;
+            -webkit-text-stroke-color: #f9ffc8;
             font-family: "SF UI Text";
-            font-size: 0.2rem;
+            font-size: 0.22rem;
             font-style: normal;
-            font-weight: 400;
-            line-height: 0.22rem; /* 110% */
+            font-weight: 700;
+            line-height: 0.24rem; /* 109.091% */
+            &.act {
+              color: #fffc2a;
+            }
           }
         }
       }
@@ -441,43 +429,44 @@ defineExpose({ getInfo });
         width: 1.68rem;
         height: 0.4rem;
         margin: 0.08rem auto 0;
-        color: #fff996;
 
+        color: #f50;
         text-align: center;
-        -webkit-text-stroke-width: 2;
-        -webkit-text-stroke-color: #001585;
-        font-family: Al-Jazeera-Arabic;
+        -webkit-text-stroke-width: 2px;
+        -webkit-text-stroke-color: #fff27b;
+        font-family: "SF UI Text";
         font-size: 0.3rem;
         font-style: normal;
-        font-weight: 700;
-        line-height: 0.4rem; /* 133.333% */
+        font-weight: 800;
+        line-height: 0.3rem; /* 100% */
       }
 
       .num {
         height: 0.4rem;
         margin-top: 0.08rem;
         span {
-          color: #ff9537;
+          color: #f50;
           text-align: center;
+          -webkit-text-stroke-width: 2px;
+          -webkit-text-stroke-color: #fff27b;
           font-family: "SF UI Text";
           font-size: 0.3rem;
           font-style: normal;
-          font-weight: 700;
-          line-height: 0.38rem; /* 126.667% */
+          font-weight: 800;
+          line-height: 0.3rem; /* 100% */
         }
 
         .ex-icon {
-          width: 0.473rem;
-          height: 0.24rem;
+          width: 0.34rem;
+          height: 0.34rem;
           flex-shrink: 0;
           object-fit: contain;
         }
       }
 
       .btn {
-        width: 1.72rem;
-        height: 0.56rem;
-        flex-shrink: 0;
+        width: 1.64rem;
+        height: 0.52rem;
         margin-top: 0.08rem;
 
         display: flex;
@@ -486,7 +475,7 @@ defineExpose({ getInfo });
         span {
           width: 1.6rem;
 
-          color: #2f2121;
+          color: #fdffeb;
           text-align: center;
           font-family: "SF UI Text";
           font-size: 0.24rem;
@@ -496,31 +485,38 @@ defineExpose({ getInfo });
         }
         &.act {
           span {
-            color: #800;
+            color: #fdffeb;
+            text-align: center;
+            font-family: "SF UI Text";
+            font-size: 0.24rem;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 0.24rem; /* 100% */
           }
         }
       }
 
       .limit {
         width: 1.72rem;
+        height: 0.4rem;
 
         margin-top: 0.08rem;
 
-        white-space: pre-line;
         display: flex;
         align-items: center;
-        flex-direction: column;
+        justify-content: center;
+
         span {
-          color: #faffd3;
+          color: #d94100;
           text-align: center;
           font-family: "SF UI Text";
           font-size: 0.2rem;
           font-style: normal;
-          font-weight: 400;
-          line-height: 0.24rem; /* 120% */
-          &.act {
-            color: #fffc2a;
-          }
+          font-weight: 700;
+        }
+
+        .limit-num {
+          color: #d9ff00;
         }
       }
     }

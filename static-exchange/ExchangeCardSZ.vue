@@ -1,5 +1,5 @@
 <template>
-  <div v-bg="`ex-card`" class="card">
+  <div v-bg="`ex-d-card`" class="card">
     <Space :val="0.48" />
     <div class="left">
       {{ dayjs(info.createTime).format('MM-DD HH:mm:ss') }}
@@ -35,7 +35,7 @@ const { TOOL_countryCode, TOOL_NUM } = injectTool()
 
 <style lang="scss" scoped>
 .card {
-  width: 5.94rem;
+  width: 5.58rem;
   height: 1.2rem;
 
   margin-bottom: 0.08rem;
@@ -46,30 +46,31 @@ const { TOOL_countryCode, TOOL_NUM } = injectTool()
   position: relative;
 
   .left {
-    color: #ff9537;
+    color: #d94100;
+    text-align: right;
     font-family: 'SF UI Text';
-    font-size: 0.28rem;
+    font-size: 0.24rem;
     font-style: normal;
-    font-weight: 400;
-    line-height: 0.36rem; /* 128.571% */
+    font-weight: 600;
+    line-height: 0.24rem; /* 100% */
   }
 
   .right {
     .reward {
       img {
-        width: 0.56rem;
-        height: 0.56rem;
+        width: 0.88rem;
+        height: 0.88rem;
         object-fit: contain;
       }
     }
 
     span {
-      color: #ff9537;
+      color: #d94100;
       text-align: right;
       font-family: 'SF UI Text';
       font-size: 0.24rem;
       font-style: normal;
-      font-weight: 400;
+      font-weight: 600;
       line-height: 0.24rem; /* 100% */
     }
   }

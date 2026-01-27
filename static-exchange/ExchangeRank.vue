@@ -1,18 +1,22 @@
 <template>
-  <div v-bg="`ex-dialog`" class="dialog-rank">
-    <div class="title">{{ TOOL_TEXT[68] }}</div>
-    <div class="col">
+  <div v-bg="`ex-d`" class="dialog-rank">
+    <div class="title fc" v-bg="`rank-title`">
+      <Outline
+        :color="1 ? '0.05rem #ECF87A' : '0.05rem #581604'"
+        :text="TOOL_TEXT[100]"
+      />
+    </div>
+    <!-- <div class="col">
       <span>{{ TOOL_TEXT[69] }}</span>
       <Space :val="0.94" />
       <span>{{ TOOL_TEXT[70] }}</span>
-    </div>
+    </div> -->
 
     <div class="scroll">
       <RankLoad
         :api="api"
         :apiParams="apiParams"
         :frame="false"
-        :frameType="false"
         :paddingBottom="'0.2'"
         dialog
         @getPageInfo="getPageInfo"
@@ -22,8 +26,8 @@
         </template>
         <template #empty>
           <div class="empty fcc">
-            <img :src="`${ossUrl}/empty.png`" alt="" />
-            <span>{{ TOOL_TEXT[11] }}</span>
+            <!-- <img :src="`${ossUrl}/empty.png`" alt="" /> -->
+            <span>{{ TOOL_TEXT[14] }}</span>
           </div>
         </template>
       </RankLoad>
@@ -32,35 +36,35 @@
 </template>
 
 <script lang="ts" setup name="ExchangeRank">
-import injectTool from '@publicComponents/injectTool'
+import injectTool from "@publicComponents/injectTool";
+import RankLoad from "./RankLoad.vue";
 
-import ExchangeCard from './ExchangeCardSZ.vue'
+import ExchangeCard from "./ExchangeCardSZ.vue";
 
-const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool()
-const ossUrl = inject('ossUrl')
-const activityId = inject('activityId')
-const isData = inject('isData')
+const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
+const ossUrl = inject("ossUrl");
+const activityId = inject("activityId");
 
 const api = computed(() => {
-  return '/api/activity/commonBusiness/exchangeRecords'
-})
-const props = defineProps({ selDate: {} })
+  return "/api/activity/commonBusiness/exchangeRecords";
+});
+const props = defineProps({ selDate: {} });
 const apiParams = computed(() => {
-  return Object.assign({ activityId })
-})
+  return Object.assign({ activityId });
+});
 
 const pageInfo = reactive({
-  list: []
-})
+  list: [],
+});
 const getPageInfo = (info) => {
-  Object.assign(pageInfo, info)
-}
+  Object.assign(pageInfo, info);
+};
 </script>
 
 <style lang="scss" scoped>
 .dialog-rank {
-  width: 6.22rem;
-  height: 6.74rem;
+  width: 6.38rem;
+  height: 7.2rem;
 
   position: relative;
 
@@ -76,7 +80,7 @@ const getPageInfo = (info) => {
       width: 2.24rem;
       color: #fff387;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.26rem;
       font-style: normal;
       font-weight: 700;
@@ -85,19 +89,20 @@ const getPageInfo = (info) => {
   }
 
   .title {
-    width: 6.22rem;
-    height: 0.64rem;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #800;
-    text-align: center;
-    font-family: 'SF UI Text';
-    font-size: 0.3rem;
-    font-style: normal;
-    font-weight: 800;
-    line-height: 0.3rem; /* 100% */
+    width: 4.8rem;
+    height: 1.2rem;
+    span {
+      margin-top: 0.4rem;
+      color: #004e49;
+      text-align: center;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: #ecf87a;
+      font-family: "SF UI Text";
+      font-size: 0.28rem;
+      font-style: normal;
+      font-weight: 800;
+      line-height: 0.38rem; /* 135.714% */
+    }
   }
 
   .th {
@@ -139,14 +144,14 @@ const getPageInfo = (info) => {
       }
 
       span {
-        margin-top: 0.21rem;
-        color: #fdffe7;
+        margin-top: 2.21rem;
+        color: #d94100;
         text-align: center;
-        font-family: 'SF UI Text';
-        font-size: 0.32rem;
+        font-family: "SF UI Text";
+        font-size: 0.24rem;
         font-style: normal;
         font-weight: 700;
-        line-height: 0.32rem; /* 100% */
+        line-height: 0.32rem; /* 133.333% */
       }
     }
   }

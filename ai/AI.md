@@ -36,10 +36,10 @@
    ```
 2. 新增的 `RankXXXPage` 目录下的 `RankXXXPage.vue` 中的四个路径
    ```ts
-   import { useRankPage } from '../Static/RankComp/useRankPage'
-   import RankTemp from '../Static/RankComp/RankTemp.vue'
-   import DateTab from '../Static/RankComp/DateTab.vue'
-   import DateAvatar from '../Static/RankComp/DateAvatar.vue'
+   import { useRankPage } from '../Static/useRankPage'
+   import RankTemp from '../Static/RankTemp.vue'
+   import DateTab from '../Static/DateTab.vue'
+   import DateAvatar from '../Static/DateAvatar.vue'
    ```
 
 ---
@@ -58,27 +58,27 @@
 3. 修改 `componentMap` 计算属性，根据榜单类型引入对应组件：
    ```ts
    const componentMap = computed(() => {
-     const map = {
+    const map = {
        // 根据榜单类型引入对应的 card、userInfo、topThree
-       // xx: {
-       //   card: XXCard,
-       //   userInfo: XXUserInfo,
-       //   topThree: XXTopThree
-       // },
-       default: {
-         card: Card,
-         userInfo: UserInfo,
-         topThree: TopThree
-       }
-     }
-     return map[props.rankType] || map.default
+      // xx: {
+      //   card: XXCard,
+      //   userInfo: XXUserInfo,
+      //   topThree: XXTopThree
+      // },
+      default: {
+        card: Card,
+        userInfo: UserInfo,
+        topThree: TopThree
+      }
+    }
+    return map[props.rankType] || map.default
    })
    ```
 
 > 榜单类型在 `RankXXXPage.vue` 的 `useRankPage` 方法中由 `rankType` 字段定义
 
 ---
-
+  
 ### 任务3: 引入全局文件
 
 **相关文件**: `customRegister.ts`

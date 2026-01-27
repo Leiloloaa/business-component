@@ -1,7 +1,10 @@
 <template>
   <!-- 前三名 -->
   <div class="top-three" :class="TOOL_countryCode">
-    <img :src="`${ossUrl}/top3-bg${TOOL_countryCode == 'EG' ? '' : ''}.png`" class="top3-bg" />
+    <img
+      :src="`${ossUrl}/top3-bg${TOOL_countryCode == 'EG' ? '' : ''}.png`"
+      class="top3-bg"
+    />
 
     <template v-for="item in [1, 0, 2]" :key="'top' + item">
       <div :class="['top-item', `top${item}`]">
@@ -21,9 +24,9 @@
               :text="info.list[item]?.name || '--'"
             />
             <!-- 分数 -->
-            <div v-bg="`score`" class="score">
+            <!-- <div v-bg="`score`" class="score">
               {{ TOOL_NUM(info.list[item]?.cp?.score) || '---' }}
-            </div>
+            </div> -->
           </div>
 
           <!-- CP类型图标 -->
@@ -33,7 +36,10 @@
           <div class="fcc avatar-box">
             <OptA :data="info.list[item]?.cp || {}" :option="option[item]" />
             <!-- 新人标识 -->
-            <div v-if="info.list?.[item]?.cp?.isNewUser" class="new-or-back fc new-or-back-right">
+            <div
+              v-if="info.list?.[item]?.cp?.isNewUser"
+              class="new-or-back fc new-or-back-right"
+            >
               <img class="obg" :src="`${ossUrl}/n1.png`" alt="" />
               <NoticeBar :w="1.32" :h="0.28">
                 <span style="min-width: 1.32rem">{{ TOOL_TEXT[733] }}</span>
@@ -45,14 +51,15 @@
               :text="info.list[item]?.cp?.name || '--'"
             />
             <!-- 分数 -->
-            <div
-              v-bg="item == 0 ? 'score1' : 'score23'"
-              class="score"
-              :class="item == 0 ? 'score1' : 'score23'"
-            >
-              {{ TOOL_NUM(info.list[item]?.cp?.score) || '---' }}
-            </div>
           </div>
+        </div>
+
+        <div
+          v-bg="item == 0 ? 'score1' : 'score23'"
+          class="score"
+          :class="item == 0 ? 'score1' : 'score23'"
+        >
+          {{ TOOL_NUM(info.list[item]?.cp?.score) || "---" }}
         </div>
       </div>
 
@@ -63,14 +70,14 @@
 </template>
 
 <script lang="ts" setup>
-import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
-import CpType from '../CpType.vue'
+import injectTool from "@publicComponents/injectTool";
+import { css } from "@publicComponents/shared";
+import CpType from "../CpType.vue";
 
-const ossUrl = inject('ossUrl')
-const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
+const ossUrl = inject("ossUrl");
+const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool();
 
-const props = withDefaults(defineProps<{ info: any }>(), {})
+const props = withDefaults(defineProps<{ info: any }>(), {});
 
 const option = {
   0: {
@@ -81,13 +88,13 @@ const option = {
     `,
     adorns: [
       {
-        img: 'a1',
+        img: "a1",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 1.3rem;
@@ -100,7 +107,7 @@ const option = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
+    `,
   },
   1: {
     styles: css`
@@ -110,13 +117,13 @@ const option = {
     `,
     adorns: [
       {
-        img: 'a2',
+        img: "a2",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 0.88rem;
@@ -129,7 +136,7 @@ const option = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
+    `,
   },
   2: {
     styles: css`
@@ -139,13 +146,13 @@ const option = {
     `,
     adorns: [
       {
-        img: 'a3',
+        img: "a3",
         styles: css`
           width: 100%;
           height: 100%;
           flex-shrink: 0;
-        `
-      }
+        `,
+      },
     ],
     avatar: css`
       width: 0.88rem;
@@ -158,9 +165,9 @@ const option = {
     `,
     liveIcon: css`
       width: 0.18rem;
-    `
-  }
-}
+    `,
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -236,7 +243,7 @@ const option = {
         text-align: center;
         -webkit-text-stroke-width: 2px;
         -webkit-text-stroke-color: #af2300;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.26rem;
         font-style: normal;
         font-weight: 700;
@@ -245,25 +252,24 @@ const option = {
         position: relative;
         z-index: 5;
       }
+    }
+    .score {
+      width: 1.84rem;
+      height: 0.48rem;
+      margin-top: 0.1rem;
 
-      .score {
-        width: 1.84rem;
-        height: 0.48rem;
-        margin-top: 0.1rem;
+      color: #ffeccf;
+      text-align: center;
+      font-family: "SF UI Text";
+      font-size: 0.24rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 0.48rem; /* 133.333% */
 
-        color: #ffeccf;
-        text-align: center;
-        font-family: 'SF UI Text';
-        font-size: 0.24rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.48rem; /* 133.333% */
-
-        &.score23 {
-          width: 1.68rem;
-          height: 0.42rem;
-          line-height: 0.42rem !important;
-        }
+      &.score23 {
+        width: 1.68rem;
+        height: 0.42rem;
+        line-height: 0.42rem !important;
       }
     }
   }
@@ -303,7 +309,7 @@ const option = {
         text-align: center;
         -webkit-text-stroke-width: 2px;
         -webkit-text-stroke-color: #af2300;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.26rem;
         font-style: normal;
         font-weight: 700;
@@ -316,7 +322,7 @@ const option = {
 
         color: #ffeccf;
         text-align: center;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.22rem;
         font-style: normal;
         font-weight: 700;

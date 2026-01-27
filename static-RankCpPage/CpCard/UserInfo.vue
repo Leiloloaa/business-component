@@ -1,45 +1,6 @@
 <template>
   <div v-bg="`info`" class="info fc">
-    <Card :info="{ ...info, idx: info.rank }" isUser v-if="info.isOnTheRank" />
-    <div class="custom-user fc" v-else>
-      <OptA
-        :data="info"
-        :option="{
-          styles: css`
-            width: 1.52rem;
-            height: 1.52rem;
-            aspect-ratio: 1/1;
-          `,
-          adorns: [
-            {
-              img: 'a',
-              styles: css`
-                width: 100%;
-                height: 100%;
-              `
-            }
-          ],
-          avatar: css`
-            width: 1.13493rem;
-            height: 1.13493rem;
-          `,
-          live: css`
-            width: 0.41rem;
-            height: 0.24rem;
-            bottom: 0.2rem;
-          `,
-          liveIcon: css`
-            width: 0.18rem;
-          `
-        }"
-      />
-      <Space :val="0.08" :h="0" />
-      <div class="tip">{{ TOOL_TEXT[70] }}</div>
-      <Space :val="0.2" :h="0" />
-      <div class="btn fc" v-bg="`user-btn`" @click="toGiftPanel()">
-        <span>{{ TOOL_TEXT[69] }}</span>
-      </div>
-    </div>
+    <Card :info="{ ...info, idx: info.rank }" isUser />
   </div>
 </template>
 
@@ -47,11 +8,8 @@
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
 import Card from './Card.vue'
-import useGiftPanel from '../../../../hooks/useGiftPanel'
 
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
-
-const { toGiftPanel } = useGiftPanel()
 
 defineProps({
   info: {
