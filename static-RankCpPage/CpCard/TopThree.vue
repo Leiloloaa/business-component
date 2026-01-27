@@ -9,7 +9,7 @@
     <template v-for="item in [1, 0, 2]" :key="'top' + item">
       <div :class="['top-item', `top${item}`]">
         <!-- CP 双人头像 -->
-        <div class="fc avatar-row" style="direction: ltr">
+        <div class="fc avatar-row">
           <img
             :src="`${ossUrl}/stamp.png`"
             v-if="info.status == 0 && info.list[item] && info.list[item].stamp"
