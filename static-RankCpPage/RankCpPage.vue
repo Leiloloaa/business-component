@@ -25,7 +25,8 @@
   </div>
 </template>
 
-<script lang="ts" setup name="RankNew">
+<script lang="ts" setup name="RankCpPage">
+import { computed } from "vue";
 import { useRankPage } from "../Static/useRankPage";
 import RankTemp from "../Static/RankTemp.vue";
 import DateTab from "../Static/DateTab.vue";
@@ -35,12 +36,12 @@ import DateAvatar from "../Static/DateAvatarCp.vue";
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({
   rankType: "cp", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
   pageBpDesc: "", // 页面挂载时的埋点描述
-  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true，会隐藏 DateTab 并强制显示总榜（默认为 false）
+  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
   infoTextList: [73, 74],
-  params: () => ({
+  params: computed(() => ({
     other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
-  }),
+  })),
 });
 </script>
 

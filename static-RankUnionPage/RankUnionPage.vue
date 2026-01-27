@@ -22,7 +22,8 @@
   </div>
 </template>
 
-<script lang="ts" setup name="GuildRank">
+<script lang="ts" setup name="RankUnionPage">
+import { ref, computed } from "vue";
 import injectTool from "@publicComponents/injectTool";
 import StageRankButtons from "./StageRankButtons.vue";
 import { useRankPage } from "../Static/useRankPage";
@@ -34,7 +35,7 @@ const selStage = ref(1);
 const { dayTotal, selDate, tempConfig, activityId } = useRankPage({
   rankType: "union",
   pageBpDesc: "", // 页面挂载时的埋点描述
-  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true，会隐藏 DateTab 并强制显示总榜（默认为 false）
+  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
   infoTextList: [73, 74],
   params: computed(() => ({ other: `7,${selStage.value}` })),
 });

@@ -1,13 +1,4 @@
-import {
-  ref,
-  computed,
-  watch,
-  inject,
-  reactive,
-  isReactive,
-  isRef,
-  type ComputedRef,
-} from "vue";
+import { ref, computed, watch, inject, type ComputedRef } from "vue";
 import injectTool from "@publicComponents/injectTool";
 import { useAppStore } from "../../../../store";
 import { getQueryString } from "@libraryParams/params";
@@ -158,7 +149,7 @@ export function getRankConfig(rankType: RankType): RankPageConfig {
  * @param options.onlyTotal 是否只显示总榜（不显示日榜切换），如果为 true，则强制 dayTotal 为 1 且隐藏 DateTab（默认为 false）
  * @param options.use0TimeZone 是否使用 0 时区时间，默认是 false
  * @param options.infoTextList 自定义 infoText 数组，不传则使用 config.infoNum 计算
- * @param options.params 额外的请求参数，可以是普通对象、响应式对象、计算属性或函数
+ * @param options.params 额外的请求参数（计算属性）
  */
 export const useRankPage = (options: {
   rankType: RankType;
@@ -168,98 +159,69 @@ export const useRankPage = (options: {
   onlyTotal?: boolean;
   use0TimeZone?: boolean;
   infoTextList?: Array<number>;
-  params?: object | ComputedRef<object> | (() => object);
+  params: ComputedRef<object>;
 }) => {
-  const { use0TimeZone = false, onlyTotal = false } = options;
+  const {
+    use0TimeZone = false,
+    onlyTotal = false,
+    rankType,
+    dayTotal: initialDayTotal,
+    selDate: initialSelDate,
+    pageBpDesc,
+    infoTextList,
+    params: paramsComputed,
+  } = options;
+
   const activityId = inject("activityId");
   const { TOOL_BPFunc } = injectTool();
-
-  // 按需获取配置，支持 tree-shaking
-  const pageConfig = getRankConfig(options.rankType);
+  const pageConfig = getRankConfig(rankType);
   const appStore = useAppStore() as any;
 
-  // 如果 onlyTotal 为 true，强制为总榜；否则获取 isTotal 参数，如果 options.dayTotal 未传入，则从 URL 参数获取
-  const isTotal = onlyTotal
+  // 初始化 dayTotal：如果 onlyTotal 为 true，强制为总榜；否则从参数或 URL 获取
+  const initialIsTotal = onlyTotal
     ? 1
-    : options.dayTotal ?? Number(getQueryString("isTotal")) ?? 0;
-
-  // 这两个可能都是改变日/总榜的变量
-  const dayTotal = ref(isTotal as 0 | 1); // 0日榜/1总榜tab
+    : initialDayTotal ?? Number(getQueryString("isTotal")) ?? 0;
+  const dayTotal = ref(initialIsTotal as 0 | 1);
   const selDate = ref(
-    dayTotal.value == 1
+    dayTotal.value === 1
       ? "999"
-      : options.selDate || (use0TimeZone ? appStore.curTime0 : appStore.curTime)
-  ); // 日期
-
-  // DateAvatar 初始化完成标记（响应式）
-  // 如果是总榜（dayTotal == 1），则直接为 true，因为不需要 DateAvatar
-  const dateReady = ref(dayTotal.value == 1);
-
-  // 将 params 转换为计算属性，支持追踪外部响应式变量的变化
-  // 如果传入的是计算属性或函数，直接使用；如果是响应式对象，转换为计算属性；否则创建响应式对象并转换为计算属性
-  const params = computed(() => {
-    if (!options.params) return {};
-
-    // 如果是计算属性，直接返回其值
-    if (isRef(options.params) && "effect" in options.params) {
-      return (options.params as ComputedRef<object>).value;
-    }
-
-    // 如果是函数，调用函数获取值
-    if (typeof options.params === "function") {
-      return options.params();
-    }
-
-    // 如果是响应式对象，直接返回
-    if (isReactive(options.params)) {
-      return options.params;
-    }
-
-    // 如果是普通对象，返回它（在计算属性中会被追踪）
-    return options.params;
-  });
+      : initialSelDate || (use0TimeZone ? appStore.curTime0 : appStore.curTime)
+  );
+  
+  // DateAvatar 初始化完成标记：总榜不需要 DateAvatar，直接为 true
+  const dateReady = ref(dayTotal.value === 1);
 
   console.info("当前榜单页面配置 ===", { ...pageConfig, use0TimeZone });
 
   const tempConfig = computed(() => {
     const config = pageConfig as RankPageConfig;
-    // 是否显示榜单：日榜需要等 DateAvatar ready，总榜直接显示
-    const showRank = dateReady.value || dayTotal.value == 1;
+    const isTotal = dayTotal.value === 1;
+
     return {
-      rankType: options.rankType,
+      rankType,
       onlyTotal,
       dateReady: dateReady.value,
-      showRank,
-      url: config[
-        dayTotal.value == 1 || selDate.value == "999" ? "totalUrl" : "dailyUrl"
-      ],
-      params: params.value,
-      top1Url: dayTotal.value == 0 ? config.top1Url : "",
-      infoText: options?.infoTextList
-        ? dayTotal.value == 0
-          ? options?.infoTextList[0]
-          : options?.infoTextList[1]
-        : 0,
+      showRank: dateReady.value || isTotal,
+      url: config[isTotal ? "totalUrl" : "dailyUrl"] ?? "",
+      params: paramsComputed.value,
+      top1Url: !isTotal ? config.top1Url ?? "" : "",
+      infoText: infoTextList ? infoTextList[isTotal ? 1 : 0] : 0,
     };
   });
 
   // 页面挂载时的埋点
-  if (options.pageBpDesc) {
-    TOOL_BPFunc({ desc: options.pageBpDesc, action: "show" });
+  if (pageBpDesc) {
+    TOOL_BPFunc({ desc: pageBpDesc, action: "show" });
   }
 
+  // 监听 dayTotal 变化，更新 dateReady 和埋点
   watch(
     () => dayTotal.value,
     () => {
-      const config = pageConfig as RankPageConfig;
-      // 如果是总榜，dateReady 直接为 true；如果是日榜，重置为 false，等待 DateAvatar ready
-      dateReady.value = dayTotal.value == 1;
+      const isTotal = dayTotal.value === 1;
+      dateReady.value = isTotal;
       TOOL_BPFunc({
-        desc: config[
-          dayTotal.value == 1 || selDate.value == "999"
-            ? "totalDesc"
-            : "dailyDesc"
-        ],
+        desc: pageConfig[isTotal ? "totalDesc" : "dailyDesc"] ?? "",
         action: "show",
       });
     },
@@ -269,7 +231,7 @@ export const useRankPage = (options: {
   return {
     dayTotal,
     selDate,
-    params,
+    params: paramsComputed,
     tempConfig,
     activityId,
     dateReady, // 保留 dateReady，供外部 @ready 事件修改
