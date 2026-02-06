@@ -34,7 +34,12 @@
         </div>
 
         <Space :val="isTop3 ? 0 : 0.16" />
-        <OptA :data="info || {}" :option="option" />
+        <Avatar
+          :data="info || {}"
+          :pic="{ sofa: 'sofa', frame: 'a', live: 'live' }"
+          :option="{ radius: 1, live: isUser ? 0 : 1, alwaysLive: 0, jump: 1 }"
+          :style="option"
+        />
         <Space :val="0.26" />
 
         <!-- 层叠头像组件 -->
@@ -131,6 +136,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
+import Avatar from './Avatar.vue'
 const router = useRouter()
 const OSS_DOMAIN = inject('OSS_DOMAIN')
 const props = withDefaults(

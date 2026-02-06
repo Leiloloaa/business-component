@@ -9,7 +9,12 @@
           v-if="info.status == 0 && info.list[item] && info.list[item].stamp"
           class="stamp"
         />
-        <OptA :data="info.list?.[item] || {}" :option="optionList[item]" />
+        <Avatar
+          :data="info.list?.[item] || {}"
+          :pic="{ sofa: 'sofa', frame: 'a', live: 'live' }"
+          :option="{ radius: 1, live: 1, alwaysLive: 0, jump: 1 }"
+          :style="optionList[item]"
+        />
 
         <Outline
           class="name ov"
@@ -62,6 +67,7 @@
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
+import Avatar from './Avatar.vue'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
