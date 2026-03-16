@@ -31,13 +31,23 @@
       :h="''"
     />
     <div v-if="info.liveStatus === 1" class="live">
-      <img :src="`//image.yoko.media/static/icon/liveIcon.png`" />
+      <img :src="`${staticBaseUrl}/op/12b894d3c5844743.png`" />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from "vue";
+
+/** 获取当前链接的一、二级域名，开发环境默认 dopalive.com */
+function getRootDomain(): string {
+  const defaultDomain = "dopalive.com";
+  if (typeof window === "undefined") return defaultDomain;
+  const host = window.location.hostname;
+  if (host === "localhost" || host.startsWith("10.") || import.meta.env?.DEV) return defaultDomain;
+  return host.split(".").slice(-2).join(".") || defaultDomain;
+}
+const staticBaseUrl = `https://static.${getRootDomain()}`;
 
 interface Props {
   info: Record<string, any>;
@@ -64,80 +74,19 @@ const computedSize = computed(() => {
 @use "../../static/mixin.scss" as *;
 
 // name: (容器宽, 容器高, 头像宽, 头像高, 边框图, 头像top偏移, live底部距离)
-// topX top3大头像 sx top3小头像 s4 是普通头像
+// (容器宽, 容器高, 头像宽, 头像高, 边框图, 头像top, live底部)
 $avatar-sizes: (
-  "s5": (
-    1.14rem,
-    1.14rem,
-    0.8rem,
-    0.8rem,
-    "a",
-    0.1rem,
-    0.15rem,
-  ),
-  "s4": (
-    1.52rem,
-    1.52rem,
-    1.12rem,
-    1.12rem,
-    "a",
-    0.2rem,
-    0.15rem,
-  ),
-  "s1": (
-    1.52rem,
-    1.52rem,
-    1.12rem,
-    1.12rem,
-    "a1",
-    0.3rem,
-    0.15rem,
-  ),
-  "s2": (
-    1.52rem,
-    1.52rem,
-    1.12rem,
-    1.12rem,
-    "a2",
-    0.3rem,
-    0.15rem,
-  ),
-  "s3": (
-    1.52rem,
-    1.52rem,
-    1.12rem,
-    1.12rem,
-    "a3",
-    0.3rem,
-    0.15rem,
-  ),
-  "top1": (
-    2.56rem,
-    2.56rem,
-    1.56rem,
-    1.56rem,
-    "a1",
-    0.7rem,
-    0.15rem,
-  ),
-  "top2": (
-    2.56rem,
-    2.56rem,
-    1.56rem,
-    1.56rem,
-    "a2",
-    0.7rem,
-    0.15rem,
-  ),
-  "top3": (
-    2.56rem,
-    2.56rem,
-    1.56rem,
-    1.56rem,
-    "a3",
-    0.7rem,
-    0.15rem,
-  ),
+  // Top3 大头像
+  "top1": (2.56rem, 2.56rem, 1.56rem, 1.56rem, "a1", 0.7rem, 0.15rem),
+  "top2": (2.56rem, 2.56rem, 1.56rem, 1.56rem, "a2", 0.7rem, 0.15rem),
+  "top3": (2.56rem, 2.56rem, 1.56rem, 1.56rem, "a3", 0.7rem, 0.15rem),
+  // 列表头像 s1-s4
+  "s1": (1.52rem, 1.52rem, 1.12rem, 1.12rem, "a1", 0.3rem, 0.15rem),
+  "s2": (1.52rem, 1.52rem, 1.12rem, 1.12rem, "a2", 0.3rem, 0.15rem),
+  "s3": (1.52rem, 1.52rem, 1.12rem, 1.12rem, "a3", 0.3rem, 0.15rem),
+  "s4": (1.52rem, 1.52rem, 1.12rem, 1.12rem, "a", 0.2rem, 0.15rem),
+  // 自定义尺寸
+  "s5": (1.14rem, 1.14rem, 0.8rem, 0.8rem, "a", 0.1rem, 0.15rem)
 );
 
 .avatar-wrap {
