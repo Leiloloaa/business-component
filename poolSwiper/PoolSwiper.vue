@@ -6,60 +6,25 @@
   - list: Array - 奖励列表数据
 -->
 <template>
-  <div v-bg="`p2-pool-avatar`" class="pool-swiper-wrap">
-    <div class="title fc" v-bg="`p2-pool-avatar-title`">
-      <Outline
-        :color="1 ? '0.05rem #3B18FF' : '0.05rem #581604'"
-        :text="
-          TOOL_TEXT[59]
-            ?.replace('%s', groupInfo.curIdx + 1)
-            ?.replace('s%', groupInfo.curIdx + 1)
-        "
-        :noColor="false"
-      />
-    </div>
-
+  <div class="pool-swiper-wrap">
     <SwiperFrame
       class="swiper-container"
-      :list="groupInfo.poolList"
+      :list="list"
       :swiper-options="swiperOptions"
       swiper-id="pool-swiper"
       :allow-touch-move="false"
     >
       <template v-slot="{ item, index }">
-        <div class="reward-wrap fcc">
-          <OptA
-            :data="item || {}"
-            :option="{
-              styles: css`
-                width: 1.32rem;
-                height: 1.32rem;
-                aspect-ratio: 1/1;
-              `,
-              adorns: [
-                {
-                  img: 'a',
-                  styles: `width: 100%; height:100%;`,
-                },
-              ],
-              avatar: css`
-                width: 0.9856rem;
-                height: 0.9856rem;
-              `,
-              live: css`
-                width: 0.41rem;
-                height: 0.24rem;
-                bottom: 0.2rem;
-              `,
-              liveIcon: `width: 0.18rem;`,
-            }"
-          />
-          <Outline
-            class="ov"
-            :color="1 ? '0.05rem #581604' : '0.05rem #581604'"
-            :text="item.name || '--'"
-            noColor
-          />
+        <div class="reward-wrap">
+          <div class="rew fc" v-bg="`rew`">
+            <div class="desc fc" v-bg="`rew-desc`">
+              <span>{{ getRew(item)?.num }}</span>
+            </div>
+            <cdnImg :info="item"></cdnImg>
+          </div>
+          <div class="rew-name">
+            {{ getRew(item)?.name }}
+          </div>
         </div>
       </template>
     </SwiperFrame>
@@ -69,23 +34,25 @@
 <script lang="ts" setup name="GiftSwiperFrame">
 import injectTool from "@publicComponents/injectTool";
 import { css } from "@publicComponents/shared";
+import { inject } from "vue";
 
+const ossUrl = inject("ossUrl");
+const getRew = inject("getRew");
 const { TOOL_countryCode, TOOL_TEXT } = injectTool();
-const groupInfo: any = inject("groupInfo");
 const props = defineProps({
   list: {
     type: Array,
     default: [],
   },
 });
-
+const appInfo: any = inject("page1Info");
 // Swiper 配置
 const swiperOptions = computed(() => {
   return {
     loop: false,
     speed: 2000,
-    initialSlide: groupInfo.curIdx,
-    slidesPerView: 3,
+    initialSlide: 0,
+    slidesPerView: 3.2,
     autoplay: {
       delay: 1800,
       disableOnInteraction: false,
@@ -97,68 +64,66 @@ const swiperOptions = computed(() => {
 
 <style lang="scss" scoped>
 .pool-swiper-wrap {
-  width: 6.93rem;
-  height: 3.88rem;
-  flex-shrink: 0;
-  margin-top: -1.2rem;
-  margin-bottom: -0.15rem;
+  width: 6rem;
+  height: 2.02rem;
 
   position: relative;
+  margin: 0 auto;
+  margin-top: 0.1rem;
 
-  .title {
-    width: 3.2rem;
-    height: 0.54rem;
-
+  .swiper-container {
+    width: 6rem;
+    height: 2.02rem;
+    position: relative;
     margin: 0 auto;
-    margin-top: 0.55rem;
 
-    span {
-      color: #fff;
-      -webkit-text-stroke-width: 2px;
-      -webkit-text-stroke-color: #3b18ff;
+    :deep(.swiper-slide) {
+      width: 1.6rem;
+    }
+  }
+
+  .reward-wrap {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-left: 0.08rem;
+    margin-right: 0.08rem;
+
+    position: relative;
+    .rew {
+      width: 1.6rem;
+      height: 1.6rem;
+      position: relative;
+      .desc {
+        width: 0.96rem;
+        height: 0.32rem;
+        position: absolute;
+        top: 0.11rem;
+        right: 0;
+
+        span {
+          text-align: center;
+          font-family: Arial;
+          font-size: 0.26667rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 0.37333rem;
+        }
+      }
+
+      img {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+      }
+    }
+    .rew-name {
+      margin-top: 0.08rem;
+      text-align: center;
       font-family: "SF UI Text";
       font-size: 0.26rem;
       font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-    }
-  }
-
-  .tip {
-    margin: 0 auto;
-    margin-top: 0.16rem;
-    color: #fff;
-    font-family: "SF UI Text";
-    font-size: 0.26rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    text-align: center;
-  }
-
-  .swiper-container {
-    width: 5.61rem;
-    height: 100%;
-    position: relative;
-    margin: 0 auto;
-    margin-top: 0.13rem;
-
-    :deep(.swiper-slide) {
-      width: 1.76rem;
-    }
-
-    .reward-wrap {
-      width: 1.76rem;
-
-      span {
-        color: #fff;
-        text-align: center;
-        font-family: "SF UI Text";
-        font-size: 0.24rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.32rem; /* 133.333% */
-      }
+      font-weight: 500;
+      line-height: 0.34rem; /* 130.769% */
     }
   }
 }
