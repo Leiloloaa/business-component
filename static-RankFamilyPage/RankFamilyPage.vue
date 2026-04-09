@@ -13,6 +13,7 @@
 
     <RankTemp
       v-if="tempConfig.showRank"
+      :key="tempConfig.url"
       frameType="rank"
       :rankType="tempConfig.rankType"
       :url="tempConfig.url"

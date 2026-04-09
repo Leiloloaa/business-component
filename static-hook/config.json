@@ -1,7 +1,7 @@
 {
   "name": "hook",
-  "path": "hook/hook.ts",
+  "path": "Hook",
   "displayName": "通用Hook",
-  "category": "static-hooks",
+  "category": "hooks",
   "description": "通用Hook"
 }

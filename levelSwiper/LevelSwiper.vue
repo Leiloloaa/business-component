@@ -188,22 +188,43 @@ const swiperOptions = reactive({
   },
 });
 
-const flag = ref(false);
+const hasInitSlide = ref(false)
+let slideTimer: ReturnType<typeof setTimeout> | null = null
+
+const getSwiperInstance = (maxRetry = 10, interval = 100): Promise<any> => {
+  return new Promise((resolve) => {
+    let count = 0
+    const check = () => {
+      const swiper: any = document?.querySelector(`#level-swiper`)?.swiper
+      if (swiper) return resolve(swiper)
+      if (++count >= maxRetry) return resolve(null)
+      slideTimer = setTimeout(check, interval)
+    }
+    check()
+  })
+}
+
 watch(
   () => groupInfo.curIdx,
   async (newVal) => {
-    if (flag.value) return;
-    await nextTick();
-    const mySwiper: any = document?.querySelector(`#level-swiper`)?.swiper;
-    setTimeout(() => {
-      if (mySwiper) {
-        mySwiper?.slideTo(groupInfo.curIdx, 300);
-        groupInfo.curIdx = groupInfo.curIdx;
-      }
-    }, 600);
+    if (hasInitSlide.value) return
+    if (slideTimer) clearTimeout(slideTimer)
+    await nextTick()
+    const mySwiper = await getSwiperInstance()
+    if (mySwiper) {
+      const maxIdx = (groupInfo?.taskInfos?.length ?? 1) - 1
+      const curIdx = Math.min(groupInfo.curIdx, maxIdx)
+      mySwiper?.slideTo(curIdx, 300)
+      groupInfo.curIdx = curIdx
+      hasInitSlide.value = true
+    }
   },
   { immediate: true }
-);
+)
+
+onUnmounted(() => {
+  if (slideTimer) clearTimeout(slideTimer)
+})
 
 const handleSlideChange = (data: any) => {
   groupInfo.curIdx = data.realIndex;

@@ -10,6 +10,7 @@
     />
 
     <RankTemp
+      :key="tempConfig.url"
       frameType="rank"
       :rankType="tempConfig.rankType"
       :url="tempConfig.url"

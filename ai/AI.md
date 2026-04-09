@@ -4,12 +4,12 @@
 
 | 任务  | 是否执行 | 描述                                 |
 | ----- | -------- | ------------------------------------ |
-| 任务1 | 0        | 修改文件中的引用路径                 |
-| 任务2 | 0        | 增加并修改 RankTemp.vue 中的引用路径 |
-| 任务3 | 0        | 引入全局文件 customRegister.ts       |
+| 任务1 | 0       | 修改文件中的引用路径                 |
+| 任务2 | 0       | 增加并修改 RankTemp.vue 中的引用路径 |
+| 任务3 | 0       | 引入全局文件 customRegister.ts       |
 | 任务4 | 0        | 创建榜单路由                         |
 | 任务5 | 0        | 创建功能模块                         |
-| 任务6 | 0        | 检查页面逻辑异常和报错               |
+| 任务6 | 1        | 检查页面逻辑异常和报错               |
 
 > 说明：`1` 表示执行，`0` 表示不执行
 
@@ -83,55 +83,21 @@
 
 **相关文件**: `customRegister.ts`
 
-**任务描述**: 将 `customRegister.ts` 在 `main.ts` 中全局引入
+**任务描述**: 在 `main.ts` 中局部插入 `customRegister.ts` 的引用，不要整体替换文件
 
-**示例**:
+**具体操作**:
+
+1. 在 `main.ts` 的 import 区域（`import components from './common/all.components'` 之后）新增一行：
 ```ts
-import { createApp } from 'vue'
-import App from './App.vue'
-import developTool from '@publicComponents/developTool_TS/index'
-import { Pretreatment } from '@publicJS/activity_pretreatment/index'
-import animate from '@publicComponents/Vue3-Animate/index'
-import { iosAddViewportFit } from '@publicComponents/shared'
-import router from './router/index'
-import { List, Sticky, BackTop, CountDown, Lazyload, Toast, NoticeBar } from 'vant'
-import 'vant/lib/index.css'
-import '@publicComponents/index.scss'
-import './scss/index.scss'
-import { config } from './config'
-import { createPinia } from 'pinia'
-
-import pluginToWebp from 'plugin-to-webp'
-import components from './common/all.components'
 import customRegister from './xxx/customRegister'
-
-iosAddViewportFit()
-
-const app = createApp(App)
-const rootDom = document.createElement('div')
-document.body.appendChild(rootDom)
-const pretreatment = new Pretreatment(app, [
-  'EG', 'TR', 'IN', 'PK', 'BD', 'MY', 'FR', 'ID', 'VN', 'TW', 'IT', 'TH'
-])
-pretreatment.init(false, router).then(({ LANG }) => {
-  app
-    .use(animate)
-    .use(router)
-    .use(createPinia())
-    .use(Toast)
-    .use(List)
-    .use(Sticky)
-    .use(BackTop)
-    .use(CountDown)
-    .use(NoticeBar)
-    .use(Lazyload, { lazyComponent: true })
-    .use(components)
-    .use(customRegister)
-    .use(pluginToWebp, { excludesName: ['live'] })
-    .use(developTool, { activityId: config.activityId, countryCode: LANG })
-    .mount(rootDom)
-})
 ```
+
+1. 在 `.mount()` 之前插入：
+```ts
+    .use(customRegister)
+```
+
+> 注意：`xxx` 需替换为 `customRegister.ts` 实际所在的相对路径
 
 ---
 
@@ -192,10 +158,12 @@ TOOL_BPFunc({ desc: 'xxx', action: 'click' })
 - 响应式数据使用问题
 - 异步逻辑问题
 - 其他潜在的运行时错误
+- **新增文件引用路径检测**：检查新增的 `.vue` / `.ts` 文件中所有 `import` 语句的路径是否能正确解析到目标文件（基于实际目录结构验证相对路径层级）
 
 **自动修复规则**:
 - 如果使用了 `ref`、`computed`、`watch`、`onMounted` 等但未引入，自动添加 `import { xxx } from 'vue'`
 - 如果使用了 `useRoute`、`useRouter` 等但未引入，自动添加 `import { xxx } from 'vue-router'`
+- 如果新增文件的 `import` 相对路径层级错误（如多了或少了 `../`），自动修正为基于实际目录结构的正确路径
 
 **输出格式**:
 | 文件    | 问题描述 | 解决方案 |

@@ -13,6 +13,7 @@
 
     <RankTemp
       v-if="tempConfig.showRank"
+      :key="tempConfig.url"
       frameType="rank"
       :rankType="tempConfig.rankType"
       :url="tempConfig.url"
@@ -27,10 +28,10 @@
 
 <script lang="ts" setup name="RankUserPage">
 import { computed } from "vue";
-import { useRankPage } from "../Static/useRankPage";
-import RankTemp from "../Static/RankTemp.vue";
-import DateTab from "../Static/DateTab.vue";
-import DateAvatar from "../Static/DateAvatar.vue";
+import { useRankPage } from "../../components/Static/useRankPage";
+import RankTemp from "../../components/Static/RankTemp.vue";
+import DateTab from "../../components/Static/DateTab.vue";
+import DateAvatar from "../../components/Static/DateAvatar.vue";
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({
@@ -38,9 +39,9 @@ const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({
   pageBpDesc: "", // 页面挂载时的埋点描述
   onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
-  infoTextList: [73, 74],
+  infoTextList: [86, 87],
   params: computed(() => ({
-    // other: 1, // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
+    // other: '', // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
   })),
 });
 </script>

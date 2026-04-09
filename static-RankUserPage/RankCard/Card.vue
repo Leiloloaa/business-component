@@ -21,64 +21,36 @@
         <div class="num fc">
           <Outline
             v-if="isTop3"
-            :color="`0.05rem #830000`"
-            :text="info?.idx || info?.rank || '99+'"
+            :color="`0.05rem #ff4524`"
+            :text="info?.rank || info?.idx"
             class="top3"
           />
-          <Outline
-            v-else
-            :color="`0.05rem #DA00B9`"
-            :text="info?.idx || info?.rank || '99+'"
-            noColor
-          />
+          <Outline v-else :color="`0.05rem #DA00B9`" :text="info?.rank || info?.idx" noColor />
         </div>
 
         <Space :val="isTop3 ? 0 : 0.16" />
         <OptA :data="info || {}" :option="option" />
         <Space :val="0.26" />
 
-        <!-- 层叠头像组件 -->
-        <!-- <div class="superpose-avatar">
-      <SuperposeAvatar :overlap="0.16">
-        <div class="avatar-wrap" v-for="tp in 3">
-          <cdnImg class="avatar" :fid="info?.top3?.[tp - 1] || ''"></cdnImg>
-        </div>
-      </SuperposeAvatar>
-    </div> -->
-
         <!-- 没有荣誉勋章 -->
         <template v-if="!config.showHonor || isUser">
-          <div>
-            <Space
-              :val="0.37"
-              h
-              v-if="(info.isNewUser || info.isReturnUser) && !isUser && config.showNewOrBack"
-            />
-            <Outline
-              class="name ov"
-              :color="'0.05rem #7D2759'"
-              :text="info?.name || '--'"
-              noColor
-            />
-            <!-- 新人或回流标识 -->
-            <div
-              class="new-or-back fc"
-              :class="TOOL_countryCode"
-              v-if="
-                (info.isNewUser || info.isReturnUser) &&
-                !isUser &&
-                config.showNewOrBack &&
-                router.currentRoute.value.name != 'rankneworreturn'
-              "
-            >
-              <img :src="`${ossUrl}/${info.isNewUser ? 'n1' : 'n1'}.png`" />
-              <NoticeBar :w="1.3" :h="0.32">
-                <span style="min-width: 1.3rem">{{ TOOL_TEXT[info?.isNewUser ? 107 : 107] }}</span>
-              </NoticeBar>
-            </div>
-          </div>
+          <Outline class="name ov" :color="'0.05rem #7D2759'" :text="info?.name || '--'" noColor />
           <Space :val="0.26" />
-          <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '--' }}</div>
+          <div v-if="isUser && info.url == 'page1'">
+            <div v-bg="`score`" class="score" v-if="info.rank == 1">
+              {{ TOOL_NUM(info?.score) || '--' }}
+            </div>
+            <template v-else>
+              <div class="distance">
+                {{ TOOL_TEXT[54]?.replace('%s', '')?.replace('s%', '') }}
+              </div>
+              <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.diffPreviousScore) }}</div>
+            </template>
+          </div>
+
+          <div v-bg="`score`" class="score" v-else>
+            {{ TOOL_NUM(info?.score) || '--' }}
+          </div>
         </template>
 
         <!-- 有荣誉勋章 -->
@@ -131,8 +103,10 @@
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
 import { css } from '@publicComponents/shared'
-const router = useRouter()
-const OSS_DOMAIN = inject('OSS_DOMAIN')
+
+const getRew = inject('getRew')
+const ossUrl = inject('ossUrl')
+const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
 const props = withDefaults(
   defineProps<{
     info: any
@@ -142,155 +116,74 @@ const props = withDefaults(
   { isUser: false }
 )
 
+const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
+
 // 1. 配置
 const config = {
   showBottomInfo: true, // 是否显示奖励信息？
-  showNewOrBack: false, // 是否显示新人或回流标识？
   showHonor: false, // 是否显示荣誉勋章？
-  showTop3NumIcon: 1, // 是否显示前三名次图标？
-  bInfoNum: 3 // 前几名奖励信息？
+  bInfoNum: 3, // 前几名奖励信息？
+  top3AvatarIsSameSize: true // 前三名头像是否大小一致？
 }
 
 // 2. 使用对象形式存储样式配置
 // 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
-const optionList = {
-  1: {
-    styles: css`
-      width: 1.80688rem;
-      height: 1.80688rem;
-      aspect-ratio: 180.69/180.69;
-    `,
-    adorns: [
-      {
-        img: 'a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
-    avatar: css`
-      width: 0.99531rem;
-      height: 1.07188rem;
-      top: 0.05rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `
-  },
-  2: {
-    styles: css`
-      width: 1.80688rem;
-      height: 1.80688rem;
-      aspect-ratio: 180.69/180.69;
-    `,
-    adorns: [
-      {
-        img: 'a2',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
-    avatar: css`
-      width: 0.99531rem;
-      height: 1.07188rem;
-      top: 0.05rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `
-  },
-  3: {
-    styles: css`
-      width: 1.80688rem;
-      height: 1.80688rem;
-      aspect-ratio: 180.69/180.69;
-    `,
-    adorns: [
-      {
-        img: 'a3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
-    avatar: css`
-      width: 0.99531rem;
-      height: 1.07188rem;
-      top: 0.05rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `
-  },
-  0: {
-    styles: css`
-      width: 1.52rem;
-      height: 1.52rem;
-      aspect-ratio: 1/1;
-    `,
-    adorns: [
-      {
-        img: 'a',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
-    avatar: css`
-      width: 1.13493rem;
-      height: 1.13493rem;
-      top: 0.06rem;
-    `,
-    live: css`
-      width: 0.41rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-    `,
-    liveIcon: css`
-      width: 0.18rem;
-    `
-  }
+const top1FrameStyles = css`
+  width: 1.80688rem;
+  height: 1.80688rem;
+`
+const top2FrameStyles = css`
+  width: 1.80688rem;
+  height: 1.80688rem;
+`
+const top3FrameStyles = css`
+  width: 1.80688rem;
+  height: 1.80688rem;
+`
+const frameStyles = css`
+  width: 1.52rem;
+  height: 1.52rem;
+`
+const avatarInnerStyles = css`
+  width: 80%;
+  height: 80%;
+  top: 0.01rem;
+`
+const sharedLive = {
+  live: css`
+    width: 0.41rem;
+    height: 0.24rem;
+    bottom: 0.2rem;
+  `,
+  liveIcon: css`
+    width: 0.18rem;
+  `
 }
-
-const getRew = inject('getRew')
-const ossUrl = inject('ossUrl')
-const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
-
-const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
-
+const optionMap = Object.fromEntries(
+  (
+    [
+      [0, 'a', frameStyles],
+      [1, 'a1', top1FrameStyles],
+      [2, 'a2', top2FrameStyles],
+      [3, 'a3', top3FrameStyles]
+    ] as const
+  ).map(([key, img, frame]) => [
+    key,
+    { styles: frame, adorns: [{ img, styles: frame }], avatar: avatarInnerStyles, ...sharedLive }
+  ])
+)
 const option = computed(() => {
   if (isTop3.value && !props.isUser) {
-    return optionList[props?.info?.idx]
-  } else {
-    return optionList['0']
+    return optionMap[config.top3AvatarIsSameSize ? 1 : props?.info?.idx]
   }
+  return optionMap[0]
 })
 </script>
 
 <style lang="scss" scoped>
 .card {
   width: 7rem;
-  height: 1.76rem;
+  height: 1.72rem;
 
   margin: 0 auto;
   margin-bottom: 0.08rem;
@@ -302,12 +195,12 @@ const option = computed(() => {
 
   &.top {
     width: 7rem;
-    height: 3.04rem;
+    height: 3.38rem;
     margin-bottom: 0.08rem;
     position: relative;
 
     .top-info {
-      margin-top: 0.25rem;
+      margin-top: 0.49rem;
       .name {
         color: #ffedbe;
         font-family: 'SF UI Text';
@@ -318,23 +211,25 @@ const option = computed(() => {
       }
 
       .num {
-        width: 0.44rem;
-        height: 0.37rem;
+        width: 0.6rem;
+        height: 0.6rem;
 
         position: absolute;
-        top: 0.2rem;
+        top: 0.1rem;
         left: 50%;
-        transform: translateX(-60%);
+        transform: translateX(-50%);
 
         span {
-          color: #f2ff3f;
-          -webkit-text-stroke-width: 2px;
-          -webkit-text-stroke-color: #830000;
+          color: #fffcb9;
+          text-align: center;
+          -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: #ff4524;
           font-family: 'SF UI Text';
-          font-size: 0.36rem;
+          font-size: 0.32rem;
           font-style: normal;
           font-weight: 700;
-          line-height: 0.16rem; /* 44.444% */
+          line-height: 0.32rem; /* 100% */
+          letter-spacing: -0.00805rem;
         }
       }
       .score {
@@ -369,7 +264,7 @@ const option = computed(() => {
       height: 0.6rem;
 
       span {
-        color: #ffeb7a;
+        color: #ffedbe;
         text-align: center;
 
         /* 一级标题 */
@@ -385,12 +280,26 @@ const option = computed(() => {
       width: 1.85rem;
       height: 0.32rem;
 
-      color: #ffcc6c;
+      color: #ffedbe;
       font-family: 'SF UI Text';
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
       line-height: 0.32rem; /* 133.333% */
+    }
+
+    .distance {
+      width: 1.74rem;
+
+      color: #ffeccf;
+      text-align: center;
+      font-family: 'SF UI Text';
+      font-size: 0.24rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 0.32rem; /* 133.333% */
+
+      margin-bottom: 0.05rem;
     }
 
     .score {
@@ -407,45 +316,6 @@ const option = computed(() => {
 
       text-align: center;
       line-height: 0.4rem !important;
-    }
-
-    .new-or-back {
-      width: 1.32rem;
-      height: 0.32rem;
-      position: relative;
-      margin-left: 0.05rem;
-
-      img {
-        width: 100%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-
-      span {
-        position: relative;
-        z-index: 2;
-        text-align: center;
-        font-family: 'SF UI  Text';
-        font-size: 0.14rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 0.14rem; /* 100% */
-
-        background: linear-gradient(90deg, #ffe590 0.41%, #fffde6 50.09%, #ffe590 99.77%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-    }
-
-    .honor-bg {
-      width: 4.12rem;
-      height: 0.4rem;
-      flex-shrink: 0;
-
-      margin-top: 0.16rem;
     }
   }
 

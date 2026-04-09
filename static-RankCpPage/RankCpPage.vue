@@ -2,7 +2,7 @@
   <div class="rank-view-wrap">
     <FixedTop>
       <DateTab v-if="!tempConfig.onlyTotal" v-model="dayTotal" />
-      <DateAvatar
+      <DateAvatarCp
         v-if="dayTotal == 0"
         :api="tempConfig.top1Url"
         :apiParams="{ activityId, type: 1, other: 1 }"
@@ -30,7 +30,7 @@ import { computed } from "vue";
 import { useRankPage } from "../Static/useRankPage";
 import RankTemp from "../Static/RankTemp.vue";
 import DateTab from "../Static/DateTab.vue";
-import DateAvatar from "../Static/DateAvatarCp.vue";
+import DateAvatarCp from "./DateAvatarCp.vue";
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({

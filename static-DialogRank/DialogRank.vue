@@ -63,6 +63,7 @@ import injectTool from "@publicComponents/injectTool";
 
 import DialogCard from "./DialogCardBJ.vue";
 // import DialogCard from "./DialogCardSZ.vue";
+import UserInfo from './UserInfo.vue';
 
 const { TOOL_TEXT } = injectTool();
 const ossUrl = inject("ossUrl");
