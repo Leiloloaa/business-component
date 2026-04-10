@@ -2,6 +2,6 @@
   "name": "dialogRank",
   "path": "DialogRank",
   "displayName": "弹窗",
-  "category": " dialog",
+  "category": "弹窗",
   "description": "弹窗相关: 榜单弹窗、记录弹窗"
 }
