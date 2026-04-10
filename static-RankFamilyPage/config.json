@@ -3,5 +3,6 @@
   "path": "RankFamily",
   "displayName": "家族榜单页面",
   "category": "rank",
-  "description": ""
+  "description": "",
+  "rank": "6"
 }

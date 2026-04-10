@@ -3,5 +3,6 @@
   "path": "Rank",
   "displayName": "用户榜单页面",
   "category": "rank",
-  "description": ""
+  "description": "",
+  "rank": "1"
 }
