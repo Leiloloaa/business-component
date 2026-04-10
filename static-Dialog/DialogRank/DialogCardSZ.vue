@@ -1,6 +1,6 @@
 <template>
   <!-- info.idx 从 1 开始 -->
-  <div v-bg="`d-card`" class="cards">
+  <div class="cards" v-bg="`d-card`">
     <Space :val="isUser ? 0.2 : 0.02" />
     <div class="num fc">
       <span>{{ info.idx }}</span>
@@ -10,7 +10,7 @@
     <Space :val="0.16" :h="0" />
     <div class="name ov">{{ info.name || "---" }}</div>
     <Space :val="0.7" />
-    <div v-bg="`score`" class="score">
+    <div class="score" v-bg="`score`" >
       {{ TOOL_NUM(info.score) || "---" }}
     </div>
   </div>
@@ -42,94 +42,40 @@ const isDailyRank = computed(() => {
   return props.info.selDate != 999;
 });
 
-const optionList = {
-  1: {
-    styles: css`
-      width: 1.27125rem;
-      height: 1.27125rem;
-    `,
-    adorns: [
-      {
-        img: "a1",
-        styles: css`
-          width: 1.27125rem;
-          height: 1.27125rem;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9rem;
-      height: 0.9rem;
-    `,
-  },
-  2: {
-    styles: css`
-      width: 1.27125rem;
-      height: 1.27125rem;
-    `,
-    adorns: [
-      {
-        img: "a2",
-        styles: css`
-          width: 1.27125rem;
-          height: 1.27125rem;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9rem;
-      height: 0.9rem;
-    `,
-  },
-  3: {
-    styles: css`
-      width: 1.27125rem;
-      height: 1.27125rem;
-    `,
-    adorns: [
-      {
-        img: "a3",
-        styles: css`
-          width: 1.27125rem;
-          height: 1.27125rem;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9rem;
-      height: 0.9rem;
-    `,
-  },
-  0: {
-    styles: css`
-      width: 1.04rem;
-      height: 1.04rem;
-    `,
-    adorns: [
-      {
-        img: "a",
-        styles: css`
-          width: 1.04rem;
-          height: 1.04rem;
-        `,
-      },
-    ],
-    avatar: css`
-      width: 0.9rem;
-      height: 0.9rem;
-    `,
-  },
-};
-
+const top3FrameStyles = css`
+  width: 1.27125rem;
+  height: 1.27125rem;
+`;
+const frameStyles = css`
+  width: 1.04rem;
+  height: 1.04rem;
+`;
+const avatarInnerStyles = css`
+  width: 0.9rem;
+  height: 0.9rem;
+`;
+const optionMap = Object.fromEntries(
+  (
+    [
+      [0, "a", frameStyles],
+      [1, "a1", top3FrameStyles],
+      [2, "a2", top3FrameStyles],
+      [3, "a3", top3FrameStyles],
+    ] as const
+  ).map(([key, img, frame]) => [
+    key,
+    {
+      styles: frame,
+      adorns: [{ img, styles: frame }],
+      avatar: avatarInnerStyles,
+    },
+  ])
+);
 const option = computed(() => {
-  let baseOption;
   if (isTop3.value && !props.isUser) {
-    baseOption = optionList[props.info.idx];
-  } else {
-    baseOption = optionList["0"];
+    return optionMap[props.info.idx];
   }
-
-  return baseOption;
+  return optionMap[0];
 });
 </script>
 

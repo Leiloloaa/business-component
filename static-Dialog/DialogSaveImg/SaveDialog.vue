@@ -1,19 +1,18 @@
 <template>
-  <div v-bg="`family/d-save`" class="save-dialog">
+  <div v-bg="`d-save`" class="save-dialog">
     <div class="title">
       {{ TOOL_TEXT[88] }}
     </div>
-    <div v-bg="`family/f-save-bg`" class="content" id="downloadXXX">
+    <div v-bg="`save-bg`" class="content" id="downloadXXX">
       <div
-        v-bg="`family/f-fire-${taskInfos.curIdx + 1}-1`"
+        v-bg="`fire-${taskInfos.curIdx + 1}-1`"
         class="center-img"
         tag="img"
       ></div>
-      <FamilyAvatar />
     </div>
     <div class="btn-list fc">
       <div
-        v-bg="`family/d-save-btn`"
+        v-bg="`d-save-btn`"
         class="btn confirm fc"
         v-animate
         @click="saveFun(1)"
@@ -26,7 +25,7 @@
       </div>
       <Space :val="0.24" />
       <div
-        v-bg="`family/d-share-btn`"
+        v-bg="`d-share-btn`"
         class="btn cancel fc"
         v-animate
         @click="saveFun(2)"
@@ -50,7 +49,6 @@ import {
   useSysSave,
   shareToMoment,
 } from "@saveImage";
-import FamilyAvatar from "./FamilyAvatar.vue";
 
 const {
   TOOL_BPFunc,
