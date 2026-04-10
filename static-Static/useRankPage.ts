@@ -1,6 +1,6 @@
 import { ref, computed, watch, inject, type ComputedRef } from "vue";
 import injectTool from "@publicComponents/injectTool";
-import { useAppStore } from "../../../../store";
+import { useAppStore } from "../../store";
 import { getQueryString } from "@libraryParams/params";
 
 // ========== 榜单配置 ==========
@@ -175,12 +175,12 @@ export const useRankPage = (options: {
   const activityId = inject("activityId");
   const { TOOL_BPFunc } = injectTool();
   const pageConfig = getRankConfig(rankType);
-  const appStore = useAppStore() as any;
+  const appStore = useAppStore();
 
   // 初始化 dayTotal：如果 onlyTotal 为 true，强制为总榜；否则从参数或 URL 获取
   const initialIsTotal = onlyTotal
     ? 1
-    : initialDayTotal ?? Number(getQueryString("isTotal")) ?? 0;
+    : initialDayTotal ?? (Number(getQueryString("isTotal")) || 0);
   const dayTotal = ref(initialIsTotal as 0 | 1);
   const selDate = ref(
     dayTotal.value === 1
@@ -191,7 +191,7 @@ export const useRankPage = (options: {
   // DateAvatar 初始化完成标记：总榜不需要 DateAvatar，直接为 true
   const dateReady = ref(dayTotal.value === 1);
 
-  console.info("当前榜单页面配置 ===", { ...pageConfig, use0TimeZone });
+  console.log("当前榜单页面配置 ===", { ...pageConfig, use0TimeZone });
 
   const tempConfig = computed(() => {
     const config = pageConfig as RankPageConfig;
