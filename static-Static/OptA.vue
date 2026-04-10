@@ -28,7 +28,7 @@
 -->
 
 <template>
-  <div class="avatar-wrap">
+  <div class="avatar-wrap" v-jump="data">
     <!-- 标题 -->
     <div class="avatar" :style="processedStyles.root">
       <cdnImg
@@ -46,17 +46,13 @@
         alt=""
       />
 
-      <!-- <div
-        class="live"
-        v-if="env === 'develop' || data?.liveStatus == 1"
-        :style="processedStyles.live"
-      >
-        <img :src="defaultImgConfig.live" :style="processedStyles.live" class="bg" />
+      <div class="live" v-if="data?.liveStatus == 1" :style="processedStyles.live">
+        <img :src="`${ossUrl}/live.png`" :style="processedStyles.live" class="bg" />
         <img
           :src="`//image.yoko.media/static/icon/liveIcon.png`"
           :style="processedStyles.liveIcon"
         />
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
@@ -91,8 +87,6 @@ const props = withDefaults(defineProps<IAvatar>(), {
 })
 
 const ossUrl = inject('ossUrl')
-
-const route = useRoute()
 
 // 处理样式字符串或对象
 const parseStyle = (style: string | Record<string, string> = '') => {
@@ -135,7 +129,7 @@ const processedStyles = computed(() => {
       position: 'relative',
       ...parseStyle(option.avatar)
     },
-    adorns: (option.adorns || []).map((adorn) => ({
+    adorns: (Array.isArray(option.adorns) ? option.adorns : []).map((adorn) => ({
       img: adorn.img,
       style: {
         position: 'absolute',
