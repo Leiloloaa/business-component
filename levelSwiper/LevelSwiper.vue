@@ -206,20 +206,18 @@ const getSwiperInstance = (maxRetry = 10, interval = 100): Promise<any> => {
 
 watch(
   () => groupInfo.curIdx,
-  async (newVal) => {
-    if (hasInitSlide.value) return
-    if (slideTimer) clearTimeout(slideTimer)
-    await nextTick()
-    const mySwiper = await getSwiperInstance()
-    if (mySwiper) {
-      const maxIdx = (groupInfo?.taskInfos?.length ?? 1) - 1
-      const curIdx = Math.min(groupInfo.curIdx, maxIdx)
-      mySwiper?.slideTo(curIdx, 300)
-      groupInfo.curIdx = curIdx
-      hasInitSlide.value = true
+  async (val) => {
+    if (val === null || val === undefined) return
+    if (!hasInitSlide.value) {
+      await nextTick()
+      const mySwiper = await getSwiperInstance()
+      if (mySwiper) {
+        mySwiper.slideTo(groupInfo.curIdx, 300)
+        hasInitSlide.value = true
+      }
     }
-  },
-  { immediate: true }
+    // curIdx 改变后，别的逻辑...
+  }
 )
 
 onUnmounted(() => {
