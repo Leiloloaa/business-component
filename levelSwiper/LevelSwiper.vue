@@ -217,7 +217,8 @@ watch(
       }
     }
     // curIdx 改变后，别的逻辑...
-  }
+  },
+  { immediate: true }
 )
 
 onUnmounted(() => {
