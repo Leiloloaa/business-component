@@ -194,13 +194,11 @@ watch(
 const historyTop1: any = ref({})
 const getHistoryTop1 = async () => {
   try {
-    const type = props.apiParams?.type
     const res = await TOOL_httpClient({
       method: 'get',
       url: '/api/activity/commonBusiness/historyTop1',
       params: {
-        activityId: props.apiParams?.activityId,
-        type
+        ...props.apiParams
       }
     })
     let { data, errorCode } = res.data
@@ -225,7 +223,7 @@ const timeRangeDates: any = ref([])
 const getActivityTimeRangeDates = async () => {
   let url, params
   url = '/api/activity/commonBusiness/getActivityTimeRangeDates'
-  params = { activityId, type: props.apiParams?.type }
+  params = { ...props.apiParams }
   try {
     const res = await TOOL_httpClient({ method: 'get', url, params })
     let { data, errorCode } = res.data
