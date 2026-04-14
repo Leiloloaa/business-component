@@ -1,5 +1,5 @@
 <template>
-  <Lazy>
+  <Lazy :lazy="!isUser">
     <div
       v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
       :class="[
@@ -146,7 +146,7 @@ const props = withDefaults(
     isUser?: boolean;
     isDaily?: boolean; // 日榜/总榜
   }>(),
-  { isUser: false }
+  { isUser: false },
 );
 
 const userReward = computed(() => {

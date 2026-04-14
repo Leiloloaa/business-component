@@ -1,14 +1,17 @@
 <template>
-  <Lazy>
+  <Lazy :lazy="!isUser">
     <div
       v-bg="isUser ? '' : info.idx <= 3 ? `card1` : 'card'"
       :class="[
         'card',
         { top: isTop3, isUser: isUser, bInfo: config.showBottomInfo },
-        `top${info.idx}`
+        `top${info.idx}`,
       ]"
     >
-      <div class="top-info" :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }">
+      <div
+        class="top-info"
+        :style="{ height: info.idx >= 4 && !isUser ? '100%' : '' }"
+      >
         <img
           v-if="info?.status == 0 && info?.stamp"
           class="stamp"
@@ -25,7 +28,12 @@
             :text="info?.rank || info?.idx"
             class="top3"
           />
-          <Outline v-else :color="`0.05rem #DA00B9`" :text="info?.rank || info?.idx" noColor />
+          <Outline
+            v-else
+            :color="`0.05rem #DA00B9`"
+            :text="info?.rank || info?.idx"
+            noColor
+          />
         </div>
 
         <Space :val="isTop3 ? 0 : 0.16" />
@@ -34,22 +42,29 @@
 
         <!-- 没有荣誉勋章 -->
         <template v-if="!config.showHonor || isUser">
-          <Outline class="name ov" :color="'0.05rem #7D2759'" :text="info?.name || '--'" noColor />
+          <Outline
+            class="name ov"
+            :color="'0.05rem #7D2759'"
+            :text="info?.name || '--'"
+            noColor
+          />
           <Space :val="0.26" />
           <div v-if="isUser && info.url == 'page1'">
             <div v-bg="`score`" class="score" v-if="info.rank == 1">
-              {{ TOOL_NUM(info?.score) || '--' }}
+              {{ TOOL_NUM(info?.score) || "--" }}
             </div>
             <template v-else>
               <div class="distance">
-                {{ TOOL_TEXT[54]?.replace('%s', '')?.replace('s%', '') }}
+                {{ TOOL_TEXT[54]?.replace("%s", "")?.replace("s%", "") }}
               </div>
-              <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.diffPreviousScore) }}</div>
+              <div v-bg="`score`" class="score">
+                {{ TOOL_NUM(info?.diffPreviousScore) }}
+              </div>
             </template>
           </div>
 
           <div v-bg="`score`" class="score" v-else>
-            {{ TOOL_NUM(info?.score) || '--' }}
+            {{ TOOL_NUM(info?.score) || "--" }}
           </div>
         </template>
 
@@ -57,9 +72,11 @@
         <template v-else>
           <div>
             <div class="fc">
-              <div class="name ov">{{ info?.name || '---' }}</div>
+              <div class="name ov">{{ info?.name || "---" }}</div>
               <Space :val="0.06" />
-              <div v-bg="`score`" class="score">{{ TOOL_NUM(info?.score) || '---' }}</div>
+              <div v-bg="`score`" class="score">
+                {{ TOOL_NUM(info?.score) || "---" }}
+              </div>
             </div>
 
             <div class="honor-bg fc" v-if="info?.name">
@@ -80,7 +97,11 @@
         <Space :val="0.09" />
         <NoticeBar :w="6" :h="0.8">
           <template v-for="rewardObj in info?.reward">
-            <template v-if="info?.idx >= rewardObj?.start && info?.idx <= rewardObj?.end">
+            <template
+              v-if="
+                info?.idx >= rewardObj?.start && info?.idx <= rewardObj?.end
+              "
+            >
               <div class="rew-wrap fc" v-for="gift in rewardObj?.rewards">
                 <Space :val="0.05" />
                 <div v-bg="`b-rew`" class="rew fc">
@@ -101,54 +122,54 @@
 </template>
 
 <script lang="ts" setup name="Card">
-import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
+import injectTool from "@publicComponents/injectTool";
+import { css } from "@publicComponents/shared";
 
-const getRew = inject('getRew')
-const ossUrl = inject('ossUrl')
-const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
+const getRew = inject("getRew");
+const ossUrl = inject("ossUrl");
+const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool();
 const props = withDefaults(
   defineProps<{
-    info: any
-    isUser?: boolean
-    isDaily?: boolean // 日榜/总榜
+    info: any;
+    isUser?: boolean;
+    isDaily?: boolean; // 日榜/总榜
   }>(),
-  { isUser: false }
-)
+  { isUser: false },
+);
 
-const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser) // info.idx从1开始
+const isTop3 = computed(() => Number(props?.info?.idx) <= 3 && !props?.isUser); // info.idx从1开始
 
 // 1. 配置
 const config = {
   showBottomInfo: true, // 是否显示奖励信息？
   showHonor: false, // 是否显示荣誉勋章？
   bInfoNum: 3, // 前几名奖励信息？
-  top3AvatarIsSameSize: true // 前三名头像是否大小一致？
-}
+  top3AvatarIsSameSize: true, // 前三名头像是否大小一致？
+};
 
 // 2. 使用对象形式存储样式配置
 // 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
 const top1FrameStyles = css`
   width: 1.80688rem;
   height: 1.80688rem;
-`
+`;
 const top2FrameStyles = css`
   width: 1.80688rem;
   height: 1.80688rem;
-`
+`;
 const top3FrameStyles = css`
   width: 1.80688rem;
   height: 1.80688rem;
-`
+`;
 const frameStyles = css`
   width: 1.52rem;
   height: 1.52rem;
-`
+`;
 const avatarInnerStyles = css`
   width: 80%;
   height: 80%;
   top: 0.01rem;
-`
+`;
 const sharedLive = {
   live: css`
     width: 0.41rem;
@@ -157,27 +178,32 @@ const sharedLive = {
   `,
   liveIcon: css`
     width: 0.18rem;
-  `
-}
+  `,
+};
 const optionMap = Object.fromEntries(
   (
     [
-      [0, 'a', frameStyles],
-      [1, 'a1', top1FrameStyles],
-      [2, 'a2', top2FrameStyles],
-      [3, 'a3', top3FrameStyles]
+      [0, "a", frameStyles],
+      [1, "a1", top1FrameStyles],
+      [2, "a2", top2FrameStyles],
+      [3, "a3", top3FrameStyles],
     ] as const
   ).map(([key, img, frame]) => [
     key,
-    { styles: frame, adorns: [{ img, styles: frame }], avatar: avatarInnerStyles, ...sharedLive }
-  ])
-)
+    {
+      styles: frame,
+      adorns: [{ img, styles: frame }],
+      avatar: avatarInnerStyles,
+      ...sharedLive,
+    },
+  ]),
+);
 const option = computed(() => {
   if (isTop3.value && !props.isUser) {
-    return optionMap[config.top3AvatarIsSameSize ? 1 : props?.info?.idx]
+    return optionMap[config.top3AvatarIsSameSize ? 1 : props?.info?.idx];
   }
-  return optionMap[0]
-})
+  return optionMap[0];
+});
 </script>
 
 <style lang="scss" scoped>
@@ -203,7 +229,7 @@ const option = computed(() => {
       margin-top: 0.49rem;
       .name {
         color: #ffedbe;
-        font-family: 'SF UI Text';
+        font-family: "SF UI Text";
         font-size: 0.24rem;
         font-style: normal;
         font-weight: 700;
@@ -224,7 +250,7 @@ const option = computed(() => {
           text-align: center;
           -webkit-text-stroke-width: 1px;
           -webkit-text-stroke-color: #ff4524;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.32rem;
           font-style: normal;
           font-weight: 700;
@@ -281,7 +307,7 @@ const option = computed(() => {
       height: 0.32rem;
 
       color: #ffedbe;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
@@ -293,7 +319,7 @@ const option = computed(() => {
 
       color: #ffeccf;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
@@ -308,7 +334,7 @@ const option = computed(() => {
 
       color: #ffeccf;
       text-align: center;
-      font-family: 'SF UI Text';
+      font-family: "SF UI Text";
       font-size: 0.24rem;
       font-style: normal;
       font-weight: 700;
@@ -353,7 +379,7 @@ const option = computed(() => {
         flex-direction: column;
         .text {
           color: #ffd599;
-          font-family: 'SF UI Text';
+          font-family: "SF UI Text";
           font-size: 0.22rem;
           font-style: normal;
           font-weight: 400;
