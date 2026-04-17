@@ -13,8 +13,8 @@
 
     <RankTemp
       v-if="tempConfig.showRank"
-      :key="tempConfig.url"
       frameType="rank"
+      :key="tempConfig.url + '_' + selDate"
       :rankType="tempConfig.rankType"
       :url="tempConfig.url"
       :params="tempConfig.params"
@@ -27,23 +27,23 @@
 </template>
 
 <script lang="ts" setup name="RankNewUserPage">
-import { computed } from 'vue'
-import { useRankPage } from '../../components/Static/useRankPage'
-import RankTemp from '../../components/Static/RankTemp.vue'
-import DateTab from '../../components/Static/DateTab.vue'
-import DateAvatar from '../../components/Static/DateAvatar.vue'
+import { computed } from "vue";
+import { useRankPage } from "../../components/Static/useRankPage";
+import RankTemp from "../../components/Static/RankTemp.vue";
+import DateTab from "../../components/Static/DateTab.vue";
+import DateAvatar from "../../components/Static/DateAvatar.vue";
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({
-  rankType: 'newUser', // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
-  pageBpDesc: '', // 页面挂载时的埋点描述
+  rankType: "newUser", // 榜单类型: user/anchor/cp/family/default 用来区分接口以及对应的 card
+  pageBpDesc: "", // 页面挂载时的埋点描述
   onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
   use0TimeZone: false, // 是否使用 0 时区时间，默认是 false，游戏、家族、公会等需要注意
   infoTextList: [90, 91],
   params: computed(() => ({
     // other: '' // 1-用户日榜，2-用户总榜 ... 具体看 apiFox
-  }))
-})
+  })),
+});
 </script>
 
 <style lang="scss" scoped>
