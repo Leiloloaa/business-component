@@ -24,7 +24,7 @@
           @click="switchTab(item.routerName)"
           v-show="!hideTabIndex.includes(index)"
           :ref="(el) => setTabRef(el, index)"
-          v-bg="`${isActive(item.routerName) ? '1-tab-act' : '1-tab'}`"
+          v-bg="`${isActive(item.routerName) ? 'router-tab-act' : 'router-tab'}`"
         >
           <Outline
             :color="isActive(item.routerName) ? `0.05rem #FF18A6` : `0.05rem #3B18FF`"
