@@ -1,7 +1,7 @@
 <template>
   <div class="game-wrap">
     <div class="game-item fc" v-for="(item, idx) in gameList" v-show="idx < 3">
-      <img :src="`//image.${domain}.media/activity/202406_midYearGame/icon${item}.png`" alt="" />
+      <img :src="`${ossDomain}/activity/202406_midYearGame/icon${item}.png`" alt="" />
     </div>
   </div>
 </template>
@@ -11,8 +11,7 @@ import { ref, watch, inject } from 'vue'
 import injectTool from '@publicComponents/injectTool'
 
 const { TOOL_httpClient, TOOL_loading } = injectTool()
-const domain = inject('domain')
-
+const ossDomain = window?.hostConfig?.oss
 const props = defineProps({
   gameList: {
     type: Array,
@@ -36,7 +35,8 @@ const gameObj = {
   diceGame: 12,
   texasCowboy: 13,
   multiplayer_fishing: 14,
-  pachinko: 15
+  pachinko: 15,
+  luckyolypus: 16
 }
 </script>
 
@@ -45,19 +45,19 @@ const gameObj = {
   display: flex;
   align-items: center;
   .game-item {
-    width: 0.66rem;
-    height: 0.66rem;
+    width: 0.64rem;
+    height: 0.64rem;
     flex-shrink: 0;
 
-    margin-left: 0.04rem;
-    margin-right: 0.04rem;
+    margin-left: 0.01rem;
+    margin-right: 0.01rem;
 
     border-radius: 50%;
     border: 0.02rem solid #a23e00;
 
     img {
-      width: 0.64rem;
-      height: 0.64rem;
+      width: 0.62rem;
+      height: 0.62rem;
       flex-shrink: 0;
       border-radius: 50%;
     }
