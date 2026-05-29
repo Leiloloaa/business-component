@@ -103,6 +103,8 @@ onMounted(() => {
     z-index: 1;
 
     gap: 0.12rem;
+    margin-left: 0.29rem;
+    margin-right: 0.29rem;
 
     .tab {
       width: 2.2rem;
