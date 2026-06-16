@@ -87,26 +87,12 @@ const option = {
       width: 3.251rem;
       height: 3.251rem;
     `,
-    adorns: [
-      {
-        img: 'fa-a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'fa-a1',
     avatar: css`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.7rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -117,26 +103,12 @@ const option = {
       width: 3.251rem;
       height: 3.251rem;
     `,
-    adorns: [
-      {
-        img: 'fa-a2',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'fa-a2',
     avatar: css`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.7rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -147,26 +119,12 @@ const option = {
       width: 3.251rem;
       height: 3.251rem;
     `,
-    adorns: [
-      {
-        img: 'fa-a3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'fa-a3',
     avatar: css`
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.7rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -177,24 +135,10 @@ const option = {
       width: 0.98rem;
       height: 0.98rem;
     `,
-    adorns: [
-      {
-        img: 'fa-a',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'fa-a',
     avatar: css`
       width: 0.72rem;
       height: 0.72rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;

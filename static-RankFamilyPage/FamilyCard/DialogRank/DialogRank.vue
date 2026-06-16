@@ -103,25 +103,11 @@ const optionList = {
       width: 1.2rem;
       height: 1.045rem;
     `,
-    adorns: [
-      {
-        img: 'a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'a1',
     avatar: css`
       width: 0.54rem;
       height: 0.54rem;
       border-radius: 0.15rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -132,15 +118,7 @@ const optionList = {
       width: 0.87rem;
       height: 0.96rem;
     `,
-    adorns: [
-      {
-        img: 'family/f-a',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'family/f-a',
     avatar: css`
       width: 0.6rem;
       height: 0.6rem;
@@ -159,26 +137,12 @@ const optionList = {
       width: 1.74rem;
       height: 1.74rem;
     `,
-    adorns: [
-      {
-        img: 'fa-avatar3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'fa-avatar3',
     avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -189,24 +153,10 @@ const optionList = {
       width: 0.79rem;
       height: 0.88rem;
     `,
-    adorns: [
-      {
-        img: 'family/f-a',
-        styles: css`
-          width: 0.79rem;
-          height: 0.88rem;
-        `
-      }
-    ],
+    img: 'family/f-a',
     avatar: css`
       width: 0.55rem;
       height: 0.55rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -217,15 +167,7 @@ const optionList = {
       width: 0.98rem;
       height: 0.98rem;
     `,
-    adorns: [
-      {
-        img: 'fa-card-avatar',
-        styles: css`
-          width: 0.98rem;
-          height: 0.98rem;
-        `
-      }
-    ],
+    img: 'fa-card-avatar',
     avatar: css`
       width: 0.72rem;
       height: 0.72rem;

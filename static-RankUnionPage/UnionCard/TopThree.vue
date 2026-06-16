@@ -34,19 +34,12 @@
                     width: 0.72105rem;
                     height: 0.70713rem;
                   `,
-                  adorns: [
-                    {
-                      img: 'm-a',
-                      styles: `width: 100%; height:100%;`
-                    }
-                  ],
+                  img: 'm-a',
                   avatar: css`
                     width: 0.58947rem;
                     height: 0.58947rem;
                     border-radius: 50%;
                   `,
-                  live: `display: none;`,
-                  liveIcon: `width: 0.18rem;`
                 }"
               />
             </div>
@@ -83,15 +76,7 @@ const optionList = {
       width: 2.6rem;
       height: 2.29rem;
     `,
-    adorns: [
-      {
-        img: 'm-g-a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'm-g-a1',
     avatar: css`
       width: 1.39636rem;
       height: 1.44rem;
@@ -111,15 +96,7 @@ const optionList = {
       width: 2.6rem;
       height: 2.29rem;
     `,
-    adorns: [
-      {
-        img: 'm-g-a2',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'm-g-a2',
     avatar: css`
       width: 1.39636rem;
       height: 1.44rem;
@@ -139,15 +116,7 @@ const optionList = {
       width: 2.6rem;
       height: 2.29rem;
     `,
-    adorns: [
-      {
-        img: 'm-g-a3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'm-g-a3',
     avatar: css`
       width: 1.39636rem;
       height: 1.44rem;

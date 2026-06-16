@@ -174,16 +174,7 @@ const optionList = {
       height: 1.80688rem;
       aspect-ratio: 180.69/180.69;
     `,
-    adorns: [
-      {
-        img: "a1",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a1",
     avatar: css`
       width: 0.98rem;
       height: 0.98rem;
@@ -203,16 +194,7 @@ const optionList = {
       height: 1.80688rem;
       aspect-ratio: 180.69/180.69;
     `,
-    adorns: [
-      {
-        img: "a2",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a2",
     avatar: css`
       width: 0.98rem;
       height: 0.98rem;
@@ -232,16 +214,7 @@ const optionList = {
       height: 1.80688rem;
       aspect-ratio: 180.69/180.69;
     `,
-    adorns: [
-      {
-        img: "a3",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a3",
     avatar: css`
       width: 0.98rem;
       height: 0.98rem;
@@ -261,16 +234,7 @@ const optionList = {
       height: 1.52rem;
       aspect-ratio: 1/1;
     `,
-    adorns: [
-      {
-        img: "a",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a",
     avatar: css`
       width: 1.13493rem;
       height: 1.13493rem;

@@ -71,19 +71,19 @@ const sharedLive = {
 const optionList = {
   0: {
     styles: top1Styles,
-    adorns: [{ img: 'a1', styles: top1Styles }],
+    img: 'a1',
     avatar: top1Avatar,
     ...sharedLive
   },
   1: {
     styles: top23Styles,
-    adorns: [{ img: 'a2', styles: top23Styles }],
+    img: 'a2',
     avatar: top23Avatar,
     ...sharedLive
   },
   2: {
     styles: top23Styles,
-    adorns: [{ img: 'a3', styles: top23Styles }],
+    img: 'a3',
     avatar: top23Avatar,
     ...sharedLive
   }

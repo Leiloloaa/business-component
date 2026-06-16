@@ -56,19 +56,12 @@
                   width: 0.72105rem;
                   height: 0.70713rem;
                 `,
-                adorns: [
-                  {
-                    img: 'm-a',
-                    styles: `width: 100%; height:100%;`,
-                  },
-                ],
+                img: 'm-a',
                 avatar: css`
                   width: 0.58947rem;
                   height: 0.58947rem;
                   border-radius: 50%;
                 `,
-                live: `display: none;`,
-                liveIcon: `width: 0.18rem;`,
               }"
             />
           </div>
@@ -116,15 +109,7 @@ const optionList = {
       width: 1.4rem;
       height: 1.23rem;
     `,
-    adorns: [
-      {
-        img: "m-g-a1",
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `,
-      },
-    ],
+    img: "m-g-a1",
     avatar: css`
       width: 0.7568rem;
       height: 0.7568rem;
@@ -144,15 +129,7 @@ const optionList = {
       width: 1.4rem;
       height: 1.23rem;
     `,
-    adorns: [
-      {
-        img: "m-g-a2",
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `,
-      },
-    ],
+    img: "m-g-a2",
     avatar: css`
       width: 0.7568rem;
       height: 0.7568rem;
@@ -172,15 +149,7 @@ const optionList = {
       width: 1.4rem;
       height: 1.23rem;
     `,
-    adorns: [
-      {
-        img: "m-g-a3",
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `,
-      },
-    ],
+    img: "m-g-a3",
     avatar: css`
       width: 0.7568rem;
       height: 0.7568rem;
@@ -200,15 +169,7 @@ const optionList = {
       width: 0.99949rem;
       height: 0.96rem;
     `,
-    adorns: [
-      {
-        img: "m-g-a",
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `,
-      },
-    ],
+    img: "m-g-a",
     avatar: css`
       width: 0.7568rem;
       height: 0.7568rem;

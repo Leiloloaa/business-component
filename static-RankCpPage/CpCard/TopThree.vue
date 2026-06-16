@@ -86,16 +86,7 @@ const option = {
       height: 2.36rem;
       aspect-ratio: 1/1;
     `,
-    adorns: [
-      {
-        img: "a1",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a1",
     avatar: css`
       width: 1.3rem;
       height: 1.4rem;
@@ -115,16 +106,7 @@ const option = {
       height: 1.6225rem;
       aspect-ratio: 162.25/162.25;
     `,
-    adorns: [
-      {
-        img: "a2",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a2",
     avatar: css`
       width: 0.88rem;
       height: 0.88rem;
@@ -144,16 +126,7 @@ const option = {
       height: 1.6225rem;
       aspect-ratio: 162.25/162.25;
     `,
-    adorns: [
-      {
-        img: "a3",
-        styles: css`
-          width: 100%;
-          height: 100%;
-          flex-shrink: 0;
-        `,
-      },
-    ],
+    img: "a3",
     avatar: css`
       width: 0.88rem;
       height: 0.88rem;

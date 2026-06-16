@@ -4,27 +4,22 @@
   <OptA
     :data="pageInfo.userInfo"
     :option="{
-      w: 1.06,
-      h: 1.02,
-      adorns: [
-        {
-          img: 'avatar',
-          w: '100%',
-          h: '100%'
-        }
-      ],
-      avatar: {
-        top: 0.14,
-        w: 0.795,
-        h: 0.795
-      },
-      live: {
-        display: 'none'
-      }
+      styles: 'width: 1.06rem; height: 1.02rem;', // 容器尺寸
+      img: 'a', // 装饰图：直接传图片名，尺寸默认 100%（充满容器）
+      live: 'width: 0.41rem; height: 0.24rem; bottom: 0.2rem;'
     }"
   />
-  例2:
-  <OptA :data="list[item]" :type="item + 1"></OptA>
+  例2（自定义头像/直播标）:
+  <OptA
+    :data="pageInfo.userInfo"
+    :option="{
+      styles: 'width: 2.58rem; height: 2.58rem;',
+      img: 'a1',
+      avatar: 'width: 1.83rem; height: 1.83rem;', // avatar 不传时默认 width/height 80%
+      // live 不传时默认 display: none（不显示直播标）
+      // liveIcon 不传时默认 width/height 80%
+    }"
+  />
 -->
 
 <template>
@@ -71,12 +66,19 @@ interface IAvatar {
   type?: any
   option?: {
     styles?: string | Record<string, string>
-    adorns?: Array<{
-      img: string
-      styles: string | Record<string, string>
-    }>
+    // 装饰图简写：直接传单个图片名，等价 adorns: [img]
+    img?: string
+    // 装饰图：可直接传图片名（默认尺寸 100%），也兼容 { img, styles } 对象写法；优先级高于 img
+    adorns?: Array<
+      | string
+      | {
+          img: string
+          styles?: string | Record<string, string>
+        }
+    >
     avatar?: string | Record<string, string>
     live?: string | Record<string, string>
+    // 直播图标，不传默认 80% x 80%
     liveIcon?: string | Record<string, string>
   }
 }
@@ -119,29 +121,46 @@ const parseStyle = (style: string | Record<string, string> = '') => {
 // 处理所有样式
 const processedStyles = computed(() => {
   const option = props.option || {}
-  const defaultPosition = { position: 'absolute' }
   return {
     root: {
       position: 'relative',
       ...parseStyle(option.styles)
     },
+    // 头像默认 80% x 80%，传入 avatar 可覆盖
     avatar: {
       position: 'relative',
+      width: '80%',
+      height: '80%',
       ...parseStyle(option.avatar)
     },
-    adorns: (Array.isArray(option.adorns) ? option.adorns : []).map((adorn) => ({
-      img: adorn.img,
-      style: {
-        position: 'absolute',
-        ...parseStyle(adorn.styles)
+    // 装饰图默认充满容器（100%）；优先取 adorns，其次取 img 简写
+    adorns: (Array.isArray(option.adorns) ? option.adorns : option.img ? [option.img] : []).map(
+      (adorn) => {
+        const img = typeof adorn === 'string' ? adorn : adorn?.img
+        const adornStyles = typeof adorn === 'string' ? '' : adorn?.styles
+        return {
+          img,
+          style: {
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            ...parseStyle(adornStyles)
+          }
+        }
       }
-    })),
+    ),
+    // 未传 live 时默认隐藏直播标
     live: {
       position: 'absolute',
       bottom: '0',
-      ...parseStyle(option.live)
+      ...(option.live ? parseStyle(option.live) : { display: 'none' })
     },
-    liveIcon: parseStyle(option.liveIcon)
+    // 直播图标默认 80% x 80%，传入 liveIcon 可覆盖
+    liveIcon: {
+      width: '80%',
+      height: '80%',
+      ...parseStyle(option.liveIcon)
+    }
   }
 })
 </script>

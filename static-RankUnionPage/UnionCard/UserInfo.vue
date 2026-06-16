@@ -71,16 +71,7 @@ const option = {
     height: 1.5675rem;
     flex-shrink: 0;
   `,
-  adorns: [
-    {
-      img: 'a',
-      styles: css`
-        width: 1.55375rem;
-        height: 1.5675rem;
-        flex-shrink: 0;
-      `
-    }
-  ],
+  img: 'a',
   avatar: css`
     width: 1.1rem;
     height: 1.1rem;

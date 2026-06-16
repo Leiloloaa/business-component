@@ -15,23 +15,11 @@
             width: 0.88rem;
             height: 0.8448rem;
           `,
-          adorns: [
-            {
-              img: 'm-g-a',
-              styles: css`
-                width: 0.88rem;
-                height: 0.8448rem;
-                flex-shrink: 0;
-                aspect-ratio: 88/84.48;
-              `,
-            },
-          ],
+          img: 'm-g-a',
           avatar: css`
             width: 0.7568rem;
             height: 0.7568rem;
           `,
-          live: `width: 0.41rem; height: 0.24rem; bottom: 0rem`,
-          liveIcon: `width: 0.18rem;`,
         }"
       />
 

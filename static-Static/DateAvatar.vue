@@ -26,21 +26,10 @@
                   height: 0.92188rem;
                   aspect-ratio: 92.19/92.19;
                 `,
-                adorns: [
-                  {
-                    img: 'a1',
-                    styles: css`
-                      width: 100%;
-                      height: 100%;
-                    `
-                  }
-                ],
+                img: 'a1',
                 avatar: css`
                   width: 0.50781rem;
                   height: 0.54688rem;
-                `,
-                live: css`
-                  display: none;
                 `
               }"
             />

@@ -11,22 +11,12 @@
           width: 0.88rem;
           height: 0.8448rem;
         `,
-        adorns: [
-          {
-            img: 'm-a',
-            styles: css`
-              width: 0.88rem;
-              height: 0.8448rem;
-            `
-          }
-        ],
+        img: 'm-a',
         avatar: css`
           width: 0.7568rem;
           height: 0.7568rem;
           border-radius: 50%;
         `,
-        live: `width: 0.41rem; height: 0.24rem; bottom: 0rem`,
-        liveIcon: `width: 0.18rem;`
       }"
     />
     <Space :val="0.16" :h="0" />

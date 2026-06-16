@@ -100,15 +100,7 @@
                   width: 1.04rem;
                   height: 1.04rem;
                 `,
-                adorns: [
-                  {
-                    img: 'a',
-                    styles: css`
-                      width: 100%;
-                      height: 100%;
-                    `
-                  }
-                ],
+                img: 'a',
                 avatar: css`
                   width: 0.77653rem;
                   height: 0.77653rem;

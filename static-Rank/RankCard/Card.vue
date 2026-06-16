@@ -138,7 +138,7 @@ const optionMap = Object.fromEntries(
     key,
     {
       styles: frame,
-      adorns: [{ img, styles: frame }],
+      img,
       avatar: avatarInnerStyles,
       ...sharedLive
     }

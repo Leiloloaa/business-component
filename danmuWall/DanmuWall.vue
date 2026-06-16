@@ -54,22 +54,11 @@ const option0 = {
     width: 1.22rem;
     height: 1.22rem;
   `,
-  adorns: [
-    {
-      img: "a",
-      styles: css`
-        width: 100%;
-        height: 100%;
-      `,
-    },
-  ],
+  img: "a",
   avatar: css`
     top: 0.12rem;
     width: 0.9rem;
     height: 0.9rem;
-  `,
-  live: css`
-    display: none;
   `,
 };
 

@@ -186,26 +186,12 @@ const optionList = {
       width: 1.74rem;
       height: 1.74rem;
     `,
-    adorns: [
-      {
-        img: 'f-a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'f-a1',
     avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -216,26 +202,12 @@ const optionList = {
       width: 1.74rem;
       height: 1.74rem;
     `,
-    adorns: [
-      {
-        img: 'f-a2',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'f-a2',
     avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -246,26 +218,12 @@ const optionList = {
       width: 1.74rem;
       height: 1.74rem;
     `,
-    adorns: [
-      {
-        img: 'f-a3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'f-a3',
     avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -276,25 +234,11 @@ const optionList = {
       width: 1.48rem;
       height: 1.48rem;
     `,
-    adorns: [
-      {
-        img: 'f-a',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'f-a',
     avatar: css`
       width: 1.1rem;
       height: 1.1rem;
       border-radius: 0.35rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;
@@ -305,24 +249,10 @@ const optionList = {
       width: 0.98rem;
       height: 0.98rem;
     `,
-    adorns: [
-      {
-        img: 'f-small-a',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'f-small-a',
     avatar: css`
       width: 0.72rem;
       height: 0.72rem;
-    `,
-    live: css`
-      width: 0.36rem;
-      height: 0.24rem;
-      bottom: 0.2rem;
-      display: none;
     `,
     liveIcon: css`
       width: 0.29rem;

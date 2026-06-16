@@ -31,12 +31,7 @@
                 height: 0.8rem;
                 aspect-ratio: 1/1;
               `,
-              adorns: [
-                {
-                  img: 'a',
-                  styles: `width: 100%; height:100%;`,
-                },
-              ],
+              img: 'a',
               avatar: css`
                 width: 0.59733rem;
                 height: 0.59733rem;
@@ -61,12 +56,7 @@
                 width: 3.26rem;
                 height: 3.00531rem;
               `,
-              adorns: [
-                {
-                  img: 'a1',
-                  styles: `width: 100%; height:100%;`,
-                },
-              ],
+              img: 'a1',
               avatar: css`
                 width: 1.55359rem;
                 height: 1.55359rem;

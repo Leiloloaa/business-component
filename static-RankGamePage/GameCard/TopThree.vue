@@ -84,15 +84,7 @@ const optionList = {
       width: 2.56rem;
       height: 2.12rem;
     `,
-    adorns: [
-      {
-        img: 'm-a1',
-        styles: css`
-          width: 2.56rem;
-          height: 2.12rem;
-        `
-      }
-    ],
+    img: 'm-a1',
     avatar: css`
       width: 1.36rem;
       height: 1.36rem;
@@ -111,15 +103,7 @@ const optionList = {
       width: 2.56rem;
       height: 2.12rem;
     `,
-    adorns: [
-      {
-        img: 'm-a2',
-        styles: css`
-          width: 2.56rem;
-          height: 2.12rem;
-        `
-      }
-    ],
+    img: 'm-a2',
     avatar: css`
       width: 1.36rem;
       height: 1.36rem;
@@ -138,15 +122,7 @@ const optionList = {
       width: 2.56rem;
       height: 2.12rem;
     `,
-    adorns: [
-      {
-        img: 'm-a3',
-        styles: css`
-          width: 2.56rem;
-          height: 2.12rem;
-        `
-      }
-    ],
+    img: 'm-a3',
     avatar: css`
       width: 1.36rem;
       height: 1.36rem;

@@ -125,15 +125,7 @@ const optionList = {
       height: 1.39125rem;
       flex-shrink: 0;
     `,
-    adorns: [
-      {
-        img: 'g-v-a1',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'g-v-a1',
     avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
@@ -154,15 +146,7 @@ const optionList = {
       height: 1.39125rem;
       flex-shrink: 0;
     `,
-    adorns: [
-      {
-        img: 'g-v-a2',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'g-v-a2',
     avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
@@ -183,15 +167,7 @@ const optionList = {
       height: 1.39125rem;
       flex-shrink: 0;
     `,
-    adorns: [
-      {
-        img: 'g-v-a3',
-        styles: css`
-          width: 100%;
-          height: 100%;
-        `
-      }
-    ],
+    img: 'g-v-a3',
     avatar: css`
       width: 0.80063rem;
       height: 0.80063rem;
@@ -213,17 +189,7 @@ const optionList = {
       flex-shrink: 0;
       aspect-ratio: 137/135;
     `,
-    adorns: [
-      {
-        img: 'm-a',
-        styles: css`
-          width: 1.37rem;
-          height: 1.35rem;
-          flex-shrink: 0;
-          aspect-ratio: 137/135;
-        `
-      }
-    ],
+    img: 'm-a',
     avatar: css`
       width: 1.12rem;
       height: 1.12rem;
