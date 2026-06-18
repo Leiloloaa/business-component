@@ -116,6 +116,18 @@ const route = useRoute()
 const router = useRouter()
 const ossUrl = inject('ossUrl')
 const { TOOL_TEXT, TOOL_countryCode, TOOL_toast, TOOL_BPFunc, TOOL_httpClient } = injectTool()
+const testFamilyTab = ENV != 'build'
+  ? [
+      {
+        icon: 'family-icon',
+        permission: 'familyStatus',
+        showTimeKey: 'familyShowTime',
+        route: 'family',
+        text: 6,
+        outerLink: ''
+      }
+    ]
+  : []
 
 // inner: 内部会场, outer: 外部会场；hideArea 配置需隐藏的大区
 const VENUE_LIST = [
@@ -157,23 +169,42 @@ const VENUE_LIST = [
   }
 ]
 
+// 本地 10.* 本地开发域名临时放开 family 入口，方便本地开发调试。
+const isLocalTestDomain = ENV != 'build' && window.location.hostname.startsWith('10.')
+
 const tabList = computed(() =>
-  VENUE_LIST.filter((item) => !item.hideArea.includes(TOOL_countryCode))
+  VENUE_LIST.filter((item) => {
+    if (item.route === 'family' && isLocalTestDomain) return true
+    return !item.hideArea.includes(TOOL_countryCode)
+  })
 )
 
 const swiperInstance = ref<any>(null)
 // 是否由用户主动滑动/点击触发（初始化、redirect、程序化定位不应跳转）
 const userTriggered = ref(false)
+// 首次进入激活样式兜底校正定时器
+let activeStyleTimer: ReturnType<typeof setTimeout> | null = null
+
+// 安全刷新激活样式（组件卸载/实例销毁后不执行）
+const refreshActiveStyle = (swiper: any) => {
+  if (!swiper || swiper.destroyed) return
+  updateAllSlides(swiper)
+}
 
 const onSwiper = (swiper: any) => {
   swiperInstance.value = swiper
-  updateAllSlides(swiper)
   // 初始化定位到当前路由对应的会场，避免组件 remount 后 onTransitionEnd 跳到默认居中会场
   const matched = tabList.value.find((item) => route.path.includes(item.route))
   if (matched) {
     const index = tabList.value.findIndex((item) => item.route === matched.route)
     if (index !== -1) swiper.slideToLoop(index, 0)
   }
+  // 定位完成后再刷新，确保激活样式按「定位后」的居中项计算
+  refreshActiveStyle(swiper)
+  // 下一帧 + 1s 兜底校正，避免首次进入卡在非激活/激活中间态
+  requestAnimationFrame(() => refreshActiveStyle(swiper))
+  if (activeStyleTimer) clearTimeout(activeStyleTimer)
+  activeStyleTimer = setTimeout(() => refreshActiveStyle(swiper), 1000)
 }
 
 const onTouchEnd = () => {
@@ -205,7 +236,7 @@ const onTransitionEnd = (swiper: any) => {
     const showTime = headPicData[showTimeKey]
     const s = showTime?.start ? new Date(showTime.start) : null
     const dateStr = s ? `${s.getMonth() + 1}/${s.getDate()}` : ''
-    TOOL_toast({ text: `${TOOL_TEXT[49] || ''} ${dateStr}` })
+    TOOL_toast({ text: `${TOOL_TEXT[608] || ''} ${dateStr}` })
     return
   }
 
@@ -247,6 +278,25 @@ watch(
 )
 
 const headPicData = reactive<any>({})
+
+// 默认会场：按 VENUE_LIST 顺序取「最后一个」permission 为 1（已开启）的会场
+// 例：family+union 都为 1 → union；family+union+cp 都为 1 → cp
+const resolveDefaultVenue = () => {
+  let target = ''
+  tabList.value.forEach((item) => {
+    if (headPicData[item.permission] == 1) target = item.route
+  })
+  return target || tabList.value[0]?.route || ''
+}
+
+// 仅当停留在 page1 容器（未选中任何子路由）时才跳默认会场，
+// 避免覆盖 isData 链接跳转(会场/rank/荣誉殿堂等)及深链接进入的具体路由
+const redirectToDefaultVenue = () => {
+  if (route.name !== 'page1') return
+  const target = resolveDefaultVenue()
+  if (target) router.replace({ name: target })
+}
+
 const fetchHeadPic = async () => {
   try {
     const res = await TOOL_httpClient({
@@ -257,6 +307,7 @@ const fetchHeadPic = async () => {
     const { data, errorCode } = res.data
     if (errorCode != 0) return
     Object.assign(headPicData, data)
+    redirectToDefaultVenue()
   } catch (err) {
     console.error(err)
   }
@@ -274,6 +325,10 @@ const formatShowDate = (showTime: any) => {
 }
 
 onUnmounted(() => {
+  if (activeStyleTimer) {
+    clearTimeout(activeStyleTimer)
+    activeStyleTimer = null
+  }
   if (swiperInstance.value) {
     swiperInstance.value.destroy(true, true)
     swiperInstance.value = null
@@ -323,9 +378,10 @@ onUnmounted(() => {
 
     .venue {
       position: absolute;
-      width: 2.2rem;
-      height: 2.2rem;
+      width: 2.2rem !important;
+      height: 2.2rem !important;
       object-fit: contain;
+      transition: width 0.3s ease, height 0.3s ease;
     }
 
     .name-btn {
@@ -406,6 +462,11 @@ onUnmounted(() => {
   :deep(.is-center) {
     position: relative;
     z-index: 2;
+
+    .venue {
+      width: 2.5rem !important;
+      height: 2.5rem !important;
+    }
 
     .name-btn {
       width: 1.95rem;
