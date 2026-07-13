@@ -2,6 +2,6 @@
   "name": "static",
   "path": "static",
   "displayName": "榜单基础组件",
-  "category": "static",
+  "category": "rank-static",
   "description": "榜单基础组件"
 }

@@ -1,7 +1,7 @@
 {
-    "name": "新框架通用组件",
+    "name": "components",
     "path": " components",
-    "displayName": "components",
+    "displayName": "新框架通用组件",
     "category": "components",
     "description": "新框架通用组件"
 }
