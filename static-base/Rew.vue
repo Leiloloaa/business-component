@@ -243,12 +243,9 @@ onBeforeUnmount(() => {
   // 礼物框（背景由 v-bg='rew' 注入；img 走 80% 留白）
   .rew-icon {
     flex-shrink: 0;
-
-    img {
-      width: 80%;
-      height: 80%;
-      object-fit: contain;
-    }
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
   }
 
   // 名称文字（宽高由 NoticeBar 控制；超出自动滚动）
