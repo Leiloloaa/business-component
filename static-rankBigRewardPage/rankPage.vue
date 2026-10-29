@@ -18,7 +18,7 @@
 <script lang="ts" setup name="RankPage">
 import { computed } from "vue";
 import { useRankPage } from "./Static/useRankPage.ts";
-import RankTemp from "./Static/RankTemp.vue";
+import RankTemp from "./Static/rankTemp.vue";
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({

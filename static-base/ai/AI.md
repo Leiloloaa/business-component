@@ -5,7 +5,7 @@
 | 任务  | 是否执行 | 描述                                 |
 | ----- | -------- | ------------------------------------ |
 | 任务1 | 0       | 修改文件中的引用路径                 |
-| 任务2 | 0       | 增加并修改 RankTemp.vue 中的引用路径 |
+| 任务2 | 0       | 增加并修改 rankTemp.vue 中的引用路径 |
 | 任务3 | 0       | 引入全局文件 customRegister.ts       |
 | 任务4 | 0        | 创建榜单路由                         |
 | 任务5 | 0        | 创建功能模块                         |
@@ -37,22 +37,22 @@
 2. 新增的 `RankXXXPage` 目录下的 `RankXXXPage.vue` 中的四个路径
    ```ts
    import { useRankPage } from '../Static/useRankPage'
-   import RankTemp from '../Static/RankTemp.vue'
-   import DateTab from '../Static/DateTab.vue'
-   import DateAvatar from '../Static/DateAvatar.vue'
+   import RankTemp from '../Static/rankTemp.vue'
+   import DateTab from '../Static/dateTab.vue'
+   import DateAvatar from '../Static/dateAvatar.vue'
    ```
 
 ---
 
-### 任务2: 增加并修改 RankTemp.vue 中的引用路径
+### 任务2: 增加并修改 rankTemp.vue 中的引用路径
 
 **相关文件**: 
-1. 找到 `RankTemp.vue` 文件，修正以下引用：
+1. 找到 `rankTemp.vue` 文件，修正以下引用：
    ```ts
    // 榜单
-   import TopThree from '../RankAnchorPage/RankCard/TopThree.vue'
-   import Card from '../RankAnchorPage/RankCard/Card.vue'
-   import UserInfo from '../RankAnchorPage/RankCard/UserInfo.vue'
+   import TopThree from '../RankAnchorPage/rankCard/topThree.vue'
+   import Card from '../RankAnchorPage/rankCard/card.vue'
+   import UserInfo from '../RankAnchorPage/rankCard/userInfo.vue'
    ```
 2. 同时引入新增的 `RankXXXPage` 目录下带 `Card` 目录中的 `TopThree`、`Card`、`UserInfo`
 3. 修改 `componentMap` 计算属性，根据榜单类型引入对应组件：

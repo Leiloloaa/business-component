@@ -1,6 +1,6 @@
 {
   "name": "static-exchange",
-  "path": "static-exchange/Exchange.vue",
+  "path": "static-exchange/exchange.vue",
   "displayName": "兑换相关",
   "category": "game",
   "description": "兑换主页面组件，提供兑换商品展示、兑换操作、库存管理等功能"

@@ -74,12 +74,12 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import UserCard from "./Rank/Card.vue";
-import UserTopThree from "./Rank/TopThree.vue";
-import UserUserInfo from "./Rank/UserInfo.vue";
-import GuildCard from "./RankGuild/Card.vue";
-import GuildUserInfo from "./RankGuild/UserInfo.vue";
-import RewardSwiper from "./RewardSwiper.vue";
+import UserCard from "./rank/card.vue";
+import UserTopThree from "./rank/topThree.vue";
+import UserUserInfo from "./rank/userInfo.vue";
+import GuildCard from "./rankGuild/card.vue";
+import GuildUserInfo from "./rankGuild/userInfo.vue";
+import RewardSwiper from "./rewardSwiper.vue";
 import { useScrollProgress } from "../HappyEdiRamadan/hooks/useScrollProgress";
 import { fnGetInjectInfo } from "@components/developTool_TS";
 

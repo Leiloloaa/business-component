@@ -13,7 +13,7 @@
 
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
-import Card from './Card.vue'
+import Card from './card.vue'
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const imgUrl = inject('imgUrl')

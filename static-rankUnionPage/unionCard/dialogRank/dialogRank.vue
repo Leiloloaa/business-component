@@ -77,11 +77,11 @@
 
 <script lang="ts" setup name="DialogRank">
 import injectTool from "@publicComponents/injectTool";
-import RankLoad from "../../../Static/RankLoad.vue";
+import RankLoad from "../../../Static/rankLoad.vue";
 import { css } from "@publicComponents/shared";
 
-import DialogCard from "./DialogCard.vue";
-import UserInfo from "./UserInfo.vue";
+import DialogCard from "./dialogCard.vue";
+import UserInfo from "./userInfo.vue";
 
 const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
 const ossUrl = inject("ossUrl");

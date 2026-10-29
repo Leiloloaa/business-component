@@ -213,7 +213,7 @@
 import injectTool from '@publicComponents/injectTool'
 import { toAppUrl, css } from '@publicComponents/shared'
 import type { IBigWinMeterTask } from '../../utils/type'
-import MICOReward from './MICOReward.vue'
+import MICOReward from './mICOReward.vue'
 
 // 接口实际返回带进度字段，类型定义未声明，这里本地补全
 type IBarTask = IBigWinMeterTask & {

@@ -29,9 +29,9 @@
 <script lang="ts" setup name="RankNewUserPage">
 import { computed } from "vue";
 import { useRankPage } from "../../components/Static/useRankPage";
-import RankTemp from "../../components/Static/RankTemp.vue";
-import DateTab from "../../components/Static/DateTab.vue";
-import DateAvatar from "../../components/Static/DateAvatar.vue";
+import RankTemp from "../../components/Static/rankTemp.vue";
+import DateTab from "../../components/Static/dateTab.vue";
+import DateAvatar from "../../components/Static/dateAvatar.vue";
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId, dateReady } = useRankPage({

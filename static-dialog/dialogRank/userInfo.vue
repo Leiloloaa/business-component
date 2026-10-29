@@ -49,7 +49,7 @@
 <script lang="ts" setup name="userInfo">
 import { inject } from "vue";
 import injectTool from "@publicComponents/injectTool";
-import Card from "./DialogCardSZ.vue";
+import Card from "./dialogCardSZ.vue";
 import { css } from "@publicComponents/shared";
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool();

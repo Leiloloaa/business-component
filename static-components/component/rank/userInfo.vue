@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import Card from "./Card.vue";
+import Card from "./card.vue";
 
 const props = defineProps({
   info: {

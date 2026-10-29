@@ -26,9 +26,9 @@
 <script lang="ts" setup name="RankUnionPage">
 import { ref, computed } from "vue";
 import injectTool from "@publicComponents/injectTool";
-import StageRankButtons from "./StageRankButtons.vue";
+import StageRankButtons from "./stageRankButtons.vue";
 import { useRankPage } from "../Static/useRankPage";
-import RankTemp from "../Static/RankTemp.vue";
+import RankTemp from "../Static/rankTemp.vue";
 
 const selStage = ref(1);
 

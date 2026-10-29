@@ -1,6 +1,6 @@
 <template>
   <!-- 使用 -->
-  <!-- import DrawBtn from '../business/DrawGroup/DrawBtn.vue' -->
+  <!-- import DrawBtn from '../business/DrawGroup/drawBtn.vue' -->
   <!-- 使用界面 provide('groupInfo',pageInfo) -->
   <div class="draw-btn-wrap fc">
     <div
@@ -36,8 +36,8 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import DialogStatus from './DialogStatus.vue'
-import MICOReward from './MICOReward.vue'
+import DialogStatus from './dialogStatus.vue'
+import MICOReward from './mICOReward.vue'
 
 const { TOOL_BPFunc, TOOL_countryCode, TOOL_TEXT, TOOL_httpClient, TOOL_loading, TOOL_toast } =
   injectTool()

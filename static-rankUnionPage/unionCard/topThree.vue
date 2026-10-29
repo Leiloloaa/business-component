@@ -60,8 +60,8 @@
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
 import { css } from "@publicComponents/shared";
-import SuperposeAvatar from './SuperposeAvatar.vue'
-import DialogRank from './DialogRank/DialogRank.vue';
+import SuperposeAvatar from './superposeAvatar.vue'
+import DialogRank from './dialogRank/dialogRank.vue';
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()

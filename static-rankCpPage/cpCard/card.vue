@@ -131,7 +131,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from "@publicComponents/injectTool";
 import { css } from "@publicComponents/shared";
-import CpType from "../CpType.vue";
+import CpType from "../cpType.vue";
 
 const getRew = inject("getRew");
 

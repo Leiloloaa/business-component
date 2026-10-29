@@ -69,7 +69,7 @@
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
 import { css } from "@publicComponents/shared";
-import GameTop3 from '../GameTop3.vue'
+import GameTop3 from '../gameTop3.vue'
 
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()

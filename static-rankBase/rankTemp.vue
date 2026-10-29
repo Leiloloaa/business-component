@@ -73,11 +73,11 @@
 <script lang="ts" setup name="Rank">
 import injectTool from '@publicComponents/injectTool'
 import useUserInfo from '@hooks/useUserInfo'
-import RankLoad from './RankLoad.vue'
+import RankLoad from './rankLoad.vue'
 // 榜单
-import TopThree from '../RankAnchorPage/RankCard/TopThree.vue'
-import Card from '../RankAnchorPage/RankCard/Card.vue'
-import UserInfo from '../RankAnchorPage/RankCard/UserInfo.vue'
+import TopThree from '../RankAnchorPage/rankCard/topThree.vue'
+import Card from '../RankAnchorPage/rankCard/card.vue'
+import UserInfo from '../RankAnchorPage/rankCard/userInfo.vue'
 
 const route = useRoute()
 const router = useRouter()

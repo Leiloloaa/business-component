@@ -57,7 +57,7 @@
 <script lang="ts" setup>
 import { computed } from "vue";
 import { fnGetInjectInfo } from "@components/developTool_TS";
-import Avatar from "./Avatar.vue";
+import Avatar from "./avatar.vue";
 
 interface Props {
   info: Record<string, any>;

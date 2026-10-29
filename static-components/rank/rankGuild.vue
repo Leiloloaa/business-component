@@ -28,8 +28,8 @@
 import { computed, ref, inject } from "vue";
 import { fnGetInjectInfo } from "@components/developTool_TS";
 import TabsDate from "../../components/Tabs/TabsDate.vue";
-import RankContent from "../../components/RankContent.vue";
-import GuildMemberPop from "../../components/RankGuild/GuildMember/GuildMemberPop.vue";
+import RankContent from "../../components/rankContent.vue";
+import GuildMemberPop from "../../components/rankGuild/guildMember/guildMemberPop.vue";
 
 const { TOOL_BPFunc } = fnGetInjectInfo();
 const activityId = inject("activityId");

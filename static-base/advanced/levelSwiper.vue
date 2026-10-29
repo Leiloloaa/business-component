@@ -144,8 +144,8 @@
 import injectTool from "@publicComponents/injectTool";
 import { css } from "@publicComponents/shared";
 import { inject } from "vue";
-// import DialogRank from "./Draw/DialogRank.vue";
-// import PoolSwiper from "./PoolSwiper.vue";
+// import DialogRank from "./Draw/dialogRank.vue";
+// import PoolSwiper from "./poolSwiper.vue";
 // import useGiftPanel from "./hooks/useGiftPanel";
 
 // const { toGiftPanel } = useGiftPanel();

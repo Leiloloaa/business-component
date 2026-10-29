@@ -49,8 +49,8 @@
 import { computed, inject } from "vue";
 import { fnGetInjectInfo } from "@components/developTool_TS";
 import PopUp from "../../common/PopUp.vue";
-import RankLoad from "../../common/RankLoad.vue";
-import MemberCard from "./GuildMemberCard.vue";
+import RankLoad from "../../common/rankLoad.vue";
+import MemberCard from "./guildMemberCard.vue";
 
 interface AgencyInfo {
   agencyName?: string;

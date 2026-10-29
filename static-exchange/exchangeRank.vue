@@ -37,9 +37,9 @@
 
 <script lang="ts" setup name="ExchangeRank">
 import injectTool from "@publicComponents/injectTool";
-import RankLoad from "./RankLoad.vue";
+import RankLoad from "./rankLoad.vue";
 
-import ExchangeCard from "./ExchangeCardSZ.vue";
+import ExchangeCard from "./exchangeCardSZ.vue";
 
 const { TOOL_TEXT, TOOL_BPFunc, TOOL_countryCode } = injectTool();
 const ossUrl = inject("ossUrl");

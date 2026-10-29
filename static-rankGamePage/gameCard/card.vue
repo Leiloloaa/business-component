@@ -85,7 +85,7 @@
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
 import { css } from "@publicComponents/shared";
-import GameTop3 from '../GameTop3.vue'
+import GameTop3 from '../gameTop3.vue'
 
 const router = useRouter()
 const props = withDefaults(

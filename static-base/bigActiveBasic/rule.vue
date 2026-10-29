@@ -54,7 +54,7 @@ import { useRoute } from 'vue-router'
 import injectTool from '@publicComponents/injectTool'
 import { getQueryString } from '@libraryParams/params'
 
-import TabsRewardSub from '../common/Tabs/TabsRewardSub.vue'
+import TabsRewardSub from '../common/Tabs/tabsRewardSub.vue'
 import { getRuleConfig, findByRuleIndex } from './ruleConfig.js'
 
 const route = useRoute()

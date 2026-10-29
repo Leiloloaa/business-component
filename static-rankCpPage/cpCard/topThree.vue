@@ -72,7 +72,7 @@
 <script lang="ts" setup>
 import injectTool from "@publicComponents/injectTool";
 import { css } from "@publicComponents/shared";
-import CpType from "../CpType.vue";
+import CpType from "../cpType.vue";
 
 const ossUrl = inject("ossUrl");
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool();

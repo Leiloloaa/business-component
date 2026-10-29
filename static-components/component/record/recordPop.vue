@@ -44,9 +44,9 @@
 import { computed, inject } from "vue";
 import { fnGetInjectInfo } from "@components/developTool_TS";
 import PopUp from "../common/PopUp.vue";
-import RankLoad from "../common/RankLoad.vue";
-import RecordCard0 from "./RecordCard0.vue";
-import RecordCard1 from "./RecordCard1.vue";
+import RankLoad from "../common/rankLoad.vue";
+import RecordCard0 from "./recordCard0.vue";
+import RecordCard1 from "./recordCard1.vue";
 
 interface Props {
   show: boolean;

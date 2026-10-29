@@ -37,7 +37,7 @@
 <script lang="ts" setup name="gift">
 import injectTool from "@publicComponents/injectTool";
 import { openAppWebviewByUrl } from "@publicComponents/shared";
-import SwiperFrame from "../static-Static/SwiperFrame.vue";
+import SwiperFrame from "../static-Static/swiperFrame.vue";
 import { oss } from "../../../store";
 
 const { TOOL_httpClient, TOOL_countryCode, TOOL_BPFunc } = injectTool();

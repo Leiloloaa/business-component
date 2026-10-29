@@ -68,8 +68,8 @@
 <script lang="ts" setup>
 import { computed, unref } from "vue";
 import { fnGetInjectInfo } from "@components/developTool_TS";
-import LevelRewardList from "./LevelRewardList.vue";
-import Progress from "./Progress.vue";
+import LevelRewardList from "./levelRewardList.vue";
+import Progress from "./progress.vue";
 
 const { TOOL_TEXT } = fnGetInjectInfo();
 

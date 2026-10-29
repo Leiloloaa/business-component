@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { fnGetInjectInfo } from "@components/developTool_TS";
-import Avatar from "../Rank/Avatar.vue";
+import Avatar from "../rank/avatar.vue";
 import dayjs from "dayjs";
 
 const { TOOL_TEXT } = fnGetInjectInfo();

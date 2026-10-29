@@ -17,7 +17,7 @@
 
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
-import Card from './DialogCard.vue'
+import Card from './dialogCard.vue'
 
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const ossUrl = inject('ossUrl')

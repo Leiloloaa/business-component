@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import { fnGetInjectInfo } from "@components/developTool_TS";
-import Avatar from "./Avatar.vue";
+import Avatar from "./avatar.vue";
 
 const { TOOL_countryCode, TOOL_TEXT } = fnGetInjectInfo();
 

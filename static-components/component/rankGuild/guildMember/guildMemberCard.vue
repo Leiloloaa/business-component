@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import Avatar from "../Avatar.vue";
+import Avatar from "../avatar.vue";
 
 interface Props {
   info: Record<string, any>;

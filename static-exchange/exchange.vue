@@ -130,8 +130,8 @@
 
 <script lang="ts" setup>
 import injectTool from "@publicComponents/injectTool";
-import ExchangeRank from "./ExchangeRank.vue";
-// import ExchangeDialogStatus from './ExchangeDialogStatus.vue'
+import ExchangeRank from "./exchangeRank.vue";
+// import ExchangeDialogStatus from './exchangedialogStatus.vue'
 
 const getRew = inject("getRew");
 const {

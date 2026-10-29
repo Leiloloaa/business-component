@@ -40,12 +40,12 @@ const props = defineProps({
 
 // 类型组件动态导入映射
 const typeComponentMap = {
-  1: () => import("./DialogStatusType1/DialogStatusType1.vue"),
-  2: () => import("./DialogStatusType2/DialogStatusType2.vue"),
-  3: () => import("./DialogStatusType3/DialogStatusType3.vue"),
-  4: () => import("./DialogStatusType4/DialogStatusType4.vue"),
-  5: () => import("./DialogStatusType5/DialogStatusType5.vue"),
-  6: () => import("./DialogStatusType6/DialogStatusType6.vue"),
+  1: () => import("./dialogStatusType1/dialogStatusType1.vue"),
+  2: () => import("./dialogStatusType2/dialogStatusType2.vue"),
+  3: () => import("./dialogStatusType3/dialogStatusType3.vue"),
+  4: () => import("./dialogStatusType4/dialogStatusType4.vue"),
+  5: () => import("./dialogStatusType5/dialogStatusType5.vue"),
+  6: () => import("./dialogStatusType6/dialogStatusType6.vue"),
 };
 
 // 当前加载的组件
