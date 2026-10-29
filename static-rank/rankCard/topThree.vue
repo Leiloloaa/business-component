@@ -35,35 +35,33 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
-
 const props = withDefaults(defineProps<{ info: any }>(), {})
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT } = injectTool()
 
-const top1Styles = css`
+const top1Styles = `
   width: 2.58125rem;
   height: 2.58125rem;
 `
-const top1Avatar = css`
+const top1Avatar = `
   width: 1.8375rem;
   height: 1.8375rem;
 `
-const top23Styles = css`
+const top23Styles = `
   width: 2.13875rem;
   height: 2.13875rem;
 `
-const top23Avatar = css`
+const top23Avatar = `
   width: 1.5225rem;
   height: 1.5225rem;
 `
 const sharedLive = {
-  live: css`
+  live: `
     width: 0.41rem;
     height: 0.24rem;
     bottom: 0.2rem;
   `,
-  liveIcon: css`
+  liveIcon: `
     width: 0.18rem;
   `
 }

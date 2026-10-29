@@ -78,8 +78,6 @@
 import injectTool from '@publicComponents/injectTool'
 import dayjs from 'dayjs'
 import RankLoad from '../../Static/rankLoad.vue'
-import { css } from "@publicComponents/shared";
-
 import DialogCard from './dialogCard.vue'
 import UserInfo from './userInfo.vue'
 
@@ -99,85 +97,85 @@ const pageInfo = reactive({
 
 const optionList = {
   option1: {
-    styles: css`
+    styles: `
       width: 1.2rem;
       height: 1.045rem;
     `,
     img: 'a1',
-    avatar: css`
+    avatar: `
       width: 0.54rem;
       height: 0.54rem;
       border-radius: 0.15rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option2: {
-    styles: css`
+    styles: `
       width: 0.87rem;
       height: 0.96rem;
     `,
     img: 'family/f-a',
-    avatar: css`
+    avatar: `
       width: 0.6rem;
       height: 0.6rem;
     `,
-    live: css`
+    live: `
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option3: {
-    styles: css`
+    styles: `
       width: 1.74rem;
       height: 1.74rem;
     `,
     img: 'fa-avatar3',
-    avatar: css`
+    avatar: `
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option: {
-    styles: css`
+    styles: `
       width: 0.79rem;
       height: 0.88rem;
     `,
     img: 'family/f-a',
-    avatar: css`
+    avatar: `
       width: 0.55rem;
       height: 0.55rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: css`
+    styles: `
       width: 0.98rem;
       height: 0.98rem;
     `,
     img: 'fa-card-avatar',
-    avatar: css`
+    avatar: `
       width: 0.72rem;
       height: 0.72rem;
     `,
-    live: css`
+    live: `
       width: 0.36rem;
       height: 0.24rem;
       bottom: 0.05rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   }

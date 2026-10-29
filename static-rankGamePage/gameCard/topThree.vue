@@ -68,7 +68,6 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
 import GameTop3 from '../gameTop3.vue'
 
 const ossUrl = inject('ossUrl')
@@ -80,59 +79,59 @@ const showNewOrBack = 0 // 是否显示新人或回流标识？
 
 const optionList = {
   0: {
-    styles: css`
+    styles: `
       width: 2.56rem;
       height: 2.12rem;
     `,
     img: 'm-a1',
-    avatar: css`
+    avatar: `
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: `
       width: 2.56rem;
       height: 2.12rem;
     `,
     img: 'm-a2',
-    avatar: css`
+    avatar: `
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: `
       width: 2.56rem;
       height: 2.12rem;
     `,
     img: 'm-a3',
-    avatar: css`
+    avatar: `
       width: 1.36rem;
       height: 1.36rem;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   }

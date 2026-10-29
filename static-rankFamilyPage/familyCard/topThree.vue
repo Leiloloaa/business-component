@@ -60,8 +60,6 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
-
 const imgUrl = inject('imgUrl')
 const { TOOL_countryCode, TOOL_NUM, TOOL_TEXT, TOOL_BPFunc } = injectTool()
 
@@ -83,64 +81,64 @@ const showToast = (info) => {
 
 const option = {
   0: {
-    styles: css`
+    styles: `
       width: 3.251rem;
       height: 3.251rem;
     `,
     img: 'fa-a1',
-    avatar: css`
+    avatar: `
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   1: {
-    styles: css`
+    styles: `
       width: 3.251rem;
       height: 3.251rem;
     `,
     img: 'fa-a2',
-    avatar: css`
+    avatar: `
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   2: {
-    styles: css`
+    styles: `
       width: 3.251rem;
       height: 3.251rem;
     `,
     img: 'fa-a3',
-    avatar: css`
+    avatar: `
       width: 1.82rem;
       height: 1.82rem;
       top: 0.9rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: css`
+    styles: `
       width: 0.98rem;
       height: 0.98rem;
     `,
     img: 'fa-a',
-    avatar: css`
+    avatar: `
       width: 0.72rem;
       height: 0.72rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   }

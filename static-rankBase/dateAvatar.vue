@@ -21,13 +21,13 @@
             <OptA
               :data="historyTop1?.[item] || {}"
               :option="{
-                styles: css`
+                styles: `
                   width: 0.92188rem;
                   height: 0.92188rem;
                   aspect-ratio: 92.19/92.19;
                 `,
                 img: 'a1',
-                avatar: css`
+                avatar: `
                   width: 0.50781rem;
                   height: 0.54688rem;
                 `
@@ -44,7 +44,6 @@
 import { computed, inject, onMounted, reactive, ref, watch, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
 import dayjs from 'dayjs'
 import { useAppStore } from '../../../../store'
 

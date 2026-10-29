@@ -19,8 +19,6 @@
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
 import dayjs from 'dayjs'
-import { css } from '@publicComponents/shared'
-
 const props = withDefaults(
   defineProps<{
     info: any

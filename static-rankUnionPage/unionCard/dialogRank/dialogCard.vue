@@ -7,12 +7,12 @@
     <OptA
       :data="info || {}"
       :option="{
-        styles: css`
+        styles: `
           width: 0.88rem;
           height: 0.8448rem;
         `,
         img: 'm-a',
-        avatar: css`
+        avatar: `
           width: 0.7568rem;
           height: 0.7568rem;
           border-radius: 50%;
@@ -28,8 +28,6 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
-
 const props = withDefaults(
   defineProps<{
     info: any

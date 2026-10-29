@@ -84,7 +84,6 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
 import GameTop3 from '../gameTop3.vue'
 
 const router = useRouter()
@@ -117,90 +116,90 @@ const config = {
 }
 
 // 2. 使用对象形式存储样式配置
-// 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
+// 可以直接粘贴 CSS 代码，使用 `...` 模板字符串自动转换
 const optionList = {
   1: {
-    styles: css`
+    styles: `
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
     `,
     img: 'g-v-a1',
-    avatar: css`
+    avatar: `
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: `
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
     `,
     img: 'g-v-a2',
-    avatar: css`
+    avatar: `
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   3: {
-    styles: css`
+    styles: `
       width: 1.68rem;
       height: 1.39125rem;
       flex-shrink: 0;
     `,
     img: 'g-v-a3',
-    avatar: css`
+    avatar: `
       width: 0.80063rem;
       height: 0.80063rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   0: {
-    styles: css`
+    styles: `
       width: 1.37rem;
       height: 1.35rem;
       flex-shrink: 0;
       aspect-ratio: 137/135;
     `,
     img: 'm-a',
-    avatar: css`
+    avatar: `
       width: 1.12rem;
       height: 1.12rem;
       flex-shrink: 0;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.1rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   }

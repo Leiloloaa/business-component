@@ -125,8 +125,6 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
-
 const props = withDefaults(
   defineProps<{
     info: any
@@ -182,79 +180,79 @@ const option = computed(() => {
 
 const optionList = {
   option1: {
-    styles: css`
+    styles: `
       width: 1.74rem;
       height: 1.74rem;
     `,
     img: 'f-a1',
-    avatar: css`
+    avatar: `
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option2: {
-    styles: css`
+    styles: `
       width: 1.74rem;
       height: 1.74rem;
     `,
     img: 'f-a2',
-    avatar: css`
+    avatar: `
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option3: {
-    styles: css`
+    styles: `
       width: 1.74rem;
       height: 1.74rem;
     `,
     img: 'f-a3',
-    avatar: css`
+    avatar: `
       width: 1.1rem;
       height: 1.1rem;
       top: 0.4rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   option: {
-    styles: css`
+    styles: `
       width: 1.48rem;
       height: 1.48rem;
     `,
     img: 'f-a',
-    avatar: css`
+    avatar: `
       width: 1.1rem;
       height: 1.1rem;
       border-radius: 0.35rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   },
   optionSmall: {
-    styles: css`
+    styles: `
       width: 0.98rem;
       height: 0.98rem;
     `,
     img: 'f-small-a',
-    avatar: css`
+    avatar: `
       width: 0.72rem;
       height: 0.72rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.29rem;
     `
   }

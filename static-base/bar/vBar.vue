@@ -96,21 +96,21 @@
             <OptA
               :data="item?.other1 || {}"
               :option="{
-                styles: css`
+                styles: `
                   width: 1.04rem;
                   height: 1.04rem;
                 `,
                 img: 'a',
-                avatar: css`
+                avatar: `
                   width: 0.77653rem;
                   height: 0.77653rem;
                 `,
-                live: css`
+                live: `
                   width: 0.41rem;
                   height: 0.24rem;
                   bottom: 0.2rem;
                 `,
-                liveIcon: css`
+                liveIcon: `
                   width: 0.18rem;
                 `
               }"
@@ -211,7 +211,7 @@
 
 <script lang="ts" setup name="puzzleTask">
 import injectTool from '@publicComponents/injectTool'
-import { toAppUrl, css } from '@publicComponents/shared'
+import { toAppUrl } from '@publicComponents/shared'
 import type { IBigWinMeterTask } from '../../utils/type'
 import MICOReward from './mICOReward.vue'
 

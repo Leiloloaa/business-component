@@ -30,12 +30,12 @@
               <OptA
                 :data="info.list?.[item]?.extraInfos?.[tp - 1] || {}"
                 :option="{
-                  styles: css`
+                  styles: `
                     width: 0.72105rem;
                     height: 0.70713rem;
                   `,
                   img: 'm-a',
-                  avatar: css`
+                  avatar: `
                     width: 0.58947rem;
                     height: 0.58947rem;
                     border-radius: 50%;
@@ -59,7 +59,6 @@
 
 <script lang="ts" setup>
 import injectTool from '@publicComponents/injectTool'
-import { css } from "@publicComponents/shared";
 import SuperposeAvatar from './superposeAvatar.vue'
 import DialogRank from './dialogRank/dialogRank.vue';
 
@@ -72,62 +71,62 @@ const showSubRankDialog = ref(false)
 
 const optionList = {
   0: {
-    styles: css`
+    styles: `
       width: 2.6rem;
       height: 2.29rem;
     `,
     img: 'm-g-a1',
-    avatar: css`
+    avatar: `
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   1: {
-    styles: css`
+    styles: `
       width: 2.6rem;
       height: 2.29rem;
     `,
     img: 'm-g-a2',
-    avatar: css`
+    avatar: `
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   },
   2: {
-    styles: css`
+    styles: `
       width: 2.6rem;
       height: 2.29rem;
     `,
     img: 'm-g-a3',
-    avatar: css`
+    avatar: `
       width: 1.39636rem;
       height: 1.44rem;
       border-radius: unset;
     `,
-    live: css`
+    live: `
       width: 0.41rem;
       height: 0.24rem;
       bottom: 0.2rem;
     `,
-    liveIcon: css`
+    liveIcon: `
       width: 0.18rem;
     `
   }

@@ -49,8 +49,6 @@
 <script lang="ts" setup name="userInfo">
 import injectTool from '@publicComponents/injectTool'
 import Card from './card.vue'
-import { css } from "@publicComponents/shared";
-
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
 const imgUrl = inject('imgUrl')
 
@@ -66,22 +64,22 @@ defineProps({
 })
 
 const option = {
-  styles: css`
+  styles: `
     width: 1.55375rem;
     height: 1.5675rem;
     flex-shrink: 0;
   `,
   img: 'a',
-  avatar: css`
+  avatar: `
     width: 1.1rem;
     height: 1.1rem;
   `,
-  live: css`
+  live: `
     width: 0.41rem;
     height: 0.24rem;
     bottom: 0.2rem;
   `,
-  liveIcon: css`
+  liveIcon: `
     width: 0.18rem;
   `
 }

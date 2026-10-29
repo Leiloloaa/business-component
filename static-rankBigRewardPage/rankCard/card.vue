@@ -82,8 +82,6 @@
 
 <script lang="ts" setup name="Card">
 import injectTool from '@publicComponents/injectTool'
-import { css } from '@publicComponents/shared'
-
 const getRew = inject('getRew')
 const ossUrl = inject('ossUrl')
 const { TOOL_countryCode, TOOL_NUM } = injectTool()
@@ -126,34 +124,34 @@ const cardBg = computed(() => {
 })
 
 // 2. 使用对象形式存储样式配置
-// 可以直接粘贴 CSS 代码，使用 css`...` 模板字符串自动转换
-const top1FrameStyles = css`
+// 可以直接粘贴 CSS 代码，使用 `...` 模板字符串自动转换
+const top1FrameStyles = `
   width: 1.54875rem;
   height: 1.54875rem;
 `
-const top2FrameStyles = css`
+const top2FrameStyles = `
   width: 1.80688rem;
   height: 1.80688rem;
 `
-const top3FrameStyles = css`
+const top3FrameStyles = `
   width: 1.80688rem;
   height: 1.80688rem;
 `
-const frameStyles = css`
+const frameStyles = `
   width: 1.54875rem;
   height: 1.54875rem;
 `
-const customFrameStyles = css`
+const customFrameStyles = `
   width: 1.3632rem;
   height: 1.3632rem;
 `
 const sharedLive = {
-  live: css`
+  live: `
     width: 0.41rem;
     height: 0.24rem;
     bottom: 0rem;
   `,
-  liveIcon: css`
+  liveIcon: `
     width: 0.18rem;
   `
 }

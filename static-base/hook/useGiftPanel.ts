@@ -37,105 +37,105 @@
  *   - bp?: string - 自定义埋点文案（默认: "Send_gift_button_click"）
  */
 import { inject } from "vue";
-import injectTool from "@publicComponents/injectTool";
+import { fnGetInjectInfo } from "@components/developTool_TS";
 import { toAppUrl, isLiveBanner, getRoomList } from "@publicComponents/shared";
 
 interface LiveRoomInfo {
-  uid: string;
-  roomId: string;
-  [key: string]: any;
+    uid: string;
+    roomId: string;
+    [key: string]: any;
 }
 
 export default function useGiftPanel() {
-  const activityId = inject<any>("activityId");
-  const { TOOL_loading, TOOL_BPFunc, TOOL_httpClient } = injectTool();
+    const activityId = inject<any>("activityId");
+    const { TOOL_loading, TOOL_BPFunc, TOOL_httpClient } = injectTool();
 
-  // 常量：默认埋点文案
-  const DEFAULT_BP_DESC = "Send_gift_button_click";
+    // 常量：默认埋点文案
+    const DEFAULT_BP_DESC = "Send_gift_button_click";
 
-  /**
-   * 获取礼物信息
-   */
-  const getGiftId = async (): Promise<string> => {
-    const url = "/api/activity/commonBusiness/gifts";
-    try {
-      const res = await TOOL_httpClient({
-        url: url,
-        method: "get",
-        params: { count: 1, activityId },
-      });
-      const { data, errorCode } = res.data;
-      if (errorCode != 0) throw res;
-      return data?.[0]?.id;
-    } catch (error) {
-      // 记录错误但不抛出，避免影响主流程
-      console.error("[useGiftPanel.getGiftId] error:", error);
-      return "0";
-    }
-  };
-
-  /**
-   * 获取推荐直播间信息
-   */
-  const getRoomInfo = async (): Promise<LiveRoomInfo | undefined> => {
-    const url = "/api/activity/commonBusiness/liveRecommendRooms";
-    try {
-      const res = await TOOL_httpClient({
-        url: url,
-        method: "get",
-        params: { count: 1, activityId },
-      });
-      const { data, errorCode } = res.data;
-      if (errorCode != 0) throw res;
-      return data?.liveRecommendsList?.[0];
-    } catch (error) {
-      // 记录错误但不抛出，避免影响主流程
-      console.error("[useGiftPanel.getRoomInfo] error:", error);
-      return undefined;
-    }
-  };
-
-  /**
-   * 跳转送礼面板 / 直播间
-   */
-  const toGiftPanel = async ({
-    giftId,
-    bp,
-  }: { giftId?: string | number; bp?: string } = {}) => {
-    try {
-      await TOOL_BPFunc({ desc: bp || DEFAULT_BP_DESC, action: "click" });
-      TOOL_loading(true);
-      if (isLiveBanner) {
-        // Banner 场景：跳送礼
-        if (!giftId) {
-          giftId = await getGiftId();
+    /**
+     * 获取礼物信息
+     */
+    const getGiftId = async (): Promise<string> => {
+        const url = "/api/activity/commonBusiness/gifts";
+        try {
+            const res = await TOOL_httpClient({
+                url: url,
+                method: "get",
+                params: { count: 1, activityId },
+            });
+            const { data, errorCode } = res.data;
+            if (errorCode != 0) throw res;
+            return data?.[0]?.id;
+        } catch (error) {
+            // 记录错误但不抛出，避免影响主流程
+            console.error("[useGiftPanel.getGiftId] error:", error);
+            return "0";
         }
-        const roomList = await getRoomList();
-        if (!roomList?.length) throw new Error("roomList is empty");
-        const roomId = roomList[0];
-        if (!giftId) throw new Error("giftId invalid");
-        await toAppUrl("gift", { roomId, giftId });
-      } else {
-        // 非 Banner 场景：跳直播
-        const room = await getRoomInfo();
-        const uid = room?.uid;
-        const roomId = room?.roomId;
-        if (!uid || !roomId) throw new Error("live room invalid");
-        await toAppUrl("live", { uid, roomId });
-      }
-    } catch (error) {
-      console.error(
-        "[useGiftPanel.toGiftPanel]" + activityId + " error:",
-        error
-      );
-    } finally {
-      TOOL_loading(false);
-    }
-  };
+    };
 
-  return {
-    getRoomInfo,
-    toGiftPanel,
-    getGiftId,
-  };
+    /**
+     * 获取推荐直播间信息
+     */
+    const getRoomInfo = async (): Promise<LiveRoomInfo | undefined> => {
+        const url = "/api/activity/commonBusiness/liveRecommendRooms";
+        try {
+            const res = await TOOL_httpClient({
+                url: url,
+                method: "get",
+                params: { count: 1, activityId },
+            });
+            const { data, errorCode } = res.data;
+            if (errorCode != 0) throw res;
+            return data?.liveRecommendsList?.[0];
+        } catch (error) {
+            // 记录错误但不抛出，避免影响主流程
+            console.error("[useGiftPanel.getRoomInfo] error:", error);
+            return undefined;
+        }
+    };
+
+    /**
+     * 跳转送礼面板 / 直播间
+     */
+    const toGiftPanel = async ({
+        giftId,
+        bp,
+    }: { giftId?: string | number; bp?: string } = {}) => {
+        try {
+            await TOOL_BPFunc({ desc: bp || DEFAULT_BP_DESC, action: "click" });
+            TOOL_loading(true);
+            if (isLiveBanner) {
+                // Banner 场景：跳送礼
+                if (!giftId) {
+                    giftId = await getGiftId();
+                }
+                const roomList = await getRoomList();
+                if (!roomList?.length) throw new Error("roomList is empty");
+                const roomId = roomList[0];
+                if (!giftId) throw new Error("giftId invalid");
+                await toAppUrl("gift", { roomId, giftId });
+            } else {
+                // 非 Banner 场景：跳直播
+                const room = await getRoomInfo();
+                const uid = room?.uid;
+                const roomId = room?.roomId;
+                if (!uid || !roomId) throw new Error("live room invalid");
+                await toAppUrl("live", { uid, roomId });
+            }
+        } catch (error) {
+            console.error(
+                "[useGiftPanel.toGiftPanel]" + activityId + " error:",
+                error,
+            );
+        } finally {
+            TOOL_loading(false);
+        }
+    };
+
+    return {
+        getRoomInfo,
+        toGiftPanel,
+        getGiftId,
+    };
 }

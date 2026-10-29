@@ -1,31 +1,31 @@
 <template>
-  <div class="guild-rank" v-if="flag">
-    <div class="info">{{ TOOL_TEXT[73] }}</div>
+    <div class="guild-rank" v-if="flag">
+        <div class="info">{{ TOOL_TEXT[73] }}</div>
 
-    <!-- 阶段榜 -->
-    <StageRankButtons
-      :current-stage="2"
-      :stage-list="stageList"
-      v-model:sel-stage="selectedStage"
-    />
+        <!-- 阶段榜 -->
+        <StageRankButtons
+            :current-stage="2"
+            :stage-list="stageList"
+            v-model:sel-stage="selectedStage"
+        />
 
-    <RankTemp
-      frameType="rank"
-      :key="tempConfig.url + '_' + selDate"
-      :rankType="tempConfig.rankType"
-      :url="tempConfig.url"
-      :params="tempConfig.params"
-      :infoText="tempConfig.infoText"
-      :dayTotal="dayTotal"
-      :selDate="selDate"
-      paddingBottom="0.72rem"
-    ></RankTemp>
-  </div>
+        <RankTemp
+            frameType="rank"
+            :key="tempConfig.url + '_' + selDate"
+            :rankType="tempConfig.rankType"
+            :url="tempConfig.url"
+            :params="tempConfig.params"
+            :infoText="tempConfig.infoText"
+            :dayTotal="dayTotal"
+            :selDate="selDate"
+            paddingBottom="0.72rem"
+        ></RankTemp>
+    </div>
 </template>
 
 <script lang="ts" setup name="RankUnionPage">
 import { ref, computed } from "vue";
-import injectTool from "@publicComponents/injectTool";
+import { fnGetInjectInfo } from "@components/developTool_TS";
 import StageRankButtons from "./stageRankButtons.vue";
 import { useRankPage } from "../Static/useRankPage";
 import RankTemp from "../Static/rankTemp.vue";
@@ -34,23 +34,23 @@ const selStage = ref(1);
 
 // 使用通用榜单页面逻辑
 const { dayTotal, selDate, tempConfig, activityId } = useRankPage({
-  rankType: "union",
-  pageBpDesc: "", // 页面挂载时的埋点描述
-  onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
-  infoTextList: [73, 74],
-  params: computed(() => ({ other: `7,${selStage.value}` })),
+    rankType: "union",
+    pageBpDesc: "", // 页面挂载时的埋点描述
+    onlyTotal: false, // 如果只有总榜没有日榜，设置为 true
+    infoTextList: [73, 74],
+    params: computed(() => ({ other: `7,${selStage.value}` })),
 });
 
 provide("guildRankStage", selStage);
 const ossUrl = inject("ossUrl");
 const {
-  TOOL_BPFunc,
-  TOOL_countryCode,
-  TOOL_TEXT,
-  TOOL_loading,
-  TOOL_httpClient,
-  TOOL_toast,
-  TOOL_NUM,
+    TOOL_BPFunc,
+    TOOL_countryCode,
+    TOOL_TEXT,
+    TOOL_loading,
+    TOOL_httpClient,
+    TOOL_toast,
+    TOOL_NUM,
 } = injectTool();
 TOOL_BPFunc({ desc: "Annual Agency tab", action: "click" });
 TOOL_BPFunc({ desc: "Annual Agency tab-Reward Exposure", action: "show" });
@@ -59,44 +59,44 @@ TOOL_BPFunc({ desc: "Annual Agency tab-Reward Exposure", action: "show" });
 const currentStage = ref(1);
 const flag = ref(false);
 const getInfo = async () => {
-  const url = "/api/activity/AnnualCeremony2025/getUnionStage";
-  const res = await TOOL_httpClient({
-    url: url,
-    method: "get",
-  });
-  const { data, errorCode } = res.data;
-  if (errorCode != 0) throw res;
-  currentStage.value = data;
-  selStage.value = data;
-  flag.value = true;
+    const url = "/api/activity/AnnualCeremony2025/getUnionStage";
+    const res = await TOOL_httpClient({
+        url: url,
+        method: "get",
+    });
+    const { data, errorCode } = res.data;
+    if (errorCode != 0) throw res;
+    currentStage.value = data;
+    selStage.value = data;
+    flag.value = true;
 };
 
 getInfo();
 
 const stageList = computed(() => {
-  return [
-    { stage: 1, text1: "第一阶段", text2: "2024-01-01", title: "阶段一" },
-    { stage: 2, text1: "第二阶段", text2: "2024-01-15", title: "阶段二" },
-    { stage: 3, text1: "第三阶段", text2: "2024-02-01", title: "总决赛" },
-  ];
+    return [
+        { stage: 1, text1: "第一阶段", text2: "2024-01-01", title: "阶段一" },
+        { stage: 2, text1: "第二阶段", text2: "2024-01-15", title: "阶段二" },
+        { stage: 3, text1: "第三阶段", text2: "2024-02-01", title: "总决赛" },
+    ];
 });
 </script>
 
 <style lang="scss" scoped>
 .guild-rank {
-  min-height: 6rem;
+    min-height: 6rem;
 
-  .info {
-    width: 6.37rem;
-    margin: 0 auto;
-    margin-top: 0.36rem;
-    color: #d33f00;
-    text-align: center;
-    font-family: "SF UI Text";
-    font-size: 0.28rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 0.32rem; /* 114.286% */
-  }
+    .info {
+        width: 6.37rem;
+        margin: 0 auto;
+        margin-top: 0.36rem;
+        color: #d33f00;
+        text-align: center;
+        font-family: "SF UI Text";
+        font-size: 0.28rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 0.32rem; /* 114.286% */
+    }
 }
 </style>
